@@ -33,7 +33,7 @@
 			
 			$MDH = $this->fm->handleMa($last_id['max(MDH)']);
 
-			if($MDH=="" || $MKH=="" || $NGAY_TAO_DON=="" || $DIA_CHI_GIAO_HANG=="" || $HINH_THUC_THANH_TOAN=="" || $TRANG_THAI=="" || $TONG_SO_LUONG=="" || $TONG_TIEN==""){
+			if($MKH=="" || $NGAY_TAO_DON=="" || $DIA_CHI_GIAO_HANG=="" || $HINH_THUC_THANH_TOAN=="" || $TRANG_THAI=="" || $TONG_SO_LUONG=="" || $TONG_TIEN==""){
 				$alert = "Các trường không được để trống";
 				return $alert;
 			}					
@@ -117,6 +117,13 @@
 			$result = $this->db->select($query);
 			return $result;
 		} 
+		
+		//Lấy tất cả đơn hàng theo MKH
+		public function getAllByMKH($MKH){
+			$query = "SELECT * FROM don_hang where MKH = '$MKH'";
+			$result = $this->db->select($query);
+			return $result;
+		}
 
         //xử lý đơn hàng
         public function xulyDonHang(){

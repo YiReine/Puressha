@@ -13,7 +13,6 @@ include("../handleData/classes/chitietsanpham.php");
 $prod = new sanpham();
 $prodD = new chitietsanpham();
 
-$cart = array();
 
 $cart = array();
 if(checkCart()){
@@ -212,6 +211,7 @@ $amount=0;
 		$customer = $cus->getByMKH($_SESSION['myid']);
 		$c = $customer->fetch_assoc();
 	?>
+	
     <div class="checkout_area section-padding-80">
         <div class="container">
 		<form action="#" method="post">
@@ -287,12 +287,14 @@ $amount=0;
                                 </div>
                             </div>
                         </div>
-                        <?php  //include("saveOrder.php"); ?>
 						<input type="submit" class="btn btn-secondary btn btn-danger"  name="submit" value="Order">
                     </div>
                 </div>
             </div>
            </form>
+			
+          <?php  include("saveOrder.php"); ?>
+		
         </div>
     </div>
     

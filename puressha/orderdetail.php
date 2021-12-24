@@ -20,6 +20,13 @@ else $check = 0;
 $total=0;
 $amount=0;
 ?>
+<?php include("../handleData/classes/chitietdonhang.php");
+	include("../handleData/classes/donhang.php");
+	$order = new donhang();
+	$orderDetail = new chitietdonhang();
+	$mdh = $_GET['MDH'];
+
+?> 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -199,36 +206,45 @@ $amount=0;
                 <div class="col-12 col-md-8">
                     <div class="regular-page-content-wrapper section-padding-80">
                         <div class="regular-page-text" >
+							<?php 
+								$getOrderByMDH = $order->getByMDH($mdh);
+								if($getOrderByMDH){
+									while($result_getOrderByMDH = $getOrderByMDH->fetch_assoc()){
+										$state = $result_getOrderByMDH['TRANG_THAI'];
+							?>
 							<div class="row">
 							<p class="col-4" style="color: #3404D7">Mã đơn hàng</p>
-								<p class="col-8"><?php?>xxxx</p>      
+								<p class="col-8"><?php echo $result_getOrderByMDH['MDH']; ?></p>      
 							</div>
 							
 							<div class="row">
 							<p class ="col-4"style="color: #3404D7">Ngày tạo đơn</p>
-								<p class="col-8"><?php?>DD-MM-YYYY</p>
+								<p class="col-8"><?php echo $result_getOrderByMDH['NGAY_TAO_DON']; ?></p>
 							</div>
 							<div class="row">
 							<p class="col-4" style="color: #3404D7">Địa chỉ giao hàng</p>
-								<p class="col-8"><?php?>273, An Duong Vuong, Quan 5, TP HCM</p>
+								<p class="col-8"><?php echo $result_getOrderByMDH['DIA_CHI_GIAO_HANG']; ?></p>
 							</div>
 							<div class="row">
 							<p class="col-4" style="color: #3404D7">Hình thức thanh toán</p>
-								<p class="col-8"><?php?>CASH</p>
+								<p class="col-8"><?php echo $result_getOrderByMDH['HINH_THUC_THANH_TOAN']; ?></p>
 							</div>
 							<div class="row">
 							<p class="col-4" style="color: #3404D7">Trạng tái đơn hàng</p>
-								<p class=" col-8"><?php?>Đã Xác Nhận</p>
+								<p class=" col-8"><?php echo $result_getOrderByMDH['TRANG_THAI']; ?></p>
 							</div>
 							<div class="row">
 								<p class="col-4" style="color: #3404D7">Tổng số lượng</p>
-								<p class="col-8"><?php?>xxx</p>
+								<p class="col-8"><?php echo $result_getOrderByMDH['TONG_SO_LUONG']; ?></p>
 							</div>
 							<div class="row">
 							 <p class="col-4" style="color: #3404D7">Tổng tiền</p>
-								<p class="col-8"><?php?>0 VND</p>
+								<p class="col-8"><?php echo $fm->format_currency($result_getOrderByMDH['TONG_TIEN']); ?> VND</p>
 							</div>
-								
+							<?php 
+							}
+						}
+						?>	
 						 
                       </div>
                     </div>
@@ -254,33 +270,41 @@ $amount=0;
 						    </tr>
 						  </thead>
 						  <tbody>
-						    <tr class="alert" role="alert">
-						    	<td>
-						    		<label class="checkbox-wrap checkbox-primary"><span>-</span></label>
-						    	</td>
-								<td>
-									<div class="img" style="background-image: url(images/product-1.png);"></div>
-								</td>
-								<td>
-									<div class=""><span>-</span></div>
-								</td>
-								<td>
-								</td>
-								<td class="quantity">
-									<span>-</span>
-								</td>
-								<td>-</td>
-								<td><span>-</span></td>
-								<td>-</td>
-								<td><span>-</span></td>
-						    </tr>
-
-						   
+						    <?php
+								$productDetailList = $orderDetail->getCTSPByMDH($mdh);
+								if($productDetailList){
+									$i = 0;
+								while($result = $productDetailList->fetch_assoc()){
+									$i++;		
+								?>
+                             <tr>
+                                   <td> <?php echo $i; ?></td>
+                                   <td> <?php echo $result['MSP']; ?></td>
+                                   <td><img src="img/product-img/<?php echo $result['ANH'] ?>" style="width: 120px; height:150px;"></td>
+                                   <td> <?php echo $result['TEN']; ?></td>
+                                   <td> <?php echo $result['SIZE']; ?></td>
+                                   <td> <?php echo $result['MAU_SAC']; ?></td>
+                                   <td> <?php echo $result['GIA_BAN']; ?></td>
+                                   <td> <?php echo $result['SO_LUONG']; ?></td>
+                                   <td> <?php 
+								 			$TOTAL = $result['GIA_BAN'] * $result['SO_LUONG'];
+											 echo $TOTAL; 
+								   ?></td>
+                              </tr>
+                              <?php 
+								}
+							}
+							?>
 						  </tbody>
 						</table>
 					</div>
 				</div>
 			</div>
+			
+				<div class="row">
+					<div class="col-8"></div>
+					<input type="button" class="col-2 m-5 btn btn-danger" value="Hủy" <?php if($state != "Chưa xử lý") echo 'disabled' ?>>
+				</div>
         </div>
     </div>
     <!-- ##### Blog Wrapper Area End ##### -->

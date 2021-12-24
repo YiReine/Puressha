@@ -20,8 +20,11 @@ else $check = 0;
 $total=0;
 $amount=0;
 ?>
-<?php include("../handleData/classes/donhang.php");
+<?php 
+include("../handleData/classes/donhang.php");
 	$order = new donhang();
+	
+$mkh = $_SESSION['myid'];
 ?> 
 <!DOCTYPE html>
 <html lang="en">
@@ -251,7 +254,7 @@ $amount=0;
 													</thead>
                                                     <tbody>
                                                     <?php
-														$orderList = $order->getAll();
+														$orderList = $order->getAllByMKH($mkh);
 														if($orderList){
 															while($result = $orderList->fetch_assoc()){
 															
@@ -263,7 +266,7 @@ $amount=0;
                                                         <td> <?php echo $result['TRANG_THAI']; ?></td>
                                                         <td> <?php echo $result['TONG_TIEN']; ?></td>
                                                         <td>
-                                                        <a href="orderdetail.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
+                                                        <a href="orderdetail.php?MDH=<?php echo $result['MDH'];?>"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
                                                      </td>
                                                      </tr>
                                                      <?php 
@@ -288,7 +291,7 @@ $amount=0;
 													</thead>
                                                     <tbody>
                                                     <?php
-														$orderList = $order->getAll();
+														$orderList = $order->getAllByMKH($mkh);
 														if($orderList){
 															while($result = $orderList->fetch_assoc()){
                                                                 if($result['TRANG_THAI'] == "Chưa xử lý"){
@@ -327,7 +330,7 @@ $amount=0;
 													</thead>
                                                     <tbody>
                                                     <?php
-														$orderList = $order->getAll();
+														$orderList = $order->getAllByMKH($mkh);
 														if($orderList){
 															while($result = $orderList->fetch_assoc()){
                                                                 if($result['TRANG_THAI'] == "Đã xử lý"){
@@ -366,7 +369,7 @@ $amount=0;
 													</thead>
                                                     <tbody>
                                                     <?php
-														$orderList = $order->getAll();
+														$orderList = $order->getAllByMKH($mkh);
 														if($orderList){
 															while($result = $orderList->fetch_assoc()){
                                                                 if($result['TRANG_THAI'] == "Đang giao"){
@@ -405,7 +408,7 @@ $amount=0;
 													</thead>
                                                     <tbody>
                                                     <?php
-														$orderList = $order->getAll();
+														$orderList = $order->getAllByMKH($mkh);
 														if($orderList){
 															while($result = $orderList->fetch_assoc()){
                                                                 if($result['TRANG_THAI'] == "Đã giao"){
@@ -444,7 +447,7 @@ $amount=0;
 													</thead>
                                                     <tbody>
                                                     <?php
-														$orderList = $order->getAll();
+														$orderList = $order->getAllByMKH($mkh);
 														if($orderList){
 															while($result = $orderList->fetch_assoc()){
                                                                 if($result['TRANG_THAI'] == "Đã hủy"){
@@ -483,7 +486,7 @@ $amount=0;
 													</thead>
                                                     <tbody>
                                                     <?php
-														$orderList = $order->getAll();
+														$orderList = $order->getAllByMKH($mkh);
 														if($orderList){
 															while($result = $orderList->fetch_assoc()){
                                                                 if($result['TRANG_THAI'] == "Giao thất bại"){
@@ -522,7 +525,7 @@ $amount=0;
 													</thead>
                                                     <tbody>
                                                     <?php
-														$orderList = $order->getAll();
+														$orderList = $order->getAllByMKH($mkh);
 														if($orderList){
 															while($result = $orderList->fetch_assoc()){
                                                                 if($result['TRANG_THAI'] == "Đã thu hồi"){
