@@ -287,7 +287,7 @@ $amount=0;
                                 </div>
                             </div>
                         </div>
-                        <?php  include("../customer/saveOrder.php"); ?>
+                        <?php  //include("saveOrder.php"); ?>
 						<input type="submit" class="btn btn-secondary btn btn-danger"  name="submit" value="Order">
                     </div>
                 </div>
@@ -295,9 +295,7 @@ $amount=0;
            </form>
         </div>
     </div>
-    <?php
-		include('handleorder.php');
-	?>
+    
     <!-- ##### Checkout Area End ##### -->
 
     <!-- ##### Footer Area Start ##### -->
