@@ -8,13 +8,12 @@ switch($_POST['submit'])
     {
         case 'Order':
        {
-				$MKH = $_REQUEST['MKH'];
-                $NGAY_TAO_DON = $_REQUEST['NGAY_TAO_DON'];
-				//$NGAY_TAO_DON = $date("d/m/Y");
-				$DIA_CHI_GIAO_HANG = $_REQUEST['DIA_CHI_GIAO_HANG'];
-                $HINH_THUC_THANH_TOAN = $_REQUEST['HINH_THUC_THANH_TOAN'];
-                $TONG_SO_LUONG = $_REQUEST['TONG_SO_LUONG'];
-                $TONG_TIEN = $_REQUEST['TONG_TIEN'];
+				$MKH = $_SESSION['myid'];
+                $NGAY_TAO_DON = $date();
+				$DIA_CHI_GIAO_HANG = $_REQUEST['address'];
+                $HINH_THUC_THANH_TOAN = $_REQUEST['checkout'];
+                $TONG_SO_LUONG = $amount;
+                $TONG_TIEN = $total;
 				
                 if($MDH !='' && $MKH !='' && $NGAY_TAO_DON !='' && $DIA_CHI_GIAO_HANG !='' && $HINH_THUC_THANH_TOAN !='' 
 				   && $TONG_SO_LUONG !='' && $TONG_TIEN !='' && $TRANG_THAI !='')

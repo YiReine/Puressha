@@ -92,8 +92,19 @@
 		}
 		
         //Lấy tất cả chi tiết phiếu nhập
-		public function getAll(){
-			$query = "SELECT * FROM chi_tiet_phieu_nhap";
+		public function getAll($MPN){
+			$query = "SELECT * FROM chi_tiet_phieu_nhap WHERE MPN = '$MPN'";
+			$result = $this->db->select($query);
+			return $result;
+		}
+		public function getCTPNByMPN($MPN){
+			$query = "SELECT san_pham.MSP, chi_tiet_san_pham.ANH, san_pham.TEN, chi_tiet_san_pham.SIZE, phieu_nhap.MXCC,
+								chi_tiet_san_pham.MAU_SAC, chi_tiet_san_pham.GIA_BAN, chi_tiet_san_pham.SO_LUONG
+						FROM san_pham, chi_tiet_san_pham, chi_tiet_phieu_nhap, phieu_nhap
+						WHERE chi_tiet_san_pham.MSP = san_pham.MSP AND
+								phieu_nhap.MPN = '$MPN' AND
+								phieu_nhap.MPN = chi_tiet_phieu_nhap.MPN AND
+								chi_tiet_san_pham.MCTSP = chi_tiet_phieu_nhap.MCTSP";
 			$result = $this->db->select($query);
 			return $result;
 		}

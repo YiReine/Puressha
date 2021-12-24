@@ -1,3 +1,10 @@
+<?php include("../../handleData/classes/chitietsanpham.php");
+	include("../../handleData/classes/sanpham.php");
+	$productDetail = new chitietsanpham();
+	$product = new sanpham();
+
+	$msp = $_GET['MSP'];
+?> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -113,20 +120,30 @@
 					</tr>
 					</thead>
                     <tbody>
+					<?php
+						$getDetailProductByMSP = $productDetail->getAll($msp);
+						if($getDetailProductByMSP){
+						while($result = $getDetailProductByMSP->fetch_assoc()){
+															
+						?>
                     <tr>
-                    	<td>SP001</td>
-                    	<td>CTSP01</td>
-                        <td><img src="../../puressha/img/product-img/product-9.jpg" style="width:150px; height:170px;"></td>
-                   		<td>XL</td>
-                   		<td>200.000</td>
-                        <td>200.000</td>
-                        <td>2</td>
-                        <td>Red</td>
+                    	<td> <?php echo $result['MSP']; ?></td>
+                    	<td> <?php echo $result['MCTSP']; ?></td>
+                        <td><img src="../../puressha/img/product-img/<?php echo $result['ANH'];?>" style="width:150px; height:170px;"></td>
+						<td> <?php echo $result['SIZE']; ?></td>
+						<td> <?php echo $result['GIA_BAN']; ?></td>
+                        <td> <?php echo $result['GIA_NHAP']; ?></td>
+                        <td> <?php echo $result['SO_LUONG']; ?></td>
+                        <td> <?php echo $result['MAU_SAC']; ?></td>
                     	<td>
                         <a href="ql_chitietsanpham.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Sửa">
                         <input type="button" class="btn btn-secondary btn btn-danger" value="Xóa">
                         </td>
-                    </tr>                               
+                    </tr>   
+					<?php 
+						}
+					}
+					?>                            
 					</table>
 						
 					</div>
@@ -151,14 +168,14 @@
 		
 	</div><!--/.main-->
 
-	<script src="js/jquery-1.11.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/chart.min.js"></script>
-	<script src="js/chart-data.js"></script>
-	<script src="js/easypiechart.js"></script>
-	<script src="js/easypiechart-data.js"></script>
-	<script src="js/bootstrap-datepicker.js"></script>
-	<script src="js/bootstrap-table.js"></script>
+	<script src="..js/jquery-1.11.1.min.js"></script>
+	<script src="..js/bootstrap.min.js"></script>
+	<script src="..js/chart.min.js"></script>
+	<script src="..js/chart-data.js"></script>
+	<script src="..js/easypiechart.js"></script>
+	<script src="..js/easypiechart-data.js"></script>
+	<script src="..js/bootstrap-datepicker.js"></script>
+	<script src="..js/bootstrap-table.js"></script>
 	<script>
 		!function ($) {
 			$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  

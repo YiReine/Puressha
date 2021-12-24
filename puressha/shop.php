@@ -3,32 +3,33 @@
 include("../handleData/helpers/format.php");
 $fm = new Format();
 
-include("../handleData/classes/sanpham.php");
+ include("../handleData/classes/sanpham.php");
 include("../handleData/classes/chitietsanpham.php");
 include("../handleData/classes/danhmuc.php");
 
 include("myHelper.php");
 $user = confirmLogin();
 
-$cate = new danhmuc();
+ $cate = new danhmuc();
 $category = $cate->getAll();
 
-$prod = new sanpham();
-$product = $prod->getAll();
+ $prod = new sanpham();
+ $product = $prod->getAll();
 
 $prodD = new chitietsanpham();
 
+
+
 if(checkCart()){
 	$cart = $_SESSION["cart"];
-	$check = 1;
-}
+$check = 1;
+ }
 else $check = 0;
 
-print_r($cart);
-$total=0;
+ //print_r($cart);
+ $total=0;
 $amount=0;
-
-?>
+?> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -54,6 +55,7 @@ $amount=0;
 
 <body>
     <!-- ##### Header Area Start ##### -->
+    
 	<header class="header_area">
         <div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
             <!-- Classy Menu -->
@@ -95,13 +97,15 @@ $amount=0;
             <div class="header-meta d-flex clearfix justify-content-end">
                 <!-- Search Area -->
                 <div class="search-area">
-                    <form action="#" method="post">
-                        <input type="search" name="search" id="headerSearch" placeholder="Type for search">
-                        <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                    </form>
-                </div>
-                <!-- Favourite Area -->
+                    <form action="shop.php" method="get">                    
+                     <input type = "text" name = "search" placeholder = "Nhập từ khóa cần tìm" value =
+                     "<?php if(isset($_GET["search"])) { echo $_GET["search"]; } ?>" >
+                     <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                     </form>
                 
+                </div>
+
+                <!-- Favourite Area -->
                 <!-- User Login Info -->
                 <div class="user-login-info classynav">
                     <ul><li><a href="#"><img src="img/core-img/user.svg" alt=""></a>
@@ -222,29 +226,34 @@ $amount=0;
                             <!-- Widget Title -->
                             <h6 class="widget-title mb-30">Catagories</h6>
 
-                            <!--  Catagories  -->
+     <!--  Show danh muc  -->
                             <div class="catagories-menu">
-                                <ul id="menu-content2" class="menu-content collapse show">
-                                    <!-- Single Item -->
-                                    <li data-toggle="collapse" data-target="#clothing">
-                                        <a href="#">clothing</a>
-                                        <ul class="sub-menu collapse show" id="clothing">
-                                            <li><a href="#">All</a></li>
-                                            <li><a href="#">Bodysuits</a></li>
-                                            <li><a href="#">Dresses</a></li>
-                                            <li><a href="#">Hoodies &amp; Sweats</a></li>
-                                            <li><a href="#">Jackets &amp; Coats</a></li>
-                                            <li><a href="#">Jeans</a></li>
-                                            <li><a href="#">Pants &amp; Leggings</a></li>
-                                            <li><a href="#">Rompers &amp; Jumpsuits</a></li>
-                                            <li><a href="#">Shirts &amp; Blouses</a></li>
-                                            <li><a href="#">Shirts</a></li>
-                                            <li><a href="#">Sweaters &amp; Knits</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                    <form action="shop.php" method="get">
+                        <?php
+                            $c=new danhmuc();
+                            $result=$c->getAll();
+                            if($result->num_rows > 0){
+                                while ($cate = $result->fetch_assoc()){
+                        ?>
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" name="MDM[]" value="<?php echo $cate['MDM']?>" >
+                            <?php echo $cate['TEN_DANH_MUC'];?>
+                        </label>
+                        <br>
+                        <?php
+                                }
+                            }  
+                        ?>
+                        <!-- phần xử lý nút filter -->
+                        <input type="submit" class="btn btn-info" value="Filter">     
+                    </form>
+                    <?php    
+                        $madm = $_GET['MDM'];
+                        $sp = new sanpham();
+                             
+                    ?>   
+                    </div>
+                    </div>
 
                         <!-- ##### Single Widget ##### -->
                         <div class="widget price mb-50">
@@ -297,8 +306,76 @@ $amount=0;
 
                         <div class="row">
 
-							<?php
-							while ($p = $product->fetch_assoc()){
+						<?php
+                            $conn = mysqli_connect("localhost", "root", "","puressha");
+                            mysqli_set_charset($conn,"utf8");
+                                if(isset($_GET["search"]) && !empty($_GET["search"]))
+                                {
+                                    $key = $_GET["search"];
+                                    $sql = "SELECT * FROM san_pham WHERE  TEN LIKE '%$key%' " ;
+                                    
+                                }
+                                else {
+                                    $sql = "SELECT * FROM san_pham ";
+                                }
+
+                            $result = mysqli_query($conn, $sql);
+                        ?>
+  
+                        <?php
+                           if (!isset($_GET['MDM']) || empty($_GET['MDM']) ) {
+                            
+                           while($row = mysqli_fetch_assoc($result))
+                            {                        
+                                $msp = $row["MSP"];
+                                $mdm = $row["MDM"];
+                                $ten = $row["TEN"];
+                                $mo_ta = $row["MO_TA"];
+                                $tong_so_luong = $row["TONG_SO_LUONG"];
+                                $productD = $prodD->getAll($msp);
+                                $pD = $productD->fetch_assoc();
+                                echo '<!-- Single Product -->
+                                <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="single-product-wrapper">
+                                    <!-- Product Image -->
+                                    <div class="product-img">
+                                    <img src="img/product-img/'.$pD['ANH'].'" alt="">
+                                    
+                                    <!-- Hover Thumb -->
+                                                        <img class="hover-img" src="img/product-img/product-3.jpg" alt="">
+                                    
+                                    <!-- Product Badge -->
+                                    <!--div class="product-badge new-badge">
+                                        <span>New</span>
+                                    </div-->
+                                    
+                                    </div>
+                                    <!-- Product Description -->
+                                    <div class="product-description">
+                                    <a href="detail.php?MSP='.$msp.'">
+                                        <h6>'.$ten.'</h6>
+                                    </a>
+                                    <p class="product-price">'.$fm->format_currency($pD['GIA_BAN']).' VND</p>
+                            
+                                    <!-- Hover Content -->
+                                    <div class="hover-content">
+                                        <!-- Add to Cart -->
+                                        <div class="add-to-cart-btn">
+                                        <form method="post" >
+                                        <input type="hidden" name="prod" value="'.$msp.'">
+                                        <input type="hidden" name="prodD" value="'.$pD['MCTSP'].'">
+                                        <input class="btn essence-btn"  
+                                            type="submit" name="button" value="Add to Cart"></form>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>';
+                            }
+                        } 
+                        else {
+                            $danhmuc = $sp->getSPByMDM($madm); 
+							while ($p = $danhmuc->fetch_assoc()){                             
 								$productD = $prodD->getAll($p['MSP']);
 								$pD = $productD->fetch_assoc();
 								echo '<!-- Single Product -->
@@ -330,7 +407,7 @@ $amount=0;
 												<!-- Add to Cart -->
 												<div class="add-to-cart-btn">
 													<form method="post" >
-													<input type="hidden" name="prod" value="'.$p['MSP'].'">
+										        	<input type="hidden" name="prod" value="'.$p['MSP'].'">
 													<input type="hidden" name="prodD" value="'.$pD['MCTSP'].'">
 													<input class="btn essence-btn"  
 														   type="submit" name="button" value="Add to Cart"></form>
@@ -340,10 +417,8 @@ $amount=0;
 									</div>
 								</div>';
 							}
-							?>
- 
-                          
-
+                        }
+                        ?>	
                         </div>
                     </div>
                     <!-- Pagination -->

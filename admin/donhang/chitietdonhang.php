@@ -1,3 +1,10 @@
+<?php include("../../handleData/classes/chitietdonhang.php");
+	include("../../handleData/classes/donhang.php");
+	$order = new donhang();
+	$orderDetail = new chitietdonhang();
+	$mdh = $_GET['MDH'];
+
+?> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -92,41 +99,47 @@
 				<h1 class="page-header">CHI TIẾT ĐƠN HÀNG</h1>
 			</div>
 		</div><!--/.row-->
-		<div class="row">
-
+		<div class="row">			
 			<div class="panel panel-default">
 					<div class="panel-heading">Thông tin chi tiết đơn hàng</div>
                     <div class="panel-body">
-                    
+					<?php 
+						$getOrderByMDH = $order->getByMDH($mdh);
+						if($getOrderByMDH){
+							while($result_getOrderByMDH = $getOrderByMDH->fetch_assoc()){			
+					?>
                     <div class="row" style="margin:10px">
                     	<div class="col-lg-3 " style="color:#0CF"><b>MÃ ĐƠN HÀNG<b></div>
-                        <div class="col-lg-9">DH001</div>
+                        <div class="col-lg-9"><?php echo $result_getOrderByMDH['MDH']; ?></div>
                     </div>
                     <div class="row" style="margin:10px">
                     	<div class="col-lg-3" style="color:#0CF"><b>NGÀY TẠO ĐƠN<b></div>
-                        <div class="col-lg-9">14-12-2021</div>
+                        <div class="col-lg-9"><?php echo $result_getOrderByMDH['NGAY_TAO_DON']; ?></div>
                     </div>
                    <div class="row" style="margin:10px">
                     	<div class="col-lg-3" style="color:#0CF"><b>ĐỊA CHỈ GIAO HÀNG<b></div>
-                        <div class="col-lg-9">273, AN DUONG VUONG, QUAN 5, TP HCM</div>
+                        <div class="col-lg-9"><?php echo $result_getOrderByMDH['DIA_CHI_GIAO_HANG']; ?></div>
                     </div>
                    <div class="row" style="margin:10px">
                     	<div class="col-lg-3" style="color:#0CF"><b>HÌNH THỨC THANH TOÁN<b></div>
-                        <div class="col-lg-9">CASH</div>
+                        <div class="col-lg-9"><?php echo $result_getOrderByMDH['HINH_THUC_THANH_TOAN']; ?></div>
                     </div>
                     <div class="row" style="margin:10px">
                     	<div class="col-lg-3" style="color:#0CF"><b>TRẠNG THÁI ĐƠN HÀNG<b></div>
-                        <div class="col-lg-9">CHƯA XÁC NHẬN</div>
+                        <div class="col-lg-9"><?php echo $result_getOrderByMDH['TRANG_THAI']; ?></div>
                     </div>
                    <div class="row" style="margin:10px">
                     	<div class="col-lg-3" style="color:#0CF"><b>TỔNG SỐ LƯỢNG<b></div>
-                        <div class="col-lg-9">10</div>
+                        <div class="col-lg-9"><?php echo $result_getOrderByMDH['TONG_SO_LUONG']; ?></div>
                     </div>
                     <div class="row" style="margin:10px">
                     	<div class="col-lg-3" style="color:#0CF"><b>TỔNG TIỀN<b></div>
-                        <div class="col-lg-9">1.250.000 VND</div>
+                        <div class="col-lg-9"><?php echo $result_getOrderByMDH['TONG_TIEN']; ?></div>
                     </div>	
-						
+					<?php 
+					}
+						}
+						?>
 					</div>
 					<div class="panel-body">
 						<table class="table table-hover table-active" >
@@ -144,29 +157,31 @@
 						    </tr>
 						    </thead>
                             <tbody>
+							<?php
+								$productDetailList = $orderDetail->getCTSPByMDH($mdh);
+								if($productDetailList){
+									$i = 0;
+								while($result = $productDetailList->fetch_assoc()){
+									$i++;		
+								?>
                              <tr>
-                                   <td>1</td>
-                                   <td>SP001</td>
-                                   <td><img src="../../puressha/img/product-img/product-3.jpg" style="width: 120px; height:150px;"></td>
-                                   <td>Product 1</td>
-                                   <td>Freesize</td>
-                                   <td>Black</td>
-                                   <td>150.000</td>
-                                   <td>5</td>
-                                   <td>750.000</td>
+                                   <td> <?php echo $i; ?></td>
+                                   <td> <?php echo $result['MSP']; ?></td>
+                                   <td><img src="../../puressha/img/product-img/<?php echo $result['ANH'] ?>" style="width: 120px; height:150px;"></td>
+                                   <td> <?php echo $result['TEN']; ?></td>
+                                   <td> <?php echo $result['SIZE']; ?></td>
+                                   <td> <?php echo $result['MAU_SAC']; ?></td>
+                                   <td> <?php echo $result['GIA_BAN']; ?></td>
+                                   <td> <?php echo $result['SO_LUONG']; ?></td>
+                                   <td> <?php 
+								 			$TOTAL = $result['GIA_BAN'] * $result['SO_LUONG'];
+											 echo $TOTAL; 
+								   ?></td>
                               </tr>
-                              <tr>
-                                   <td>2</td>
-                                   <td>SP001</td>
-                                  <td><img src="../../puressha/img/product-img/product-5.jpg" style="width: 120px; height:150px;"></td>
-                                   <td>Product 1</td>
-                                   <td>Freesize</td>
-                                   <td>Red</td>
-                                   <td>100.000</td>
-                                   <td>5</td>
-                                   <td>500.000</td>
-                              </tr>
-                              
+                              <?php 
+								}
+							}
+							?>
                            </tbody>
 						</table>
 					</div>
@@ -192,14 +207,14 @@
 		
 	</div><!--/.main-->
 
-	<script src="js/jquery-1.11.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/chart.min.js"></script>
-	<script src="js/chart-data.js"></script>
-	<script src="js/easypiechart.js"></script>
-	<script src="js/easypiechart-data.js"></script>
-	<script src="js/bootstrap-datepicker.js"></script>
-	<script src="js/bootstrap-table.js"></script>
+	<script src="../js/jquery-1.11.1.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/chart.min.js"></script>
+	<script src="../js/chart-data.js"></script>
+	<script src="../js/easypiechart.js"></script>
+	<script src="../js/easypiechart-data.js"></script>
+	<script src="../js/bootstrap-datepicker.js"></script>
+	<script src="../js/bootstrap-table.js"></script>
 	<script>
 		!function ($) {
 			$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  

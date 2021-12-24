@@ -1,3 +1,7 @@
+ <?php include("../../handleData/classes/sanpham.php");
+	$product = new sanpham();
+?> 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +24,7 @@
 </head>
 
 <body>
+	<!-- <a href='../../handleData/classes/sanpham.php'> aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa </a> -->
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -120,42 +125,29 @@
 													</tr>
 													</thead>
                                                     <tbody>
+													<?php
+														$pdlist = $product->getAll();
+														if($pdlist){
+															while($result = $pdlist->fetch_assoc()){
+															
+														?> 
                                                     <tr>
-                                                    	<td>SP001</td>
-                                                        <td>DM01</td>
-                                                        <td>Product 1</td>
-                                                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </td>
-                                                        <td>200</td>
+                                                    	<td><?php echo $result['MSP']; ?></td>
+                                                        <td><?php echo $result['MDM']; ?></td>
+                                                        <td style="width:150px"><?php echo $result['TEN']; ?></td>
+														<td><?php echo $result['MO_TA']; ?></td>
+														<td><?php echo $result['TONG_SO_LUONG']; ?></td>
                                                         <td>
-                                                        <a href="chitietsanpham.php"> <input type="button" class="btn btn-secondary btn btn-info" value="Xem">
+                                                        <a href="chitietsanpham.php?MSP=<?php echo $result['MSP']; ?>"> <input type="button" class="btn btn-secondary btn btn-info" value="Xem">
                         								<a href="ql_sanpham.php"> <input type="button" class="btn btn-secondary btn btn-warning" value="Sửa">
                                                         <input type="button" class="btn btn-secondary btn btn-danger" value="Xóa">
                                                         </td>
                                                         </tr>
-                                                     <tr>
-                                                    	<td>SP002</td>
-                                                        <td>DM02</td>
-                                                        <td>Product 2</td>
-                                                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-                                                        <td>60</td>
-                                                        <td>
-                                                        <a href="chitietsanpham.php"><input type="button" class="btn btn-secondary btn btn-info" value="Xem">
-                        								<a href="ql_sanpham.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Sửa">
-                                                        <input type="button" class="btn btn-secondary btn btn-danger" value="Xóa">
-                                                        </td>
-                                                     </tr>
-                                                     <tr>
-                                                    	<td>SP003</td>
-                                                        <td>DM03</td>
-                                                        <td>Product 3</td>
-                                                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-                                                        <td>40</td>
-                                                        <td>
-                                                        <a href="chitietsanpham.php"><input type="button" class="btn btn-secondary btn btn-info" value="Xem">
-                      									<a href="ql_sanpham.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Sửa">
-                                                        <input type="button" class="btn btn-secondary btn btn-danger" value="Xóa">
-                                                        </td>
-                                                        </tr>
+													<?php
+															}
+														}
+														?>
+                                                
                                                     </tbody>
 												</table>
 											</div>
@@ -184,14 +176,14 @@
 		
 	</div><!--/.main-->
 
-	<script src="js/jquery-1.11.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/chart.min.js"></script>
-	<script src="js/chart-data.js"></script>
-	<script src="js/easypiechart.js"></script>
-	<script src="js/easypiechart-data.js"></script>
-	<script src="js/bootstrap-datepicker.js"></script>
-	<script src="js/bootstrap-table.js"></script>
+	<script src="..js/jquery-1.11.1.min.js"></script>
+	<script src="..js/bootstrap.min.js"></script>
+	<script src="..js/chart.min.js"></script>
+	<script src="..js/chart-data.js"></script>
+	<script src="..js/easypiechart.js"></script>
+	<script src="..js/easypiechart-data.js"></script>
+	<script src="..js/bootstrap-datepicker.js"></script>
+	<script src="../bootstrap-table.js"></script>
 	<script>
 		!function ($) {
 			$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  

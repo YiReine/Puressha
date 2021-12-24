@@ -8,8 +8,13 @@ include("myHelper.php");
 
 $user = confirmLogin();
 
+
 $prod = new sanpham();
+$product = $prod->getAll();
+
 $prodD = new chitietsanpham();
+
+
 
 if(checkCart()){
 	$cart = $_SESSION["cart"];
@@ -185,57 +190,83 @@ $amount=0;
         </div>
     </div>
     <!-- ##### Right Side Cart End ##### -->
+   
 
     <!-- ##### Single Product Details Area Start ##### -->
-    <section class="single_product_details_area d-flex align-items-center">
+    <?php            
+                $msp = $_GET['MSP'];
+                // lấy chi tiết sản phẩm theo mã sản phẩm
+                $detail = $prodD -> getAll($msp);
+                $i=0; 
+                       
+                while ($pD = $detail-> fetch_assoc()) {
+                    $arrayCT [$i] = array($pD['SIZE'],$pD['GIA_BAN'],$pD['MAU_SAC'],$pD['ANH'],$pD['MCTSP']);
+                    $i++;
+                }         
+                // lấy sản phẩm theo mã sản phẩm
+                $product = $prod->getByMSP($msp);  
+                $pd =  $product->fetch_assoc();
+    ?>
+<section class="single_product_details_area d-flex align-items-center">
 
-        <!-- Single Product Thumb -->
-        <div class="single_product_thumb clearfix">
-            <div class="product_thumbnail_slides owl-carousel">
-                <img src="img/product-img/product-big-1.jpg" alt="">
-                <img src="img/product-img/product-big-2.jpg" alt="">
-                <img src="img/product-img/product-big-3.jpg" alt="">
+<!-- Single Product Thumb -->
+<div class="single_product_thumb clearfix">
+    <div class="product_thumbnail_slides owl-carousel">
+        <?php
+            foreach ( $arrayCT as $act){
+                echo '<img src="img/product-img/'.$act[3].'" alt="">';
+                echo '<img src="img/product-img/'.$act[3].'" alt="">';
+            }
+        ?>
+    </div>
+</div>
+
+<!-- Single Product Description -->
+<div class="single_product_desc clearfix">
+    
+    <a href="cart.html">
+        <h2><?php echo $pd['TEN']; ?></h2>
+    </a>
+
+    <p class="product-price"><?php echo $fm->format_currency($arrayCT[0][1]);?> VNĐ</p>
+    <p class="product-desc"><?php echo $pd['MO_TA']; ?></p>
+
+    <!-- Form -->
+    <form class="cart-form clearfix" method="post">
+        <!-- Select Box -->
+        <div class="select-box d-flex mt-50 mb-30">
+            <select name="select" id="productSize" class="mr-5">
+         <?php   foreach ( $arrayCT as $act){
+                echo '<option value="'.$act[0].'">'.$act[0].'</option>';              
+            }
+            ?>
+            </select>
+            <select name="select" id="productColor">
+            <?php   foreach ( $arrayCT as $act){
+                echo '<option value="'.$act[2].'">'.$act[2].'</option>';              
+            }
+            ?>
+                
+            </select>
+        </div>
+        <!-- Cart & Favourite Box -->
+        <div class="cart-fav-box d-flex align-items-center">
+            <!-- Cart -->
+            <input type="hidden" name="prod" value="<?php echo $msp ?>">
+                <input type="hidden" name="prodD" value="<?php echo $arrayCT[0][4] ?>">
+                <input class="btn essence-btn" type="submit" name="button" value="Add to Cart">
+            <!-- Favourite -->
+            <div class="product-favourite ml-4">
+                <a href="#" class="favme fa fa-heart"></a>
             </div>
         </div>
-
-        <!-- Single Product Description -->
-        <div class="single_product_desc clearfix">
-            <span>mango</span>
-            <a href="cart.html">
-                <h2>One Shoulder Glitter Midi Dress</h2>
-            </a>
-            <p class="product-price"><span class="old-price">$65.00</span> $49.00</p>
-            <p class="product-desc">Mauris viverra cursus ante laoreet eleifend. Donec vel fringilla ante. Aenean finibus velit id urna vehicula, nec maximus est sollicitudin.</p>
-
-            <!-- Form -->
-            <form class="cart-form clearfix" method="post">
-                <!-- Select Box -->
-                <div class="select-box d-flex mt-50 mb-30">
-                    <select name="select" id="productSize" class="mr-5">
-                        <option value="value">Size: XL</option>
-                        <option value="value">Size: X</option>
-                        <option value="value">Size: M</option>
-                        <option value="value">Size: S</option>
-                    </select>
-                    <select name="select" id="productColor">
-                        <option value="value">Color: Black</option>
-                        <option value="value">Color: White</option>
-                        <option value="value">Color: Red</option>
-                        <option value="value">Color: Purple</option>
-                    </select>
-                </div>
-                <!-- Cart & Favourite Box -->
-                <div class="cart-fav-box d-flex align-items-center">
-                    <!-- Cart -->
-                    <button type="submit" name="addtocart" value="5" class="btn essence-btn">Add to cart</button>
-                    <!-- Favourite -->
-                    <div class="product-favourite ml-4">
-                        <a href="#" class="favme fa fa-heart"></a>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </section>
+    </form>
+</div>
+</section>
+        
+   
+  
+    
     <!-- ##### Single Product Details Area End ##### -->
 
     <!-- ##### Footer Area Start ##### -->

@@ -1,3 +1,6 @@
+<?php include("../../handleData/classes/phieunhap.php");
+	$inBill = new phieunhap();
+?> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,41 +118,28 @@
 													</tr>                                                   
 													</thead>
                                                     <tbody>
+													<?php
+														$inBillList = $inBill->getAll();
+														if($inBillList){
+															while($result = $inBillList->fetch_assoc()){
+															
+														?>
                                                     <tr>
-                                                    	<td>PN001</td>
-                                                        <td>XCC01</td>
-                                                        <td>14-12-2021</td>
-                                                        <td>20</td>
-                                                        <td>3.000.000 VND</td>
+                                                    	<td><?php echo $result['MPN']; ?></td>
+                                                        <td><?php echo $result['MXCC']; ?></td>
+                                                        <td><?php echo $result['NGAY_NHAP']; ?></td>
+                                                        <td><?php echo $result['TONG_SO_LUONG']; ?></td>
+                                                        <td><?php echo $result['TONG_TIEN']; ?></td>
                                                         <td>
-                                                        <a href="chitietphieunhap.php"> <input type="button" class="btn btn-secondary btn btn-info" value="Xem">
-                        								 <a href="ql_phieunhap.php"> <input type="button" class="btn btn-secondary btn btn-warning" value="Sửa">
+                                                        <a href="chitietphieunhap.php?MPN=<?php echo $result['MPN'];?>"> <input type="button" class="btn btn-secondary btn btn-info" value="Xem">
+                        								<a href="ql_phieunhap.php"> <input type="button" class="btn btn-secondary btn btn-warning" value="Sửa">
                                                         <input type="button" class="btn btn-secondary btn btn-danger" value="Xóa">
                                                         </td></tr>
                                                     <tr>
-                                                    	<td>PN002</td>
-                                                        <td>XCC02</td>
-                                                        <td>15-12-2021</td>
-                                                        <td>50</td>
-                                                        <td>12.000.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietphieunhap.php"> <input type="button" class="btn btn-secondary btn btn-info" value="Xem">
-                        								<a href="ql_phieunhap.php"> <input type="button" class="btn btn-secondary btn btn-warning" value="Sửa">
-                                                        <input type="button" class="btn btn-secondary btn btn-danger" value="Xóa">
-                                                        </td>
-                                                        </tr>
-                                                    <tr>
-                                                    	<td>PN003</td>
-                                                        <td>XCC03</td>
-                                                        <td>15-12-2021</td>
-                                                        <td>10</td>
-                                                        <td>2.000.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietphieunhap.php"> <input type="button" class="btn btn-secondary btn btn-info" value="Xem">
-                        								<a href="ql_phieunhap.php"> <input type="button" class="btn btn-secondary btn btn-warning" value="Sửa">
-                                                        <input type="button" class="btn btn-secondary btn btn-danger" value="Xóa">
-                                                        </td>
-                                                        </tr>
+                                                    	<?php
+															}
+														}
+														?>
                                                     </tbody>
 												</table>
 											</div>
@@ -181,14 +171,14 @@
 		
 	</div><!--/.main-->
 
-	<script src="js/jquery-1.11.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/chart.min.js"></script>
-	<script src="js/chart-data.js"></script>
-	<script src="js/easypiechart.js"></script>
-	<script src="js/easypiechart-data.js"></script>
-	<script src="js/bootstrap-datepicker.js"></script>
-	<script src="js/bootstrap-table.js"></script>
+	<script src="../js/jquery-1.11.1.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/chart.min.js"></script>
+	<script src="../js/chart-data.js"></script>
+	<script src="../js/easypiechart.js"></script>
+	<script src="../js/easypiechart-data.js"></script>
+	<script src="../js/bootstrap-datepicker.js"></script>
+	<script src="../js/bootstrap-table.js"></script>
 	<script>
 		!function ($) {
 			$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  

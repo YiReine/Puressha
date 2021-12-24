@@ -1,3 +1,6 @@
+<?php include("../../handleData/classes/donhang.php");
+	$order = new donhang();
+?> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -127,46 +130,26 @@
 													</tr>
 													</thead>
                                                     <tbody>
+                                                    <?php
+														$orderList = $order->getAll();
+														if($orderList){
+															while($result = $orderList->fetch_assoc()){
+															
+														?>
                                                     <tr>
-                                                    	<td>DH001</td>
-                                                        <td>KH001</td>
-                                                        <td>10-12-2021</td>
-                                                        <td>Chưa xử lý</td>
-                                                        <td>200.000 VND</td>
+                                                    	<td> <?php echo $result['MDH']; ?></td>
+                                                        <td> <?php echo $result['MKH']; ?></td>
+                                                        <td> <?php echo $result['NGAY_TAO_DON']; ?></td>
+                                                        <td> <?php echo $result['TRANG_THAI']; ?></td>
+                                                        <td> <?php echo $result['TONG_TIEN']; ?></td>
                                                         <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
+                                                        <a href="chitietdonhang.php?MDH=<?php echo $result['MDH'];?>"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
                                                      </td>
                                                      </tr>
-                                                     <tr>
-                                                    	<td>DH002</td>
-                                                        <td>KH002</td>
-                                                        <td>13-12-2021</td>
-                                                        <td>Đã xử lý</td>
-                                                        <td>300.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
-                                                        </td>
-                                                        </tr>
-                                                     <tr>
-                                                    	<td>DH003</td>
-                                                        <td>KH003</td>
-                                                        <td>14-12-2021</td>
-                                                        <td>Đang giao</td>
-                                                        <td>100.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
-                                                        </td>
-                                                        </tr>
-                                                    <tr>
-                                                    	<td>DH004</td>
-                                                        <td>KH004</td>
-                                                        <td>11-12-2021</td>
-                                                        <td>Đã giao</td>
-                                                        <td>130.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
-                                                        </td>
-                                                        </tr>
+                                                     <?php 
+                                                            }
+                                                        }
+                                                        ?>
                                                     </tbody>
 												</table>
 											</div>
@@ -193,46 +176,27 @@
 													</tr>
 													</thead>
                                                     <tbody>
+                                                    <?php
+														$orderList = $order->getAll();
+														if($orderList){
+															while($result = $orderList->fetch_assoc()){
+                                                                if($result['TRANG_THAI'] == "Chưa xử lý"){
+														?>
                                                     <tr>
-                                                    	<td>DH001</td>
-                                                        <td>KH001</td>
-                                                        <td>10-12-2021</td>
-                                                        <td>Chưa xử lý</td>
-                                                        <td>200.000 VND</td>
+                                                    	<td> <?php echo $result['MDH']; ?></td>
+                                                        <td> <?php echo $result['MKH']; ?></td>
+                                                        <td> <?php echo $result['NGAY_TAO_DON']; ?></td>
+                                                        <td> <?php echo $result['TRANG_THAI']; ?></td>
+                                                        <td> <?php echo $result['TONG_TIEN']; ?></td>
                                                         <td>
                                                         <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
                                                      </td>
                                                      </tr>
-                                                     <tr>
-                                                    	<td>DH002</td>
-                                                        <td>KH002</td>
-                                                        <td>13-12-2021</td>
-                                                        <td>Đã xử lý</td>
-                                                        <td>300.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
-                                                        </td>
-                                                        </tr>
-                                                     <tr>
-                                                    	<td>DH003</td>
-                                                        <td>KH003</td>
-                                                        <td>14-12-2021</td>
-                                                        <td>Đang giao</td>
-                                                        <td>100.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
-                                                        </td>
-                                                        </tr>
-                                                    <tr>
-                                                    	<td>DH004</td>
-                                                        <td>KH004</td>
-                                                        <td>11-12-2021</td>
-                                                        <td>Đã giao</td>
-                                                        <td>130.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
-                                                        </td>
-                                                        </tr>
+                                                     <?php 
+                                                            }
+                                                        }
+                                                    }
+                                                        ?>
                                                     </tbody>
 												</table>
 											</div>
@@ -259,46 +223,27 @@
 													</tr>
 													</thead>
                                                     <tbody>
+                                                    <?php
+														$orderList = $order->getAll();
+														if($orderList){
+															while($result = $orderList->fetch_assoc()){
+                                                                if($result['TRANG_THAI'] == "Đã xử lý"){
+														?>
                                                     <tr>
-                                                    	<td>DH001</td>
-                                                        <td>KH001</td>
-                                                        <td>10-12-2021</td>
-                                                        <td>Chưa xử lý</td>
-                                                        <td>200.000 VND</td>
+                                                    	<td> <?php echo $result['MDH']; ?></td>
+                                                        <td> <?php echo $result['MKH']; ?></td>
+                                                        <td> <?php echo $result['NGAY_TAO_DON']; ?></td>
+                                                        <td> <?php echo $result['TRANG_THAI']; ?></td>
+                                                        <td> <?php echo $result['TONG_TIEN']; ?></td>
                                                         <td>
                                                         <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
                                                      </td>
                                                      </tr>
-                                                     <tr>
-                                                    	<td>DH002</td>
-                                                        <td>KH002</td>
-                                                        <td>13-12-2021</td>
-                                                        <td>Đã xử lý</td>
-                                                        <td>300.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
-                                                        </td>
-                                                        </tr>
-                                                     <tr>
-                                                    	<td>DH003</td>
-                                                        <td>KH003</td>
-                                                        <td>14-12-2021</td>
-                                                        <td>Đang giao</td>
-                                                        <td>100.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
-                                                        </td>
-                                                        </tr>
-                                                    <tr>
-                                                    	<td>DH004</td>
-                                                        <td>KH004</td>
-                                                        <td>11-12-2021</td>
-                                                        <td>Đã giao</td>
-                                                        <td>130.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
-                                                        </td>
-                                                        </tr>
+                                                     <?php 
+                                                            }
+                                                        }
+                                                    }
+                                                        ?>
                                                     </tbody>
 												</table>
 											</div>
@@ -325,46 +270,27 @@
 													</tr>
 													</thead>
                                                     <tbody>
+                                                    <?php
+														$orderList = $order->getAll();
+														if($orderList){
+															while($result = $orderList->fetch_assoc()){
+                                                                if($result['TRANG_THAI'] == "Đang giao"){
+														?>
                                                     <tr>
-                                                    	<td>DH001</td>
-                                                        <td>KH001</td>
-                                                        <td>10-12-2021</td>
-                                                        <td>Chưa xử lý</td>
-                                                        <td>200.000 VND</td>
+                                                    	<td> <?php echo $result['MDH']; ?></td>
+                                                        <td> <?php echo $result['MKH']; ?></td>
+                                                        <td> <?php echo $result['NGAY_TAO_DON']; ?></td>
+                                                        <td> <?php echo $result['TRANG_THAI']; ?></td>
+                                                        <td> <?php echo $result['TONG_TIEN']; ?></td>
                                                         <td>
                                                         <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
                                                      </td>
                                                      </tr>
-                                                     <tr>
-                                                    	<td>DH002</td>
-                                                        <td>KH002</td>
-                                                        <td>13-12-2021</td>
-                                                        <td>Đã xử lý</td>
-                                                        <td>300.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
-                                                        </td>
-                                                        </tr>
-                                                     <tr>
-                                                    	<td>DH003</td>
-                                                        <td>KH003</td>
-                                                        <td>14-12-2021</td>
-                                                        <td>Đang giao</td>
-                                                        <td>100.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
-                                                        </td>
-                                                        </tr>
-                                                    <tr>
-                                                    	<td>DH004</td>
-                                                        <td>KH004</td>
-                                                        <td>11-12-2021</td>
-                                                        <td>Đã giao</td>
-                                                        <td>130.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
-                                                        </td>
-                                                        </tr>
+                                                     <?php 
+                                                            }
+                                                        }
+                                                    }
+                                                        ?>
                                                     </tbody>
 												</table>
 											</div>
@@ -391,46 +317,27 @@
 													</tr>
 													</thead>
                                                     <tbody>
+                                                    <?php
+														$orderList = $order->getAll();
+														if($orderList){
+															while($result = $orderList->fetch_assoc()){
+                                                                if($result['TRANG_THAI'] == "Đã giao"){
+														?>
                                                     <tr>
-                                                    	<td>DH001</td>
-                                                        <td>KH001</td>
-                                                        <td>10-12-2021</td>
-                                                        <td>Chưa xử lý</td>
-                                                        <td>200.000 VND</td>
+                                                    	<td> <?php echo $result['MDH']; ?></td>
+                                                        <td> <?php echo $result['MKH']; ?></td>
+                                                        <td> <?php echo $result['NGAY_TAO_DON']; ?></td>
+                                                        <td> <?php echo $result['TRANG_THAI']; ?></td>
+                                                        <td> <?php echo $result['TONG_TIEN']; ?></td>
                                                         <td>
                                                         <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
                                                      </td>
                                                      </tr>
-                                                     <tr>
-                                                    	<td>DH002</td>
-                                                        <td>KH002</td>
-                                                        <td>13-12-2021</td>
-                                                        <td>Đã xử lý</td>
-                                                        <td>300.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
-                                                        </td>
-                                                        </tr>
-                                                     <tr>
-                                                    	<td>DH003</td>
-                                                        <td>KH003</td>
-                                                        <td>14-12-2021</td>
-                                                        <td>Đang giao</td>
-                                                        <td>100.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
-                                                        </td>
-                                                        </tr>
-                                                    <tr>
-                                                    	<td>DH004</td>
-                                                        <td>KH004</td>
-                                                        <td>11-12-2021</td>
-                                                        <td>Đã giao</td>
-                                                        <td>130.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
-                                                        </td>
-                                                        </tr>
+                                                     <?php 
+                                                            }
+                                                        }
+                                                    }
+                                                        ?>
                                                     </tbody>
 												</table>
 											</div>
@@ -457,46 +364,27 @@
 													</tr>
 													</thead>
                                                     <tbody>
+                                                    <?php
+														$orderList = $order->getAll();
+														if($orderList){
+															while($result = $orderList->fetch_assoc()){
+                                                                if($result['TRANG_THAI'] == "Đã hủy"){
+														?>
                                                     <tr>
-                                                    	<td>DH001</td>
-                                                        <td>KH001</td>
-                                                        <td>10-12-2021</td>
-                                                        <td>Chưa xử lý</td>
-                                                        <td>200.000 VND</td>
+                                                    	<td> <?php echo $result['MDH']; ?></td>
+                                                        <td> <?php echo $result['MKH']; ?></td>
+                                                        <td> <?php echo $result['NGAY_TAO_DON']; ?></td>
+                                                        <td> <?php echo $result['TRANG_THAI']; ?></td>
+                                                        <td> <?php echo $result['TONG_TIEN']; ?></td>
                                                         <td>
                                                         <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
                                                      </td>
                                                      </tr>
-                                                     <tr>
-                                                    	<td>DH002</td>
-                                                        <td>KH002</td>
-                                                        <td>13-12-2021</td>
-                                                        <td>Đã xử lý</td>
-                                                        <td>300.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
-                                                        </td>
-                                                        </tr>
-                                                     <tr>
-                                                    	<td>DH003</td>
-                                                        <td>KH003</td>
-                                                        <td>14-12-2021</td>
-                                                        <td>Đang giao</td>
-                                                        <td>100.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
-                                                        </td>
-                                                        </tr>
-                                                    <tr>
-                                                    	<td>DH004</td>
-                                                        <td>KH004</td>
-                                                        <td>11-12-2021</td>
-                                                        <td>Đã giao</td>
-                                                        <td>130.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
-                                                        </td>
-                                                        </tr>
+                                                     <?php 
+                                                            }
+                                                        }
+                                                    }
+                                                        ?>
                                                     </tbody>
 												</table>
 											</div>
@@ -523,46 +411,27 @@
 													</tr>
 													</thead>
                                                     <tbody>
+                                                    <?php
+														$orderList = $order->getAll();
+														if($orderList){
+															while($result = $orderList->fetch_assoc()){
+                                                                if($result['TRANG_THAI'] == "Giao thất bại"){
+														?>
                                                     <tr>
-                                                    	<td>DH001</td>
-                                                        <td>KH001</td>
-                                                        <td>10-12-2021</td>
-                                                        <td>Chưa xử lý</td>
-                                                        <td>200.000 VND</td>
+                                                    	<td> <?php echo $result['MDH']; ?></td>
+                                                        <td> <?php echo $result['MKH']; ?></td>
+                                                        <td> <?php echo $result['NGAY_TAO_DON']; ?></td>
+                                                        <td> <?php echo $result['TRANG_THAI']; ?></td>
+                                                        <td> <?php echo $result['TONG_TIEN']; ?></td>
                                                         <td>
                                                         <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
                                                      </td>
                                                      </tr>
-                                                     <tr>
-                                                    	<td>DH002</td>
-                                                        <td>KH002</td>
-                                                        <td>13-12-2021</td>
-                                                        <td>Đã xử lý</td>
-                                                        <td>300.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
-                                                        </td>
-                                                        </tr>
-                                                     <tr>
-                                                    	<td>DH003</td>
-                                                        <td>KH003</td>
-                                                        <td>14-12-2021</td>
-                                                        <td>Đang giao</td>
-                                                        <td>100.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
-                                                        </td>
-                                                        </tr>
-                                                    <tr>
-                                                    	<td>DH004</td>
-                                                        <td>KH004</td>
-                                                        <td>11-12-2021</td>
-                                                        <td>Đã giao</td>
-                                                        <td>130.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
-                                                        </td>
-                                                        </tr>
+                                                     <?php 
+                                                            }
+                                                        }
+                                                    }
+                                                        ?>
                                                     </tbody>
 												</table>
 											</div>
@@ -589,46 +458,27 @@
 													</tr>
 													</thead>
                                                     <tbody>
+                                                    <?php
+														$orderList = $order->getAll();
+														if($orderList){
+															while($result = $orderList->fetch_assoc()){
+                                                                if($result['TRANG_THAI'] == "Thu hồi"){
+														?>
                                                     <tr>
-                                                    	<td>DH001</td>
-                                                        <td>KH001</td>
-                                                        <td>10-12-2021</td>
-                                                        <td>Chưa xử lý</td>
-                                                        <td>200.000 VND</td>
+                                                    	<td> <?php echo $result['MDH']; ?></td>
+                                                        <td> <?php echo $result['MKH']; ?></td>
+                                                        <td> <?php echo $result['NGAY_TAO_DON']; ?></td>
+                                                        <td> <?php echo $result['TRANG_THAI']; ?></td>
+                                                        <td> <?php echo $result['TONG_TIEN']; ?></td>
                                                         <td>
                                                         <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
                                                      </td>
                                                      </tr>
-                                                     <tr>
-                                                    	<td>DH002</td>
-                                                        <td>KH002</td>
-                                                        <td>13-12-2021</td>
-                                                        <td>Đã xử lý</td>
-                                                        <td>300.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
-                                                        </td>
-                                                        </tr>
-                                                     <tr>
-                                                    	<td>DH003</td>
-                                                        <td>KH003</td>
-                                                        <td>14-12-2021</td>
-                                                        <td>Đang giao</td>
-                                                        <td>100.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
-                                                        </td>
-                                                        </tr>
-                                                    <tr>
-                                                    	<td>DH004</td>
-                                                        <td>KH004</td>
-                                                        <td>11-12-2021</td>
-                                                        <td>Đã giao</td>
-                                                        <td>130.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
-                                                        </td>
-                                                        </tr>
+                                                     <?php 
+                                                            }
+                                                        }
+                                                    }
+                                                        ?>
                                                     </tbody>
 												</table>
 											</div>
@@ -648,14 +498,14 @@
 		
 	</div><!--/.main-->
 
-	<script src="js/jquery-1.11.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/chart.min.js"></script>
-	<script src="js/chart-data.js"></script>
-	<script src="js/easypiechart.js"></script>
-	<script src="js/easypiechart-data.js"></script>
-	<script src="js/bootstrap-datepicker.js"></script>
-	<script src="js/bootstrap-table.js"></script>
+	<script src="../js/jquery-1.11.1.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/chart.min.js"></script>
+	<script src="../js/chart-data.js"></script>
+	<script src="../js/easypiechart.js"></script>
+	<script src="../js/easypiechart-data.js"></script>
+	<script src="../js/bootstrap-datepicker.js"></script>
+	<script src="../js/bootstrap-table.js"></script>
 	<script>
 		!function ($) {
 			$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  

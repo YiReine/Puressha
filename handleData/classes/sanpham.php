@@ -117,5 +117,20 @@
 			return $result;
 
 		}
+		
+		// Lấy sản phẩm theo danh mục
+		public function getSPByMDM($ListMDM){
+			$i = 0 ; 
+			$list = '(';
+			foreach($ListMDM as $m){
+				$list.= "'$m'";
+				$i++ ;
+				if($i < count($ListMDM)) $list.=',';
+			}
+			$list.=')';			
+			$query = "SELECT * FROM san_pham where MDM in $list";
+			$result = $this->db->select($query);
+			return $result; 
+		}
 	}
 ?>

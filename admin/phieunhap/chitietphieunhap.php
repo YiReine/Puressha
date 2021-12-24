@@ -1,3 +1,10 @@
+<?php include("../../handleData/classes/phieunhap.php");
+	include("../../handleData/classes/chitietphieunhap.php");
+	$inBillDetail = new chitietphieunhap();
+	$inBill = new phieunhap();
+	$mpn = $_GET['MPN'];
+?> 
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,29 +102,39 @@
 		<div class="row">
 
 			<div class="panel panel-default">
-					<div class="panel-heading">Thông tin chi tiết phiếu nhập</div>
+				<div class="panel-heading">Thông tin chi tiết phiếu nhập</div>
                     <div class="panel-body">
-                    
+                    <?php
+						$getInBillByMPN = $inBill->getByMPN($mpn);
+						if($getInBillByMPN){
+							while($result = $getInBillByMPN->fetch_assoc()){
+								
+					?>
                     <div class="row" style="margin:10px">
                     	<div class="col-lg-3 " style="color:#0CF"><b>MÃ PHIẾU NHẬP<b></div>
-                        <div class="col-lg-9">PN001</div>
+                        <div class="col-lg-9"><?php echo $result['MPN']; ?></div>
                     </div>
                     <div class="row" style="margin:10px">
                     	<div class="col-lg-3" style="color:#0CF"><b>MÃ XƯỞNG CUNG CẤP<b></div>
-                        <div class="col-lg-9">XCC001</div>
+                        <div class="col-lg-9"><?php echo $result['MXCC']; ?></div>
                     </div>
                     <div class="row" style="margin:10px">
                     	<div class="col-lg-3" style="color:#0CF"><b>NGÀY NHẬP HÀNG<b></div>
-                        <div class="col-lg-9">10-12-2021</div>
+                        <div class="col-lg-9"><?php echo $result['NGAY_NHAP_HANG']; ?></div>
                     </div>
                    <div class="row" style="margin:10px">
                     	<div class="col-lg-3" style="color:#0CF"><b>TỔNG SỐ LƯỢNG<b></div>
-                        <div class="col-lg-9">20</div>
+                        <div class="col-lg-9"><?php echo $result['TONG_SO_LUONG']; ?></div>
                     </div>
                     <div class="row" style="margin:10px">
                     	<div class="col-lg-3" style="color:#0CF"><b>TỔNG TIỀN<b></div>
-                        <div class="col-lg-9">3.000.000 VND</div>
+                        <div class="col-lg-9"><?php echo $result['TONG_TIEN']; ?></div>
                     </div>
+					<?php
+						
+					}
+				}
+					?>
 			</div>
             <div class="panel-body">
 						<table class="table table-hover table-active" >
@@ -136,31 +153,32 @@
 						    </tr>
 						    </thead>
                             <tbody>
+							<?php
+								$inBillDetailList = $inBillDetail->getCTPNByMPN($mpn);
+								if($inBillDetailList){
+									$i = 0;
+								while($result = $inBillDetailList->fetch_assoc()){
+									$i++;		
+								?>
                              <tr>
-                                   <td>1</td>
-                                   <td>SP001</td>
-                                   <td>XCC01</td>
-                                   <td>Product 1</td>
-                                   <td><img src="../../puressha/img/product-img/product-7.jpg" style="width: 120px; height:150px;"></td>
-                                   <td>XXL</td>
-                                   <td>black</td>
-                                   <td>100.000</td>
-                                   <td>10</td>
-                                   <td>1.000.000</td>
+                                   <td><?php echo $i; ?></td>
+                                   <td><?php echo $result['MSP']; ?></td>
+                                   <td><?php echo $result['MXCC']; ?></td>
+                                   <td><?php echo $result['TEN']; ?></td>
+                                   <td><img src="../../puressha/img/product-img/<?php echo $result['ANH'];?>" style="width: 120px; height:150px;"></td>
+                                   <td><?php echo $result['SIZE']; ?></td>
+                                   <td><?php echo $result['MAU_SAC']; ?></td>
+                                   <td><?php echo $result['GIA_BAN']; ?></td>
+                                   <td><?php echo $result['SO_LUONG']; ?></td>
+                                   <td><?php $TOTAL = $result['GIA_BAN'] * $result['SO_LUONG'];
+								   			 echo $TOTAL;
+										?></td>
                               </tr>
-                              <tr>
-                                   <td>2</td>
-                                   <td>SP002</td>
-                                   <td>XCC02</td>
-                                   <td>Product 2</td>
-                                   <td><img src="../../puressha/img/product-img/product-8.jpg" style="width: 120px; height:150px;"></td>
-                                   <td>XL</td>
-                                   <td>brown</td>
-                                   <td>200.000</td>
-                                   <td>10</td>
-                                   <td>2.000.000</td>
-                              </tr>
-                              
+							  <?php 
+								}
+							}
+							?>
+                                                           
                            </tbody>
 						</table>
 			</div>
@@ -185,14 +203,14 @@
 		
 	</div><!--/.main-->
 
-	<script src="js/jquery-1.11.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/chart.min.js"></script>
-	<script src="js/chart-data.js"></script>
-	<script src="js/easypiechart.js"></script>
-	<script src="js/easypiechart-data.js"></script>
-	<script src="js/bootstrap-datepicker.js"></script>
-	<script src="js/bootstrap-table.js"></script>
+	<script src="../js/jquery-1.11.1.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/chart.min.js"></script>
+	<script src="../js/chart-data.js"></script>
+	<script src="../js/easypiechart.js"></script>
+	<script src="../js/easypiechart-data.js"></script>
+	<script src="../js/bootstrap-datepicker.js"></script>
+	<script src="../js/bootstrap-table.js"></script>
 	<script>
 		!function ($) {
 			$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  

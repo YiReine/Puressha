@@ -20,6 +20,9 @@ else $check = 0;
 $total=0;
 $amount=0;
 ?>
+<?php include("../handleData/classes/donhang.php");
+	$order = new donhang();
+?> 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -247,84 +250,301 @@ $amount=0;
 													</tr>
 													</thead>
                                                     <tbody>
+                                                    <?php
+														$orderList = $order->getAll();
+														if($orderList){
+															while($result = $orderList->fetch_assoc()){
+															
+														?>
                                                     <tr>
-                                                    	<td>DH001</td>
-                                                        <td>KH001</td>
-                                                        <td>10-12-2021</td>
-                                                        <td>Chưa xử lý</td>
-                                                        <td>200.000 VND</td>
-                                                        <td><input type="button" class="btn btn-secondary btn btn-warning"
-																   onclick="location.href='orderdetail.php';" value="Xem"></td
-                                                    </tr>
-                                                     <tr>
-                                                    	<td>DH002</td>
-                                                        <td>KH002</td>
-                                                        <td>13-12-2021</td>
-                                                        <td>Đã xử lý</td>
-                                                        <td>300.000 VND</td>
-                                                        <td><input type="button" class="btn btn-secondary btn btn-warning" 
-																   onclick="location.href='orderdetail.php';" value="Xem"></td
-                                                    </tr>
-                                                     <tr>
-                                                    	<td>DH003</td>
-                                                        <td>KH003</td>
-                                                        <td>14-12-2021</td>
-                                                        <td>Đang giao</td>
-                                                        <td>100.000 VND</td>
-                                                        <td><input type="button" class="btn btn-secondary btn btn-warning" 
-																   onclick="location.href='orderdetail.php';" value="Xem"></td
-                                                    </tr>
-                                                    <tr>
-                                                    	<td>DH004</td>
-                                                        <td>KH004</td>
-                                                        <td>11-12-2021</td>
-                                                        <td>Đã giao</td>
-                                                        <td>130.000 VND</td>
-                                                        <td><input type="button" class="btn btn-secondary btn btn-warning" 
-																   onclick="location.href='orderdetail.php';" value="Xem"></td
-                                                    </tr>
-													<?php
-													'<tr>
-                                                    	<td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td><input type="button" class="btn btn-secondary btn btn-warning" 
-																   onclick="location.href=\'orderdetail.php?\';" value="Xem"></td
-                                                    </tr>'
-														
-													?>
+                                                    	<td> <?php echo $result['MDH']; ?></td>
+                                                        <td> <?php echo $result['MKH']; ?></td>
+                                                        <td> <?php echo $result['NGAY_TAO_DON']; ?></td>
+                                                        <td> <?php echo $result['TRANG_THAI']; ?></td>
+                                                        <td> <?php echo $result['TONG_TIEN']; ?></td>
+                                                        <td>
+                                                        <a href="orderdetail.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
+                                                     </td>
+                                                     </tr>
+                                                     <?php 
+                                                            }
+                                                        }
+                                                        ?>
                                                     </tbody>
 												</table>
     </div>
     <div id="menu1" class="container tab-pane fade"><br>
       <h3>Chưa xử lý</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget rutrum purus. Donec hendrerit ante ac metus sagittis elementum. Mauris feugiat nisl sit amet neque luctus, a tincidunt odio auctor. </p>
+      <table class="table table-hover table-active">
+													<thead>
+													<tr>
+														<th >Mã đơn hàng</th>
+														<th >Mã khách hàng</th>
+														<th >Ngày tạo đơn</th>
+                                                        <th >Trạng thái</th>
+                                                        <th >Tổng tiền</th>
+                                                        <th> Chi tiết</th>
+													</tr>
+													</thead>
+                                                    <tbody>
+                                                    <?php
+														$orderList = $order->getAll();
+														if($orderList){
+															while($result = $orderList->fetch_assoc()){
+                                                                if($result['TRANG_THAI'] == "Chưa xử lý"){
+														?>
+                                                    <tr>
+                                                    	<td> <?php echo $result['MDH']; ?></td>
+                                                        <td> <?php echo $result['MKH']; ?></td>
+                                                        <td> <?php echo $result['NGAY_TAO_DON']; ?></td>
+                                                        <td> <?php echo $result['TRANG_THAI']; ?></td>
+                                                        <td> <?php echo $result['TONG_TIEN']; ?></td>
+                                                        <td>
+                                                        <a href="orderdetail.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
+                                                     </td>
+                                                     </tr>
+                                                     <?php 
+                                                            }
+                                                        }
+                                                    }
+                                                        ?>
+                                                    </tbody>
+												</table>
+	
     </div>
 	<div id="menu2"class="container tab-pane fade"><br>
 		<h4>Đã xử lý</h4>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget rutrum purus. Donec hendrerit ante ac metus sagittis elementum. Mauris feugiat nisl sit amet neque luctus, a tincidunt odio auctor. </p>
+		<table class="table table-hover table-active">
+													<thead>
+													<tr>
+														<th >Mã đơn hàng</th>
+														<th >Mã khách hàng</th>
+														<th >Ngày tạo đơn</th>
+                                                        <th >Trạng thái</th>
+                                                        <th >Tổng tiền</th>
+                                                        <th> Chi tiết</th>
+													</tr>
+													</thead>
+                                                    <tbody>
+                                                    <?php
+														$orderList = $order->getAll();
+														if($orderList){
+															while($result = $orderList->fetch_assoc()){
+                                                                if($result['TRANG_THAI'] == "Đã xử lý"){
+														?>
+                                                    <tr>
+                                                    	<td> <?php echo $result['MDH']; ?></td>
+                                                        <td> <?php echo $result['MKH']; ?></td>
+                                                        <td> <?php echo $result['NGAY_TAO_DON']; ?></td>
+                                                        <td> <?php echo $result['TRANG_THAI']; ?></td>
+                                                        <td> <?php echo $result['TONG_TIEN']; ?></td>
+                                                        <td>
+                                                        <a href="orderdetail.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
+                                                     </td>
+                                                     </tr>
+                                                     <?php 
+                                                            }
+                                                        }
+                                                    }
+                                                        ?>
+                                                    </tbody>
+												</table>
+	
 	</div>
     <div id="menu3" class="container tab-pane fade"><br>
 		<h4>Đang giao</h4>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget rutrum purus. Donec hendrerit ante ac metus sagittis elementum. Mauris feugiat nisl sit amet neque luctus, a tincidunt odio auctor. </p>
+		<table class="table table-hover table-active">
+													<thead>
+													<tr>
+														<th >Mã đơn hàng</th>
+														<th >Mã khách hàng</th>
+														<th >Ngày tạo đơn</th>
+                                                        <th >Trạng thái</th>
+                                                        <th >Tổng tiền</th>
+                                                        <th> Chi tiết</th>
+													</tr>
+													</thead>
+                                                    <tbody>
+                                                    <?php
+														$orderList = $order->getAll();
+														if($orderList){
+															while($result = $orderList->fetch_assoc()){
+                                                                if($result['TRANG_THAI'] == "Đang giao"){
+														?>
+                                                    <tr>
+                                                    	<td> <?php echo $result['MDH']; ?></td>
+                                                        <td> <?php echo $result['MKH']; ?></td>
+                                                        <td> <?php echo $result['NGAY_TAO_DON']; ?></td>
+                                                        <td> <?php echo $result['TRANG_THAI']; ?></td>
+                                                        <td> <?php echo $result['TONG_TIEN']; ?></td>
+                                                        <td>
+                                                        <a href="orderdetail.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
+                                                     </td>
+                                                     </tr>
+                                                     <?php 
+                                                            }
+                                                        }
+                                                    }
+                                                        ?>
+                                                    </tbody>
+												</table>
+	
 	</div>
 	<div id="menu4" class="container tab-pane fade"><br>
 		<h4>Đã giao</h4>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget rutrum purus. Donec hendrerit ante ac metus sagittis elementum. Mauris feugiat nisl sit amet neque luctus, a tincidunt odio auctor. </p>
+		<table class="table table-hover table-active">
+													<thead>
+													<tr>
+														<th >Mã đơn hàng</th>
+														<th >Mã khách hàng</th>
+														<th >Ngày tạo đơn</th>
+                                                        <th >Trạng thái</th>
+                                                        <th >Tổng tiền</th>
+                                                        <th> Chi tiết</th>
+													</tr>
+													</thead>
+                                                    <tbody>
+                                                    <?php
+														$orderList = $order->getAll();
+														if($orderList){
+															while($result = $orderList->fetch_assoc()){
+                                                                if($result['TRANG_THAI'] == "Đã giao"){
+														?>
+                                                    <tr>
+                                                    	<td> <?php echo $result['MDH']; ?></td>
+                                                        <td> <?php echo $result['MKH']; ?></td>
+                                                        <td> <?php echo $result['NGAY_TAO_DON']; ?></td>
+                                                        <td> <?php echo $result['TRANG_THAI']; ?></td>
+                                                        <td> <?php echo $result['TONG_TIEN']; ?></td>
+                                                        <td>
+                                                        <a href="orderdetail.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
+                                                     </td>
+                                                     </tr>
+                                                     <?php 
+                                                            }
+                                                        }
+                                                    }
+                                                        ?>
+                                                    </tbody>
+												</table>
+	
 	</div>
      <div id="menu5" class="container tab-pane fade"><br>
 		<h4>Đã hủy</h4>
-		 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget rutrum purus. Donec hendrerit ante ac metus sagittis elementum. Mauris feugiat nisl sit amet neque luctus, a tincidunt odio auctor. </p>
+		<table class="table table-hover table-active">
+													<thead>
+													<tr>
+														<th >Mã đơn hàng</th>
+														<th >Mã khách hàng</th>
+														<th >Ngày tạo đơn</th>
+                                                        <th >Trạng thái</th>
+                                                        <th >Tổng tiền</th>
+                                                        <th> Chi tiết</th>
+													</tr>
+													</thead>
+                                                    <tbody>
+                                                    <?php
+														$orderList = $order->getAll();
+														if($orderList){
+															while($result = $orderList->fetch_assoc()){
+                                                                if($result['TRANG_THAI'] == "Đã hủy"){
+														?>
+                                                    <tr>
+                                                    	<td> <?php echo $result['MDH']; ?></td>
+                                                        <td> <?php echo $result['MKH']; ?></td>
+                                                        <td> <?php echo $result['NGAY_TAO_DON']; ?></td>
+                                                        <td> <?php echo $result['TRANG_THAI']; ?></td>
+                                                        <td> <?php echo $result['TONG_TIEN']; ?></td>
+                                                        <td>
+                                                        <a href="orderdetail.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
+                                                     </td>
+                                                     </tr>
+                                                     <?php 
+                                                            }
+                                                        }
+                                                    }
+                                                        ?>
+                                                    </tbody>
+												</table>
+	
 	</div>
      <div id="menu6" class="container tab-pane fade"><br>
 		<h4>Giao thất bại</h4>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget rutrum purus. Donec hendrerit ante ac metus sagittis elementum. Mauris feugiat nisl sit amet neque luctus, a tincidunt odio auctor. </p>
+		<table class="table table-hover table-active">
+													<thead>
+													<tr>
+														<th >Mã đơn hàng</th>
+														<th >Mã khách hàng</th>
+														<th >Ngày tạo đơn</th>
+                                                        <th >Trạng thái</th>
+                                                        <th >Tổng tiền</th>
+                                                        <th> Chi tiết</th>
+													</tr>
+													</thead>
+                                                    <tbody>
+                                                    <?php
+														$orderList = $order->getAll();
+														if($orderList){
+															while($result = $orderList->fetch_assoc()){
+                                                                if($result['TRANG_THAI'] == "Giao thất bại"){
+														?>
+                                                    <tr>
+                                                    	<td> <?php echo $result['MDH']; ?></td>
+                                                        <td> <?php echo $result['MKH']; ?></td>
+                                                        <td> <?php echo $result['NGAY_TAO_DON']; ?></td>
+                                                        <td> <?php echo $result['TRANG_THAI']; ?></td>
+                                                        <td> <?php echo $result['TONG_TIEN']; ?></td>
+                                                        <td>
+                                                        <a href="orderdetail.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
+                                                     </td>
+                                                     </tr>
+                                                     <?php 
+                                                            }
+                                                        }
+                                                    }
+                                                        ?>
+                                                    </tbody>
+												</table>
+	
 	</div>
 	<div class="tab-pane fade" id="menu7">
-		<h4>Đã hủy</h4>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget rutrum purus. Donec hendrerit ante ac metus sagittis elementum. Mauris feugiat nisl sit amet neque luctus, a tincidunt odio auctor. </p>
+		<h4>Đã thu hồi</h4>
+		<table class="table table-hover table-active">
+													<thead>
+													<tr>
+														<th >Mã đơn hàng</th>
+														<th >Mã khách hàng</th>
+														<th >Ngày tạo đơn</th>
+                                                        <th >Trạng thái</th>
+                                                        <th >Tổng tiền</th>
+                                                        <th> Chi tiết</th>
+													</tr>
+													</thead>
+                                                    <tbody>
+                                                    <?php
+														$orderList = $order->getAll();
+														if($orderList){
+															while($result = $orderList->fetch_assoc()){
+                                                                if($result['TRANG_THAI'] == "Đã thu hồi"){
+														?>
+                                                    <tr>
+                                                    	<td> <?php echo $result['MDH']; ?></td>
+                                                        <td> <?php echo $result['MKH']; ?></td>
+                                                        <td> <?php echo $result['NGAY_TAO_DON']; ?></td>
+                                                        <td> <?php echo $result['TRANG_THAI']; ?></td>
+                                                        <td> <?php echo $result['TONG_TIEN']; ?></td>
+                                                        <td>
+                                                        <a href="orderdetail.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
+                                                     </td>
+                                                     </tr>
+                                                     <?php 
+                                                            }
+                                                        }
+                                                    }
+                                                        ?>
+                                                    </tbody>
+												</table>
+	
 	</div>
   </div>
 </div>
