@@ -13,6 +13,9 @@ include("../handleData/classes/chitietsanpham.php");
 $prod = new sanpham();
 $prodD = new chitietsanpham();
 
+$cart = array();
+
+$cart = array();
 if(checkCart()){
 	$cart = $_SESSION["cart"];
 	$check = 1;
@@ -203,86 +206,36 @@ $amount=0;
     <!-- ##### Breadcumb Area End ##### -->
 
     <!-- ##### Checkout Area Start ##### -->
+    <?php
+		include("../handleData/classes/khachhang.php");
+		$cus = new khachhang();
+		$customer = $cus->getByMKH($_SESSION['myid']);
+		$c = $customer->fetch_assoc();
+	?>
     <div class="checkout_area section-padding-80">
         <div class="container">
+		<form action="#" method="post">
             <div class="row">
-
                 <div class="col-12 col-md-6">
                     <div class="checkout_details_area mt-50 clearfix">
 
                         <div class="cart-page-heading mb-30">
                             <h5>Billing Address</h5>
                         </div>
-
-                        <form action="#" method="post">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="first_name">First Name <span>*</span></label>
-                                    <input type="text" class="form-control" id="first_name" value="" required>
+                                    <label for="name_cus">Tên khách hàng<span>*</span></label>
+                                    <input type="text" class="form-control" id="name_cus" name="name_cus" value="<?php echo $c['TEN']?>" required> 
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="last_name">Last Name <span>*</span></label>
-                                    <input type="text" class="form-control" id="last_name" value="" required>
+                                    <label for="sdt">Số điện thoại<span>*</span></label>
+                                    <input type="text" class="form-control" id="sdt" name="sdt" value="<?php echo $c['SDT']?>" required>
                                 </div>
                                 <div class="col-12 mb-3">
-                                    <label for="company">Company Name</label>
-                                    <input type="text" class="form-control" id="company" value="">
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <label for="country">Country <span>*</span></label>
-                                    <select class="w-100" id="country">
-                                        <option value="usa">United States</option>
-                                        <option value="uk">United Kingdom</option>
-                                        <option value="ger">Germany</option>
-                                        <option value="fra">France</option>
-                                        <option value="ind">India</option>
-                                        <option value="aus">Australia</option>
-                                        <option value="bra">Brazil</option>
-                                        <option value="cana">Canada</option>
-                                    </select>
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <label for="street_address">Address <span>*</span></label>
-                                    <input type="text" class="form-control mb-3" id="street_address" value="">
-                                    <input type="text" class="form-control" id="street_address2" value="">
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <label for="postcode">Postcode <span>*</span></label>
-                                    <input type="text" class="form-control" id="postcode" value="">
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <label for="city">Town/City <span>*</span></label>
-                                    <input type="text" class="form-control" id="city" value="">
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <label for="state">Province <span>*</span></label>
-                                    <input type="text" class="form-control" id="state" value="">
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <label for="phone_number">Phone No <span>*</span></label>
-                                    <input type="number" class="form-control" id="phone_number" min="0" value="">
-                                </div>
-                                <div class="col-12 mb-4">
-                                    <label for="email_address">Email Address <span>*</span></label>
-                                    <input type="email" class="form-control" id="email_address" value="">
-                                </div>
-
-                                <div class="col-12">
-                                    <div class="custom-control custom-checkbox d-block mb-2">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                        <label class="custom-control-label" for="customCheck1">Terms and conitions</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox d-block mb-2">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                        <label class="custom-control-label" for="customCheck2">Create an accout</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox d-block">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck3">
-                                        <label class="custom-control-label" for="customCheck3">Subscribe to our newsletter</label>
-                                    </div>
+                                    <label for="address">Địa chỉ<span>*</span></label>
+                                    <input type="text" class="form-control" id="address" name="address" value="<?php echo $c['DIA_CHI']?>">
                                 </div>
                             </div>
-                        </form>
                     </div>
                 </div>
 
@@ -293,73 +246,58 @@ $amount=0;
                             <h5>Your Order</h5>
                             <p>The Details</p>
                         </div>
-
+							
                         <ul class="order-details-form mb-4">
-                            <li><span>Product</span> <span>Total</span></li>
-                            <li><span>Cocktail Yellow dress</span> <span>$59.90</span></li>
-                            <li><span>Subtotal</span> <span>$59.90</span></li>
-                            <li><span>Shipping</span> <span>Free</span></li>
-                            <li><span>Total</span> <span>$59.90</span></li>
+                            <li><span>Sản phẩm</span><span>Số lượng</span><span>Giá</span><span>Thành tiền</span></li>
+                            <?php
+							foreach($cart as $c){
+								$sp = $prod->getByMSP($c[0]);
+								$spC = $sp->fetch_assoc();
+						
+								$productCD = $prodD->getByMCTSP($c[1]);
+								$pCD = $productCD->fetch_assoc();
+								
+                           echo'<li>
+                            	<ul><li style = "width: 80px">'.$spC['TEN'].'</li></ul>
+                                <ul><li>'.$c[2].'</li></ul>
+                                <ul><li>'.$fm->format_currency($pCD['GIA_BAN']).'</li></ul>
+                                <ul><li>'.$fm->format_currency($pCD['GIA_BAN']*$c[2]).'</li></ul>
+                            </li>';
+							}
+							?>
+                            <li><span>Phí ship</span> <span>Miễn phí</span></li>
+                            <li><span>Tổng tiền</span> <span style="color:#F00"><?php echo $fm->format_currency($total)?> VND</span></li>
                         </ul>
 
                         <div id="accordion" role="tablist" class="mb-4">
                             <div class="card">
                                 <div class="card-header" role="tab" id="headingOne">
                                     <h6 class="mb-0">
-                                        <a data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"><i class="fa fa-circle-o mr-3"></i>Paypal</a>
+                                        <input class="form-check-input" type="radio" name="checkout" id="cash" value="CASH">
+                                         <label for="cash">CASH</label>
                                     </h6>
-                                </div>
-
-                                <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integ er bibendum sodales arcu id te mpus. Ut consectetur lacus.</p>
-                                    </div>
                                 </div>
                             </div>
                             <div class="card">
                                 <div class="card-header" role="tab" id="headingTwo">
                                     <h6 class="mb-0">
-                                        <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"><i class="fa fa-circle-o mr-3"></i>cash on delievery</a>
+                                      <input class="form-check-input" type="radio" name="checkout" id="creditcart" value="CREDIT CARD">
+                                       <label for="creditcart">CREDIT CARD</label>
                                     </h6>
-                                </div>
-                                <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo quis in veritatis officia inventore, tempore provident dignissimos.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header" role="tab" id="headingThree">
-                                    <h6 class="mb-0">
-                                        <a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"><i class="fa fa-circle-o mr-3"></i>credit card</a>
-                                    </h6>
-                                </div>
-                                <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse quo sint repudiandae suscipit ab soluta delectus voluptate, vero vitae</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header" role="tab" id="headingFour">
-                                    <h6 class="mb-0">
-                                        <a class="collapsed" data-toggle="collapse" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour"><i class="fa fa-circle-o mr-3"></i>direct bank transfer</a>
-                                    </h6>
-                                </div>
-                                <div id="collapseFour" class="collapse show" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est cum autem eveniet saepe fugit, impedit magni.</p>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                        <a href="#" class="btn essence-btn">Place Order</a>
+                        <?php  include("../customer/saveOrder.php"); ?>
+						<input type="submit" class="btn btn-secondary btn btn-danger"  name="submit" value="Order">
                     </div>
                 </div>
             </div>
+           </form>
         </div>
     </div>
+    <?php
+		include('handleorder.php');
+	?>
     <!-- ##### Checkout Area End ##### -->
 
     <!-- ##### Footer Area Start ##### -->

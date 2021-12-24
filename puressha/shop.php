@@ -18,8 +18,6 @@ $product = $prod->getAll();
 
 $prodD = new chitietsanpham();
 
-
-
 if(checkCart()){
 	$cart = $_SESSION["cart"];
 	$check = 1;
@@ -30,12 +28,6 @@ print_r($cart);
 $total=0;
 $amount=0;
 
-/*include("filter.php");
-$f = danhsach($product);
-print_r($f);
-echo '<br>';
-
-echo $f[0];*/
 ?>
 
 <!DOCTYPE html>
