@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Puressha - QLCTDH</title>
+<title>Puressha - CTDH</title>
 
 <link href="../css/bootstrap.min.css" rel="stylesheet">
 <link href="../css/datepicker3.css" rel="stylesheet">
@@ -54,15 +54,15 @@
 			<li><a href="../index.php"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>
 			<li><a href="../thongke/thongke.php"><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> Thống kê</a></li>
 			<li><a href="../sanpham/sanpham.php"><svg class="glyph stroked bacon burger"><use xlink:href="#stroked-bacon-burger"/></svg> Sản phẩm</a></li>
-			<li><a href="../donhang/donhang.php"><svg class="glyph stroked notepad "><use xlink:href="#stroked-notepad"/></svg> Đơn hàng</a></li>
-			<li class="active"><a href="../phieunhap/phieunhap.php"><svg class="glyph stroked calendar blank">
+			<li ><a href="../donhang/donhang.php"><svg class="glyph stroked notepad "><use xlink:href="#stroked-notepad"/></svg> Đơn hàng</a></li>
+			<li><a href="../phieunhap/phieunhap.php"><svg class="glyph stroked calendar blank">
 				<use xlink:href="#stroked-calendar-blank"/></svg>Phiếu nhập</a></li>
-			<li><a href="../giaohang/giaohang.php"><svg class="glyph stroked flag"><use xlink:href="#stroked-flag"/></svg> Giao hàng</a></li>
-			<li><a href="../danhmuc/danhmuc.php"><svg class="glyph stroked clipboard with paper">
+			<li><a href="../giaohang.php"><svg class="glyph stroked flag"><use xlink:href="#stroked-flag"/></svg> Giao hàng</a></li>
+			<li class="active"><a href="../danhmuc/danhmuc.php"><svg class="glyph stroked clipboard with paper">
 				<use xlink:href="#stroked-clipboard-with-paper"/></svg> Danh mục</a></li>
 			<li><a href="../khachhang/khachhang.php"><svg class="glyph stroked key "><use xlink:href="#stroked-key"/></svg> Khách hàng</a></li>
 			<li><a href="../xuongcungcap/xuongcungcap.php"><svg class="glyph stroked male user "><use xlink:href="#stroked-male-user"/></svg> Xưởng cung cấp</a></li>
-			<li><a href="../nhanvien/nhanvien.php"><svg class="glyph stroked female user"><use xlink:href="#stroked-female-user"/></svg> Nhân viên</a></li>
+			<li ><a href="../nhanvien/nhanvien.php"><svg class="glyph stroked female user"><use xlink:href="#stroked-female-user"/></svg> Nhân viên</a></li>
 			<li class="parent ">
 				<a href="#">
 					<span data-toggle="collapse" href="#sub-item-1"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Dropdown 
@@ -89,74 +89,47 @@
 		
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header"><?php ?>QUẢN LÝ CHI TIẾT PHIẾU NHẬP</h1>
+				<h1 class="page-header">THÔNG TIN DANH MỤC</h1>
 			</div>
 		</div><!--/.row-->
 		<div class="row">
-			<div class="col-lg-12">
-			   <form method="post">
-				  <div class="form-group row">
-					 <label  class="col-sm-2 col-form-label">MÃ PHIẾU NHẬP</label>
-					 <div class="col-sm-10">
-						<input type="Text" class="form-control" name="idD" placeholder="Mã phiếu nhập" disabled >
-					 </div>
-				  </div>
-				  <div class="form-group row">
-					 <label  class="col-sm-2 col-form-label">MÃ CHI TIẾT SẢN PHẨM</label>
-					 <div class="col-sm-10">
-						<input type="text" class="form-control" name="type" placeholder="Mã chi tiết sản phẩm">
-					 </div>
-				  </div>
-                  <div class="form-group row">
-					 <label  class="col-sm-2 col-form-label">GIÁ NHẬP</label>
-					 <div class="col-sm-10">
-						<input type="text" class="form-control" name="qty"  placeholder="Giá nhập">
-					 </div>
-				  </div>
-                  <div class="form-group row">
-					 <label  class="col-sm-2 col-form-label">SỐ LƯỢNG</label>
-					 <div class="col-sm-10">
-						<input type="number" class="form-control" name="qty"  placeholder="Số lượng">
-					 </div>
-				  </div>
-                   <div class="form-group row">
-					 <label  class="col-sm-2 col-form-label">THÀNH TIỀN</label>
-					 <div class="col-sm-10">
-						<input type="text" class="form-control" name="qty"  placeholder="Thành tiền">
-					 </div>
-				  </div>
-                  
-				 <div class="row">
-						<div class="col-lg-2 " style="margin:5px; ">
-                        	<a href="chitietphieunhap.php"> <input type="button" class="btn btn-secondary btn btn-danger" value="Cancel"/>
+
+			<div class="panel panel-default">
+					<div class="panel-heading">Thông tin chi tiết </div>
+                    <div class="panel-body">
+                    
+                    <div class="row" style="margin:10px">
+                    	<div class="col-lg-3 " style="color:#0CF"><b>MÃ DANH MỤC<b></div>
+                        <div class="col-lg-9">DM001</div>
+                    </div>
+                    <div class="row" style="margin:10px">
+                    	<div class="col-lg-3" style="color:#0CF"><b>TÊN DANH MỤC<b></div>
+                        <div class="col-lg-9">Váy</div>
+                    </div>
+                   	
+			</div>
+					
+                    <div class="row">
+                        <div class="col-lg-2 " style="margin:5px; ">
+                        	<a href="danhmuc.php"><input type="button" class="btn btn-secondary btn btn-danger"  style="margin-left:20px"value="Quay lại"/></a>
                         </div>
-                        <div class="col-lg-6"></div>
-                        <div class="col-lg-1" style="margin:7px">
-                       		
-                        </div>
-                        <div class="col-lg-1" style="margin:8px">
-                       		
-                        </div>
-                         <div class="col-lg-1" style="margin:9px">	
-                         <input type="button" class="btn btn-secondary btn btn-success" value="Save"/>
-                        </div>
-				  </div>
-			   </form>       
-			</div>    
+                        
+                    </div>
+				</div>
 		</div>
 		
 		<!--/.row-->	
 		
 	</div><!--/.main-->
 
-	<script src="js/jquery-1.11.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/chart.min.js"></script>
-	<script src="js/chart-data.js"></script>
-	<script src="js/easypiechart.js"></script>
-	<script src="js/easypiechart-data.js"></script>
-	<script src="js/bootstrap-datepicker.js"></script>
-	<script src="js/bootstrap-table.js"></script>
+	<script src="../donhang/js/jquery-1.11.1.min.js"></script>
+	<script src="../donhang/js/bootstrap.min.js"></script>
+	<script src="../donhang/js/chart.min.js"></script>
+	<script src="../donhang/js/chart-data.js"></script>
+	<script src="../donhang/js/easypiechart.js"></script>
+	<script src="../donhang/js/easypiechart-data.js"></script>
+	<script src="../donhang/js/bootstrap-datepicker.js"></script>
+	<script src="../donhang/js/bootstrap-table.js"></script>
 	<script>
 		!function ($) {
 			$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  
