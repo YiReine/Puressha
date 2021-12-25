@@ -1,3 +1,35 @@
+<?php include("../../handleData/classes/sanpham.php");
+	$product = new sanpham();
+	include("../../handleData/classes/danhmuc.php");
+	$cate = new danhmuc();
+	
+	
+	if(!isset($_GET['MSP'])){
+		$flag = 0;
+		
+	 }else{
+		$flag = 1;
+		$msp = $_GET['MSP'];	
+		
+	 }
+	 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['button'])) {
+        
+			switch($_POST['button']){
+				case "Update":
+					{
+						$updateProduct = $product->suaSanPham($_POST);						
+						break;
+					}
+				case "Save":
+					{
+						$insertProduct = $product->themSanPham($_POST);						
+						break;
+					}
+			}		
+	 }
+	 
+	
+?> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,11 +129,30 @@
 			<div class="panel panel-default">
 					<div class="panel-heading">Quản lý sản phẩm</div>
                     <div class="panel-body">
-                    <form method="post">
+					
+					<?php
+					if($flag == 1){						
+						$getProductByMSP = $product->getByMSP($msp);
+							if($getProductByMSP){
+								$result_getProByMSP = $getProductByMSP->fetch_assoc();
+							}							
+						}					
+					if(isset($insertProduct)){
+						echo $insertProduct;
+					}
+					if(isset($updateProduct)){
+						echo $updateProduct;
+					}
+						?>  
+                    <form action="ql_sanpham.php" method="post" enctype="multipart/form-data" >
                     <div class="row" style="margin:10px">
                     	<div class="col-lg-3 " style="color:#0CF"><b>MÃ SẢN PHẨM<b></div>
                         <div class="col-lg-9">
-                        	<input type="Text" class="form-control" name="idD" placeholder="Mã sản phẩm">
+                        	<input type="Text" class="form-control" name="MSP" value ="<?php 
+							if($flag == 1){
+								echo $result_getProByMSP['MSP'];
+							}							
+							 ?>">
                         </div>
                     </div>
                     <div class="row" style="margin:10px; margin-bottom:20px;">
@@ -109,12 +160,20 @@
                         <div class="col-lg-9">
 							<div class="input-group">
                   				<div class="input-group-prepend">
-                 		 			<select class="mdb-select md-form colorful-select" >
-                   			 			 <option selected="">Mã danh mục</option>
-                    		  			 <option value="1">One</option>
-                     				     <option value="2">Two</option>
-                     		             <option value="3">Three</option>
-                 			        </select>
+                 		 			<select name= "MDM" class="mdb-select md-form colorful-select" >
+                   			 			 <option selected>Mã danh mục</option>
+                    		  			 <?php  
+											$cateList = $cate->getAll();
+											if($cateList){
+												while($result_cateList = $cateList->fetch_assoc()){
+											 ?>
+											 <option										     
+												value="<?php echo $result_cateList['MDM'];?>" <?php
+											 if($flag == 1)
+												if($result_cateList['MDM']==$result_getProByMSP['MDM']){ echo 'selected';}
+												?>><?php echo $result_cateList['MDM']; }}?>												
+											</option>  											          				     
+                 			        </select>									 
               				   </div>   
 					      	 </div>
                     	 </div>
@@ -122,23 +181,29 @@
                     <div class="row" style="margin:10px">
                     	<div class="col-lg-3" style="color:#0CF"><b>TÊN SẢN PHẨM<b></div>
                         <div class="col-lg-9">
-                        	<input type="Text" class="form-control" name="idD" placeholder="Tên sản phẩm">
+						<input type="Text" class="form-control" name="TEN" value ="<?php if($flag == 1){
+								echo $result_getProByMSP['TEN'];
+							}	 ?>">
                         </div>
                     </div>
                    <div class="row" style="margin:10px">
                     	<div class="col-lg-3" style="color:#0CF"><b>MÔ TẢ<b></div>
                         <div class="col-lg-9">
-                        <input type="Text" class="form-control" name="idD" placeholder="Mô tả sản phẩm">
+                        <input type="Text" class="form-control" name="MO_TA" value ="<?php if($flag == 1){
+								echo $result_getProByMSP['MO_TA'];
+							}	 ?>">
                         </div>
                     </div>
                    <div class="row" style="margin:10px">
                     	<div class="col-lg-3" style="color:#0CF"><b>SỐ LƯỢNG<b></div>
-                        <div class="col-lg-9">XXX</div>
+                        <div class="col-lg-9"><?php if($flag == 1){
+								echo $result_getProByMSP['TONG_SO_LUONG'];
+							}	 ?></div>
                     </div>	
 					
                     <div class="row">
                         <div class="col-lg-2 " style="margin:5px; ">
-                        	<a href="sanpham.php"> <input type="button" class="btn btn-secondary btn btn-danger"  value="Cancel"/>
+						<a href="sanpham.php"> <input type="button" class="btn btn-secondary btn btn-danger"  value="Cancel"/>
                         </div>
                         <div class="col-lg-6"></div>
                         <div class="col-lg-1" style="margin:7px">
@@ -148,9 +213,10 @@
                        		
                         </div>
                          <div class="col-lg-1" style="margin:9px">	
-                         <input type="button" class="btn btn-secondary btn btn-success" value="Save"/>
+                         <input type="submit" name="button" class="btn btn-secondary btn btn-success" value="<?php 
+						 if($flag == 1){ echo 'Update';} else echo 'Save'; ?>"/>
                         </div>
-                  </form>
+                  </form>			
                     </div>
 				</div>
 		</div>
@@ -160,14 +226,14 @@
 	</div><!--/.main-->
     
 
-	<script src="js/jquery-1.11.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/chart.min.js"></script>
-	<script src="js/chart-data.js"></script>
-	<script src="js/easypiechart.js"></script>
-	<script src="js/easypiechart-data.js"></script>
-	<script src="js/bootstrap-datepicker.js"></script>
-	<script src="js/bootstrap-table.js"></script>
+	<script src="../js/jquery-1.11.1.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/chart.min.js"></script>
+	<script src="../js/chart-data.js"></script>
+	<script src="../js/easypiechart.js"></script>
+	<script src="../js/easypiechart-data.js"></script>
+	<script src="../js/bootstrap-datepicker.js"></script>
+	<script src="../js/bootstrap-table.js"></script>
 	<script>
 		!function ($) {
 			$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  

@@ -1,3 +1,33 @@
+<?php include("../../handleData/classes/phieunhap.php");
+	include("../../handleData/classes/xuongcungcap.php");
+	$xuongcc = new xuongcungcap();
+	$inBill = new phieunhap();		
+	if(!isset($_GET['MPN'])){
+		$flag = 0;
+		
+	 }else{
+		$flag = 1;
+		$mpn = $_GET['MPN'];	
+		
+	 }
+	 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['button'])) {
+        
+			switch($_POST['button']){
+				case "Update":
+					{
+						$updateInBill = $inBill->suaPhieuNhap($_POST);						
+						break;
+					}
+				case "Save":
+					{
+						$insertInBill = $inBill->themPhieuNhap($_POST);						
+						break;
+					}
+			}		
+	 }
+	 
+	
+?> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,7 +119,7 @@
 		
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">QUẢN LÝ SẢN PHẨM</h1>
+				<h1 class="page-header">QUẢN LÝ PHIẾU NHẬP</h1>
 			</div>
 		</div><!--/.row-->
 		<div class="row">
@@ -97,48 +127,77 @@
 			<div class="panel panel-default">
 					<div class="panel-heading">Quản lý phiếu nhập</div>
                     <div class="panel-body">
-                    <form method="post">
+					<?php
+					if($flag == 1){						
+						$getInBillByMPN = $inBill->getByMPN($mpn);
+							if($getInBillByMPN){
+								$result_getInBillByMPN = $getInBillByMPN->fetch_assoc();
+							}							
+						}					
+					if(isset($insertInBill)){
+						echo $insertInBill;
+					}
+					if(isset($updateInBill)){
+						echo $updateInBill;
+					}
+						?>  
+                    <form action="ql_phieunhap.php" method="post" enctype="multipart/form-data" >
                     <div class="row" style="margin:10px">
-                    	<div class="col-lg-3 " style="color:#0CF"><b>MÃ PHIẾU NHẬP<b></div>
+                    	<div class="col-lg-3 " style="color:#0CF"><b> MÃ PHIẾU NHẬP<b></div>
                         <div class="col-lg-9">
-                        	<input type="Text" class="form-control" name="idD" placeholder="Mã phiếu nhập">
-                        </div>
+                        	<input type="Text" class="form-control" name="MPN" value="<?php 
+							if($flag == 1){
+								echo $result_getInBillByMPN['MPN'];
+							}							
+							 ?>">
                     </div>
                     <div class="row" style="margin:10px; margin-bottom:20px;">
                     	<div class="col-lg-3 " style="color:#0CF"><b>NGÀY NHẬP HÀNG<b></div>
                         <div class="col-lg-9">
-							<input type="text" class="form-control" name="idD" placeholder="Ngày nhập hàng">
+							<input type="text" class="form-control" name="NGAY_NHAP_HANG" value="<?php 
+							if($flag == 1){
+								echo $result_getInBillByMPN['NGAY_NHAP_HANG'];
+							}							
+							 ?>">
                     	 </div>
                    </div>
                     <div class="row" style="margin:10px">
                     	<div class="col-lg-3" style="color:#0CF"><b>MÃ XƯỞNG CUNG CẤP<b></div>
                         <div class="col-lg-9">
                         	<div class="input-group-prepend">
-                 		 			<select class="mdb-select md-form colorful-select" >
-                   			 			 <option selected="">Mã XCC</option>
-                    		  			 <option value="1">XCC01</option>
-                     				     <option value="2">XCC02</option>
-                     		             <option value="3">XCC003</option>
+									<select name= "MXCC" class="mdb-select md-form colorful-select" >
+                   			 			 <option selected>Mã xưởng cung cấp</option>
+                    		  			 <?php  
+											$xuongList = $xuongcc->getAll();
+											if($xuongList){
+												while($result_xuongList = $xuongList->fetch_assoc()){
+											 ?>
+											 <option										     
+												value="<?php echo $result_xuongList['MXCC'];?>" <?php
+											 if($flag == 1)
+												if($result_xuongList['MXCC']==$result_getInBillByMPN['MXCC']){ echo 'selected';}
+												?>><?php echo $result_xuongList['MXCC']; }}?>												
+											</option>  											          				     
                  			        </select>
               				   </div>  
                         </div>
                     </div>
                    <div class="row" style="margin:10px">
                     	<div class="col-lg-3" style="color:#0CF"><b>TỔNG TIỀN<b></div>
-                        <div class="col-lg-9">
-                        	<input type="Text" class="form-control" name="idD" placeholder="Tổng tiền">
-                        </div>
+                        <div class="col-lg-9"><?php if($flag == 1){
+								echo $result_getInBillByMPN['TONG_TIEN'];
+							}	 ?></div>
                     </div>
                    <div class="row" style="margin:10px">
                     	<div class="col-lg-3" style="color:#0CF"><b>TỔNG SỐ LƯỢNG<b></div>
-                        <div class="col-lg-9">
-                        	<input type="Text" class="form-control" name="idD" placeholder="Tổng số lượng">
-                        </div>
+                        <div class="col-lg-9"><?php if($flag == 1){
+								echo $result_getInBillByMPN['TONG_SO_LUONG'];
+							}	 ?></div>
                     </div>	
 					
                     <div class="row">
                         <div class="col-lg-2 " style="margin:5px; ">
-                        	<a href="phieunhap.php"> <input type="button" class="btn btn-secondary btn btn-danger"  value="Cancel"/>
+						<a href="phieunhap.php"> <input type="button" class="btn btn-secondary btn btn-danger"  value="Cancel"/>
                         </div>
                         <div class="col-lg-6"></div>
                         <div class="col-lg-1" style="margin:7px">
@@ -148,7 +207,8 @@
                        		
                         </div>
                          <div class="col-lg-1" style="margin:9px">	
-                         <input type="button" class="btn btn-secondary btn btn-success" value="Save"/>
+                         <input type="submit" name="button" class="btn btn-secondary btn btn-success" value="<?php 
+						 if($flag == 1){ echo 'Update';} else echo 'Save'; ?>"/>
                         </div>
                   </form>
                     </div>
@@ -160,14 +220,14 @@
 	</div><!--/.main-->
     
 
-	<script src="js/jquery-1.11.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/chart.min.js"></script>
-	<script src="js/chart-data.js"></script>
-	<script src="js/easypiechart.js"></script>
-	<script src="js/easypiechart-data.js"></script>
-	<script src="js/bootstrap-datepicker.js"></script>
-	<script src="js/bootstrap-table.js"></script>
+	<script src="../js/jquery-1.11.1.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/chart.min.js"></script>
+	<script src="../js/chart-data.js"></script>
+	<script src="../js/easypiechart.js"></script>
+	<script src="../js/easypiechart-data.js"></script>
+	<script src="../js/bootstrap-datepicker.js"></script>
+	<script src="../js/bootstrap-table.js"></script>
 	<script>
 		!function ($) {
 			$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  

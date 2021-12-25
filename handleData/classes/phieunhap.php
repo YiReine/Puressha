@@ -24,13 +24,13 @@
 			$TONG_TIEN = mysqli_real_escape_string($this->db->link, $data['TONG_TIEN']);
 			$TONG_SO_LUONG = mysqli_real_escape_string($this->db->link, $data['TONG_SO_LUONG']);
 
-			if($MPN=="" || $MXCC=="" || $NGAY_NHAP_HANG=="" || $TONG_TIEN=="" || $TONG_SO_LUONG==""){
+			if($MPN=="" || $MXCC=="" || $NGAY_NHAP_HANG=="" ){
 				$alert = "Các trường không được để trống";
 				return $alert;
 			}					
 				else{
 					$query = "INSERT INTO phieu_nhap(MPN,MXCC,NGAY_NHAP_HANG,TONG_TIEN,TONG_SO_LUONG) 
-							  VALUES('$MPN','$MXCC','$NGAY_NHAP_HANG','$TONG_TIEN','$TONG_SO_LUONG')";
+							  VALUES('$MPN','$MXCC','$NGAY_NHAP_HANG', '$TONG_TIEN', '$TONG_SO_LUONG')";
 					
 				}
 				$result = $this->db->insert($query);
@@ -44,21 +44,20 @@
 			}
 		
         //Cập nhật phiếu nhập
-		public function suaPhieuNhap($data,$MPN){
+		public function suaPhieuNhap($data){
 			$MPN = mysqli_real_escape_string($this->db->link, $data['MPN']);
 			$MXCC = mysqli_real_escape_string($this->db->link, $data['MXCC']);
 			$NGAY_NHAP_HANG = mysqli_real_escape_string($this->db->link, $data['NGAY_NHAP_HANG']);
 			$TONG_TIEN = mysqli_real_escape_string($this->db->link, $data['TONG_TIEN']);
 			$TONG_SO_LUONG = mysqli_real_escape_string($this->db->link, $data['TONG_SO_LUONG']);
 
-			if($MPN=="" || $MXCC=="" || $NGAY_NHAP_HANG=="" || $TONG_TIEN=="" || $TONG_SO_LUONG==""){
+			if($MXCC=="" || $NGAY_NHAP_HANG==""){
 				$alert = "Các trường không được để trống";
 				return $alert;
 			}					
 				else{
 					$query = "UPDATE phieu_nhap SET
-
-                    MPN = '$MPN',
+                   
 					MXCC = '$MXCC',
 					NGAY_NHAP_HANG = '$NGAY_NHAP_HANG', 
 					TONG_TIEN = '$TONG_TIEN', 
@@ -81,13 +80,13 @@
 		public function xoaPhieuNhap($MPN){
 			$query = "DELETE FROM phieu_nhap where MPN = '$MPN'";
 			$result = $this->db->delete($query);
-			if($result){
-				$alert = "Xóa phiếu nhập thành công ";
-				return $alert;
-			}else{
-				$alert = "Xóa phiếu nhập không thành công ";
-				return $alert;
-			}
+			// if($result){
+			// 	$alert = "Xóa phiếu nhập thành công ";
+			// 	return $alert;
+			// }else{
+			// 	$alert = "Xóa phiếu nhập không thành công ";
+			// 	return $alert;
+			// }
 			
 		}
 

@@ -4,6 +4,10 @@
 	$product = new sanpham();
 
 	$msp = $_GET['MSP'];
+	$mctsp = $_GET['MCTSP'];
+
+	$deleteDetailProduct = $productDetail->xoaChiTietSanPham($mctsp);
+
 ?> 
 <!DOCTYPE html>
 <html>
@@ -104,7 +108,9 @@
 			<div class="panel panel-default">
 					<div class="panel-heading">Thông tin chi tiết sản phẩm</div>
                     <div class="panel-body">
-                    
+                    <?php if(isset($deleteDetailProduct)){
+							echo $deleteProduct;
+					} ?>
                     <table class="table table-hover table-active" >
 					<thead>
 					<tr>
@@ -136,8 +142,8 @@
                         <td> <?php echo $result['SO_LUONG']; ?></td>
                         <td> <?php echo $result['MAU_SAC']; ?></td>
                     	<td>
-                        <a href="ql_chitietsanpham.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Sửa">
-                        <input type="button" class="btn btn-secondary btn btn-danger" value="Xóa">
+                        <a href="ql_chitietsanpham.php?MCTSP=<?php echo $result['MCTSP'];?>"> <input type="button" class="btn btn-secondary btn btn-warning" value="Sửa"></a>
+                        <a onclick="return Del()" href="chitietsanpham.php?MCTSP=<?php echo $result['MCTSP'];?>"> <input type="button" class="btn btn-secondary btn btn-danger" value="Xóa"></a>
                         </td>
                     </tr>   
 					<?php 
@@ -163,19 +169,23 @@
                     </div>
 				</div>
 		</div>
-		
+		<script>
+			function Del(){
+				return confirm("Bạn chắc chắn muốn xóa chi tiết sản phẩm này?");
+			}
+		</script>
 		<!--/.row-->	
 		
 	</div><!--/.main-->
 
-	<script src="..js/jquery-1.11.1.min.js"></script>
-	<script src="..js/bootstrap.min.js"></script>
-	<script src="..js/chart.min.js"></script>
-	<script src="..js/chart-data.js"></script>
-	<script src="..js/easypiechart.js"></script>
-	<script src="..js/easypiechart-data.js"></script>
-	<script src="..js/bootstrap-datepicker.js"></script>
-	<script src="..js/bootstrap-table.js"></script>
+	<script src="../js/jquery-1.11.1.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/chart.min.js"></script>
+	<script src="../js/chart-data.js"></script>
+	<script src="../js/easypiechart.js"></script>
+	<script src="../js/easypiechart-data.js"></script>
+	<script src="../js/bootstrap-datepicker.js"></script>
+	<script src="../js/bootstrap-table.js"></script>
 	<script>
 		!function ($) {
 			$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  

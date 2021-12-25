@@ -1,5 +1,7 @@
 <?php include("../../handleData/classes/phieunhap.php");
 	$inBill = new phieunhap();
+	$mpn = $_GET['MPN'];
+	$deleteInBill = $inBill->xoaPhieuNhap($mpn);
 ?> 
 <!DOCTYPE html>
 <html>
@@ -106,6 +108,9 @@
 										<div class="panel panel-default">
 											<div class="panel-heading">THÔNG TIN PHIẾU NHẬP</div>
 											<div class="panel-body">
+											<?php if(isset($deleteInBill)){
+													echo $deleteInBill;
+												} ?>
 												<table class="table table-hover table-active" >
 													<thead>
 													<tr>
@@ -132,8 +137,8 @@
                                                         <td><?php echo $result['TONG_TIEN']; ?></td>
                                                         <td>
                                                         <a href="chitietphieunhap.php?MPN=<?php echo $result['MPN'];?>"> <input type="button" class="btn btn-secondary btn btn-info" value="Xem">
-                        								<a href="ql_phieunhap.php"> <input type="button" class="btn btn-secondary btn btn-warning" value="Sửa">
-                                                        <input type="button" class="btn btn-secondary btn btn-danger" value="Xóa">
+                        								<a href="ql_phieunhap.php?MPN=<?php echo $result['MPN']; ?>"> <input type="button" class="btn btn-secondary btn btn-warning" value="Sửa">
+                                                        <a onclick="return Del()" href="phieunhap.php?MPN=<?php echo $result['MPN'];?>"> <input type="button" class="btn btn-secondary btn btn-danger" value="Xóa"></a>
                                                         </td></tr>
                                                     <tr>
                                                     	<?php
@@ -166,7 +171,11 @@
 				</div>
 			
 		</div>
-		
+		<script>
+			function Del(){
+				return confirm("Bạn chắc chắn muốn xóa phiếu nhập này?");
+			}
+		</script>
 		<!--/.row-->	
 		
 	</div><!--/.main-->

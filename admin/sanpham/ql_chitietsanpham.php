@@ -1,3 +1,30 @@
+<?php include("../../handleData/classes/chitietsanpham.php");
+	$detailProduct = new chitietsanpham();
+
+	if(!isset($_GET['MCTSP'])){
+		$flag = 0;
+		
+	 }else{
+		$flag = 1;
+		$mctsp = $_GET['MCTSP'];	
+		
+	 }
+	 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['button'])) {
+        
+			switch($_POST['button']){
+				case "Update":
+					{
+						$updateDetailPro = $detailProduct->suaChiTietSanPham($_POST, $_FILES);						
+						break;
+					}
+				case "Save":
+					{
+						$insertDetailPro = $detailProduct->themChiTietSanPham($_POST, $_FILES);						
+						break;
+					}
+			}		
+	 }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,54 +121,96 @@
 		</div><!--/.row-->
 		<div class="row">
 			<div class="col-lg-12">
+			<?php
+					if($flag == 1){						
+						$getDetailProductByMCTSP = $detailProduct->getByMCTSP($mctsp);
+							if($getDetailProductByMCTSP){
+								$result_getDetailProByMCTSP = $getDetailProductByMCTSP->fetch_assoc();
+							}							
+						}					
+					if(isset($insertDetailPro)){
+						echo $insertDetailPro;
+					}
+					if(isset($updateDetailPro)){
+						echo $updateDetailPro;
+					}
+						?>  
 			   <form method="post">
 				  <div class="form-group row">
 					 <label  class="col-sm-2 col-form-label">MÃ SẢN PHẨM</label>
 					 <div class="col-sm-10">
-						<input type="Text" class="form-control" name="idD" placeholder="Mã sản phẩm" disabled >
+					 <input type="Text" class="form-control" name="MSP" value ="<?php 
+							if($flag == 1){
+								echo $result_getDetailProByMCTSP['MSP'];
+							}							
+							 ?>">
 					 </div>
 				  </div>
 				  <div class="form-group row">
 					 <label  class="col-sm-2 col-form-label">MÃ CHI TIẾT SẢN PHẨM</label>
 					 <div class="col-sm-10">
-						<input type="text" class="form-control" name="type" placeholder="Mã chi tiết sản phẩm">
+					 <input type="Text" class="form-control" name="MCTSP" value ="<?php 
+							if($flag == 1){
+								echo $result_getDetailProByMCTSP['MCTSP'];
+							}							
+							 ?>">
 					 </div>
 				  </div>
 
 				  <div class="form-group row">
 					 <label  class="col-sm-2 col-form-label">SIZE</label>
 					 <div class="col-sm-10">
-						<input type="text" class="form-control" name="qty"  placeholder="Size">
+					 <input type="Text" class="form-control" name="SIZE" value ="<?php 
+							if($flag == 1){
+								echo $result_getDetailProByMCTSP['SIZE'];
+							}							
+							 ?>">
 					 </div>
 				  </div>
                   <div class="form-group row">
 					 <label  class="col-sm-2 col-form-label">GIÁ BÁN</label>
 					 <div class="col-sm-10">
-						<input type="text" class="form-control" name="qty"  placeholder="Giá bán">
+					 <input type="Text" class="form-control" name="GIA_BAN" value ="<?php 
+							if($flag == 1){
+								echo $result_getDetailProByMCTSP['GIA_BAN'];
+							}							
+							 ?>">
 					 </div>
 				  </div>
                   <div class="form-group row">
 					 <label  class="col-sm-2 col-form-label">GIÁ NHẬP</label>
 					 <div class="col-sm-10">
-						<input type="text" class="form-control" name="qty"  placeholder="Giá nhập">
+					 <input type="Text" class="form-control" name="GIA_NHAP" value ="<?php 
+							if($flag == 1){
+								echo $result_getDetailProByMCTSP['GIA_NHAP'];
+							}							
+							 ?>">
 					 </div>
 				  </div>
                   <div class="form-group row">
 					 <label  class="col-sm-2 col-form-label">SỐ LƯỢNG</label>
 					 <div class="col-sm-10">
-						<input type="number" class="form-control" name="qty"  placeholder="Số lượng" disabled >
+					 <input type="Text" class="form-control" name="SO_LUONG" value ="<?php 
+							if($flag == 1){
+								echo $result_getDetailProByMCTSP['SO_LUONG'];
+							}							
+							 ?>">
 					 </div>
 				  </div>
                    <div class="form-group row">
 					 <label  class="col-sm-2 col-form-label">MÀU SẮC</label>
 					 <div class="col-sm-10">
-						<input type="text" class="form-control" name="qty"  placeholder="Màu sắc">
+					 <input type="Text" class="form-control" name="MAU_SAC" value ="<?php 
+							if($flag == 1){
+								echo $result_getDetailProByMCTSP['MAU_SAC'];
+							}							
+							 ?>">
 					 </div>
 				  </div>
                   <div class="form-group row">
 					 <label  class="col-sm-2 col-form-label">ẢNH</label>
 					 <div class="col-sm-10">
-						<input type="file" class="form-control" name="qty"  placeholder="Màu sắc">
+						<input type="file" class="form-control" name="ANH"  placeholder="Màu sắc">
 					 </div>
 				  </div>
                   
@@ -157,7 +226,8 @@
                        		
                         </div>
                          <div class="col-lg-1" style="margin:9px">	
-                         <input type="button" class="btn btn-secondary btn btn-success" value="Save"/>
+                         <input type="submit" name="button" class="btn btn-secondary btn btn-success" value="<?php 
+						 if($flag == 1){ echo 'Update';} else echo 'Save'; ?>"/>
                         </div>
 				  </div>
 			   </form>       
@@ -168,14 +238,14 @@
 		
 	</div><!--/.main-->
 
-	<script src="js/jquery-1.11.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/chart.min.js"></script>
-	<script src="js/chart-data.js"></script>
-	<script src="js/easypiechart.js"></script>
-	<script src="js/easypiechart-data.js"></script>
-	<script src="js/bootstrap-datepicker.js"></script>
-	<script src="js/bootstrap-table.js"></script>
+	<script src="../js/jquery-1.11.1.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/chart.min.js"></script>
+	<script src="../js/chart-data.js"></script>
+	<script src="../js/easypiechart.js"></script>
+	<script src="../js/easypiechart-data.js"></script>
+	<script src="../js/bootstrap-datepicker.js"></script>
+	<script src="../js/bootstrap-table.js"></script>
 	<script>
 		!function ($) {
 			$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  

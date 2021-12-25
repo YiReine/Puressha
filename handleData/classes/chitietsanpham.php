@@ -41,7 +41,7 @@
 			$unique_image = substr(md5(time()), 0, 10).'.'.$file_ext;
 			$uploaded_image = "uploads/".$unique_image;
 			
-			if($MSP=="" || $MCTSP=="" || $SIZE=="" || $GIA_BAN=="" || $GIA_NHAP=="" || $SO_LUONG=="" || $MAU_SAC==""){
+			if( $MCTSP=="" || $SIZE=="" || $GIA_BAN=="" || $GIA_NHAP=="" || $SO_LUONG=="" || $MAU_SAC==""){
 				$alert = "Các trường không được để trống";
 				return $alert;
 			}else{
@@ -79,7 +79,7 @@
 		}
 		
         //Cập nhật chi tiết sản phẩm
-		public function suaChiTietSanPham($data,$files,$MCTSP){
+		public function suaChiTietSanPham($data,$files){
 			$MSP = mysqli_real_escape_string($this->db->link, $data['MSP']);
 			$MCTSP = mysqli_real_escape_string($this->db->link, $data['MCTSP']);
 			$SIZE = mysqli_real_escape_string($this->db->link, $data['SIZE']);
@@ -99,10 +99,10 @@
 			$file_ext = strtolower(end($div));
 			// $file_current = strtolower(current($div));
 			$unique_image = substr(md5(time()), 0, 10).'.'.$file_ext;
-			$uploaded_image = "uploads/".$unique_image;
+			$uploaded_image = "../../puressha/img/product-img/".$unique_image;
 
 
-			if($MSP=="" || $MCTSP=="" || $SIZE=="" || $GIA_BAN=="" || $GIA_NHAP=="" || $SO_LUONG=="" || $MAU_SAC==""){
+			if($MCTSP=="" || $SIZE=="" || $GIA_BAN=="" || $GIA_NHAP=="" || $MAU_SAC==""){
 				$alert = "Các trường không được để trống";
 				return $alert;
 			}else{
@@ -121,7 +121,7 @@
 					$query = "UPDATE chi_tiet_san_pham SET
 
 					MSP = '$MSP',
-					MCTSP = '$MCTSP',
+					
 					SIZE = '$SIZE', 
 					GIA_BAN = '$GIA_BAN', 
 					GIA_NHAP = '$GIA_NHAP', 
@@ -136,7 +136,7 @@
 					$query = "UPDATE chi_tiet_san_pham SET
 
                     MSP = '$MSP',
-					MCTSP = '$MCTSP',
+					
 					SIZE = '$SIZE', 
 					GIA_BAN = '$GIA_BAN', 
 					GIA_NHAP = '$GIA_NHAP', 

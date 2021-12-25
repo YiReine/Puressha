@@ -1,5 +1,7 @@
  <?php include("../../handleData/classes/sanpham.php");
 	$product = new sanpham();
+	$msp = $_GET['MSP'];
+	$deleteProduct = $product->xoaSanPham($msp);
 ?> 
 
 <!DOCTYPE html>
@@ -113,6 +115,9 @@
 										<div class="panel panel-default">
 											<div class="panel-heading">Tất cả sản phẩm</div>
 											<div class="panel-body">
+												<?php if(isset($deleteProduct)){
+													echo $deleteProduct;
+												} ?>
 												<table class="table table-hover table-active" >
 													<thead>
 													<tr>
@@ -138,16 +143,16 @@
 														<td><?php echo $result['MO_TA']; ?></td>
 														<td><?php echo $result['TONG_SO_LUONG']; ?></td>
                                                         <td>
-                                                        <a href="chitietsanpham.php?MSP=<?php echo $result['MSP']; ?>"> <input type="button" class="btn btn-secondary btn btn-info" value="Xem">
-                        								<a href="ql_sanpham.php"> <input type="button" class="btn btn-secondary btn btn-warning" value="Sửa">
-                                                        <input type="button" class="btn btn-secondary btn btn-danger" value="Xóa">
+                                                        <a href="chitietsanpham.php?MSP=<?php echo $result['MSP']; ?>"> <input type="button" class="btn btn-secondary btn btn-info" value="Xem"></a>
+                        								<a href="ql_sanpham.php?MSP=<?php echo $result['MSP'];?>"> <input type="button" class="btn btn-secondary btn btn-warning" value="Sửa"></a>
+                                                        <a onclick="return Del()" href="sanpham.php?MSP=<?php echo $result['MSP'];?>"> <input type="button" class="btn btn-secondary btn btn-danger" value="Xóa"></a>
                                                         </td>
                                                         </tr>
 													<?php
 															}
 														}
 														?>
-                                                
+	
                                                     </tbody>
 												</table>
 											</div>
@@ -156,6 +161,7 @@
 								</div>
 							</div>
                     <div class="row">
+
                         <div class="col-lg-2 " style="margin:5px; ">
                         </div>
                         <div class="col-lg-5"></div>
@@ -167,22 +173,27 @@
                          <div class="col-lg-1" style="margin:9px">
                        		
                         </div>
-                    </div>
+                    </div>       
+               
 				</div>
 			
 		</div>
-		
+		<script>
+			function Del(){
+				return confirm("Bạn chắc chắn muốn xóa sản phẩm này?");
+			}
+		</script>
 		<!--/.row-->	
 		
 	</div><!--/.main-->
 
-	<script src="..js/jquery-1.11.1.min.js"></script>
-	<script src="..js/bootstrap.min.js"></script>
-	<script src="..js/chart.min.js"></script>
-	<script src="..js/chart-data.js"></script>
-	<script src="..js/easypiechart.js"></script>
-	<script src="..js/easypiechart-data.js"></script>
-	<script src="..js/bootstrap-datepicker.js"></script>
+	<script src="../js/jquery-1.11.1.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/chart.min.js"></script>
+	<script src="../js/chart-data.js"></script>
+	<script src="../js/easypiechart.js"></script>
+	<script src="../js/easypiechart-data.js"></script>
+	<script src="../js/bootstrap-datepicker.js"></script>
 	<script src="../bootstrap-table.js"></script>
 	<script>
 		!function ($) {

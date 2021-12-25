@@ -24,7 +24,7 @@
 			$MO_TA = mysqli_real_escape_string($this->db->link, $data['MO_TA']);
 			$TONG_SO_LUONG = mysqli_real_escape_string($this->db->link, $data['TONG_SO_LUONG']);
 
-			if($MSP=="" || $MDM=="" || $TEN=="" || $MO_TA=="" || $TONG_SO_LUONG==""){
+			if($MSP=="" || $MDM=="" || $TEN=="" || $MO_TA=="" ){
 				$alert = "Các trường không được để trống";
 				return $alert;
 			}					
@@ -44,21 +44,20 @@
 			}
 		
         //Cập nhật sản phẩm
-		public function suaSanPham($data,$MSP){
+		public function suaSanPham($data){
+			
 			$MSP = mysqli_real_escape_string($this->db->link, $data['MSP']);
 			$MDM = mysqli_real_escape_string($this->db->link, $data['MDM']);
 			$TEN = mysqli_real_escape_string($this->db->link, $data['TEN']);
 			$MO_TA = mysqli_real_escape_string($this->db->link, $data['MO_TA']);
 			$TONG_SO_LUONG = mysqli_real_escape_string($this->db->link, $data['TONG_SO_LUONG']);
 
-			if($MSP=="" || $MDM=="" || $TEN=="" || $MO_TA=="" || $TONG_SO_LUONG==""){
+			if($MDM=="" || $TEN=="" || $MO_TA==""){
 				$alert = "Các trường không được để trống";
 				return $alert;
 			}					
-				else{
-					$query = "UPDATE san_pham SET
-
-					MSP = '$MSP',
+				else{					
+					$query = "UPDATE san_pham SET					
 					MDM = '$MDM',
 					TEN = '$TEN', 
 					MO_TA = '$MO_TA', 
@@ -67,6 +66,7 @@
 					WHERE MSP = '$MSP'";
 					
 				}
+				
 				$result = $this->db->update($query);
 					if($result){
 						$alert = "Cập nhật sản phẩm thành công ";
@@ -81,13 +81,14 @@
 		public function xoaSanPham($MSP){
 			$query = "DELETE FROM san_pham where MSP = '$MSP'";
 			$result = $this->db->delete($query);
-			if($result){
-				$alert = "Xóa sản phẩm thành công";
-				return $alert;
-			}else{
-				$alert = "Xóa sản phẩm không thành công";
-				return $alert;
-			}
+			
+			// if($result){
+			// 	$alert = "Xóa sản phẩm thành công";
+			// 	return $alert;
+			// }else{
+			// 	$alert = "Xóa sản phẩm không thành công";
+			// 	return $alert;
+			// }
 			
 		}
 
