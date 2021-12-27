@@ -11,7 +11,9 @@
 
 <!--Icons-->
 <script src="../js/lumino.glyphs.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
 
 <!--[if lt IE 9]>
 <script src="js/html5shiv.js"></script>
@@ -103,7 +105,7 @@
 		
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Charts</h1>
+				<h1 class="page-header">BÁO CÁO THỐNG KÊ</h1>
 				
 			</div>
 		</div><!--/.row-->
@@ -111,17 +113,76 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="panel panel-default">
-					<div class="panel-heading">Line Chart</div>
+                <ul class="nav nav-tabs">
+							<li class="active"><a href="#tab1" data-toggle="tab">Theo tháng</a></li>
+							<li><a href="#tab2" data-toggle="tab">Theo quý</a></li>
+                            <li><a href="#tab3" data-toggle="tab">Theo năm</a></li>
+                            <li><a href="#tab4" data-toggle="tab"></a></li>
+				</ul>
+					<div class="panel-heading">THỐNG KÊ DOANH THU</div>
+                    <div lass="panel-heading">
+                    <form action="/action_page.php">
+ 					 	<label for="from" style="margin:10px;">From:</label>
+  						<input type="date" id="from" name="from">
+                         <label for="to">To:</label>
+                         <input type="date" id="to" name="to">
+ 						 <input type="button" class="btn btn-secondary btn btn-info" value="Duyệt">
+					</form>
+                    </div>
 					<div class="panel-body">
 						<div class="canvas-wrapper">
-							<canvas class="main-chart" id="line-chart" height="200" width="600"></canvas>
+							<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
 						</div>
+                        <div class="row">
+                        	<div class="col-lg-2 " style="margin:5px; ">
+                        	
+                        	</div>
+                        	<div class="col-lg-5"></div>
+                        	<div class="col-lg-1" style="margin:7px">
+                       		
+                        	</div>
+                        	<div class="col-lg-1" style="margin:8px">
+                       		
+                       	 	</div>
+                         	<div class="col-lg-1" style="margin:9px">	
+                         	<a href="#"><input type="button" class="btn btn-secondary btn btn-success" value="Xuất Excel"/></a>
+                       	 	</div>
+                    	</div>
 					</div>
 				</div>
 			</div>
 		</div><!--/.row-->
 		
-		<div class="row">
+<script>
+var yValues = [5000000,5500000,7500000,8000000,8900000,9300000,6700000,5100000,9200000,7300000,5500000,8800000,1000000];
+
+new Chart("myChart", {
+  type: "line",
+  data: {
+    //labels: xValues,
+	labels : ["January","February","March","April","May","June","July","August","September","October","November","December"],
+    datasets: [{
+	
+      label: "",
+	  backgroundColor : "rgba(255, 99, 71, 0.2)",
+					borderColor : "rgba(255, 99, 71, 1)",
+					pointColor : "rgba(255, 99, 71, 1)",
+					pointStrokeColor : "#fff",
+					pointHighlightFill : "#fff",
+					pointHighlightStroke : "rgba(255, 99, 71,1)",
+					data: yValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    scales: {
+      yAxes: [{ticks: {min: 1000000, max:10000000}}],
+    }
+  }
+});
+</script>
+
+		<!--div class="row">
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">Bar Chart</div>
@@ -134,7 +195,7 @@
 			</div>
 		</div><!--/.row-->		
 		
-		<div class="row">
+		<!--div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">Pie Chart</div>
@@ -157,7 +218,7 @@
 			</div>
 		</div><!--/.row-->
 		
-		<div class="row">
+		<!--div class="row">
 			<div class="col-xs-6 col-md-3">
 				<div class="panel panel-default">
 					<div class="panel-body easypiechart-panel">
@@ -195,50 +256,10 @@
 				</div>
 			</div>
 		</div><!--/.row-->
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="panel panel-default">
-					<div class="panel-heading">Line Chart</div>
-					<div class="panel-body">
-						<div class="canvas-wrapper">
-							<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div><!--/.row-->
-		
-
-<script>
-var xValues = [50,60,70,80,90,100,110,120,130,140,150];
-var yValues = [7,8,8,9,9,9,10,11,14,14,15];
-
-new Chart("myChart", {
-  type: "line",
-  data: {
-    labels : ["January","February","March","April","May","June","July"],
-			datasets : [
-				{
-					label: "My First dataset",
-					fillColor : "rgba(220,220,220,0.2)",
-					strokeColor : "rgba(220,220,220,1)",
-					pointColor : "rgba(220,220,220,1)",
-					pointStrokeColor : "#fff",
-					pointHighlightFill : "#fff",
-					pointHighlightStroke : "rgba(220,220,220,1)",
-					data : [7,8,8,9,9,9,10,11,14,14,15]
-				}]
-  },
-  options: {
-    legend: {display: false},
-    scales: {
-      yAxes: [{ticks: {min: 6, max:16}}],
-    }
-  }
-});
-</script>
+									
 	</div>	<!--/.main-->
-	
+	  
+
 	<script src="../js/jquery-1.11.1.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
 	<script src="../js/chart.min.js"></script>

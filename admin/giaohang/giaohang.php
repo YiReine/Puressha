@@ -57,10 +57,10 @@
 			<li><a href="../donhang/donhang.php"><svg class="glyph stroked notepad "><use xlink:href="#stroked-notepad"/></svg>Đơn hàng</a></li>
 			<li><a href="../phieunhap/phieunhap.php"><svg class="glyph stroked calendar blank">
 				<use xlink:href="#stroked-calendar-blank"/></svg>Phiếu nhập</a></li>
-			<li class="active"><a href="../giaohang/giaohang.php"><svg class="glyph stroked flag"><use xlink:href="#stroked-flag"/></svg> Giao hàng</a></li>
+			<li><a href="../giaohang/giaohang.php"><svg class="glyph stroked flag"><use xlink:href="#stroked-flag"/></svg> Giao hàng</a></li>
 			<li><a href="../danhmuc/danhmuc.php"><svg class="glyph stroked clipboard with paper">
 				<use xlink:href="#stroked-clipboard-with-paper"/></svg> Danh mục</a></li>
-			<li><a href="../khachhang/khachhang.php"><svg class="glyph stroked key "><use xlink:href="#stroked-key"/></svg> Khách hàng</a></li>
+			<li class="active"><a href="../khachhang/khachhang.php"><svg class="glyph stroked key "><use xlink:href="#stroked-key"/></svg> Khách hàng</a></li>
 			<li><a href="../xuongcungcap/xuongcungcap.php"><svg class="glyph stroked male user "><use xlink:href="#stroked-male-user"/></svg> Xưởng cung cấp</a></li>
 			<li ><a href="../nhanvien/nhanvien.php"><svg class="glyph stroked female user"><use xlink:href="#stroked-female-user"/></svg> Nhân viên</a></li>
 			<li class="parent ">
@@ -92,16 +92,64 @@
 				<h1 class="page-header">QUẢN LÝ GIAO HÀNG</h1>
 			</div>
 		</div><!--/.row-->
+        
 		<div class="row">
-
 			<div class="panel panel-default">
-					<div class="panel-body tabs">
+            	<div class="panel-body tabs">
+            			<ul class="nav nav-tabs">
+							<li class="active"><a href="#tab1" data-toggle="tab">Đơn hàng</a></li>
+							<li ><a href="#tab2" data-toggle="tab">Thông tin giao hàng</a></li>
+						</ul>
+				</div>
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="tab1">
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="panel panel-default">
-											<div class="panel-heading">Danh sách đơn hàng</div>
+											<div class="panel-body">
+                                            <table class="table table-hover table-active" >
+													<thead>
+													<tr>
+														<th >Mã đơn hàng</th>
+														<th >Mã khách hàng</th>
+														<th >Ngày tạo đơn</th>
+                                                        <th >Trạng thái</th>
+                                                        <th >Tổng tiền</th>
+                                                        <th> Chi tiết</th>
+													</tr>
+													</thead>
+                                                    <tbody>
+                                                    <tr>
+                                                    	<td>DH001</td>
+                                                        <td>KH001</td>
+                                                        <td>10-12-2021</td>
+                                                        <td>Chưa xử lý</td>
+                                                        <td>200.000 VND</td>
+                                                        <td>
+                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Nhận đơn"></a>
+                                                     </td>
+                                                     </tr>
+                                                     <tr>
+                                                    	<td>DH002</td>
+                                                        <td>KH002</td>
+                                                        <td>13-12-2021</td>
+                                                        <td>Chưa xử lý</td>
+                                                        <td>300.000 VND</td>
+                                                        <td>
+                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Nhận đơn"></a>
+                                                        </td>
+                                                        </tr>
+                                                    </tbody>
+												</table>
+										</div>
+									</div>
+								</div>
+							</div>
+                     </div>
+							<div class="tab-pane fade" id="tab2">
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="panel panel-default">
 											<div class="panel-body">
 												<table class="table table-hover table-active" >
 													<thead>
@@ -113,6 +161,7 @@
                                                         <th >Ngày nhận đơn</th>
                                                         <th >Ngày kết thức</th>
                                                         <th >Trạng thái</th>
+                                                        <th >Chi tiết</th>
 													</tr>
 													</thead>
                                                     <tbody>
@@ -124,9 +173,11 @@
                                                         <td>13-12-2021</td>
                                                         <td>14-12-2021</td>
                                                         <td>Đã giao</td>
-                                                        
+                                                        <td>
+                                                     		<input type="button" class="btn btn-secondary btn btn-danger" value="Giao thất bại">
+                                                            <input type="button" class="btn btn-secondary btn btn-success" value="Giao thành công">
+                                                        </td>
                                                      </tr>
-                                                     
                                                     </tbody>
 												</table>
 											</div>
@@ -134,11 +185,9 @@
 									</div>
 								</div>
 							</div>
-					
+                            </div>
 						</div>
-					</div>
-                    
-				</div>
+                 </div>
 			
 		</div>
 		
@@ -146,14 +195,14 @@
 		
 	</div><!--/.main-->
 
-	<script src="../donhang/js/jquery-1.11.1.min.js"></script>
-	<script src="../donhang/js/bootstrap.min.js"></script>
-	<script src="../donhang/js/chart.min.js"></script>
-	<script src="../donhang/js/chart-data.js"></script>
-	<script src="../donhang/js/easypiechart.js"></script>
-	<script src="../donhang/js/easypiechart-data.js"></script>
-	<script src="../donhang/js/bootstrap-datepicker.js"></script>
-	<script src="../donhang/js/bootstrap-table.js"></script>
+	<script src="../js/jquery-1.11.1.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/chart.min.js"></script>
+	<script src="../js/chart-data.js"></script>
+	<script src="../js/easypiechart.js"></script>
+	<script src="../js/easypiechart-data.js"></script>
+	<script src="../js/bootstrap-datepicker.js"></script>
+	<script src="../js/bootstrap-table.js"></script>
 	<script>
 		!function ($) {
 			$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  
