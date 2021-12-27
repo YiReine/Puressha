@@ -24,7 +24,7 @@
 			$SO_LUONG = mysqli_real_escape_string($this->db->link, $data['SO_LUONG']);
 			$THANH_TIEN = mysqli_real_escape_string($this->db->link, $data['THANH_TIEN']);
 
-			if($MPN=="" || $MCTSP=="" || $GIA_NHAP=="" || $SO_LUONG=="" || $THANH_TIEN==""){
+			if($MCTSP=="" || $GIA_NHAP=="" || $SO_LUONG==""){
 				$alert = "Các trường không được để trống";
 				return $alert;
 			}					

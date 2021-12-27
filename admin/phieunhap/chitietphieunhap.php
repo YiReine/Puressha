@@ -107,34 +107,30 @@
                     <?php
 						$getInBillByMPN = $inBill->getByMPN($mpn);
 						if($getInBillByMPN){
-							while($result = $getInBillByMPN->fetch_assoc()){
+							while($result_mpn = $getInBillByMPN->fetch_assoc()){
 								
 					?>
                     <div class="row" style="margin:10px">
                     	<div class="col-lg-3 " style="color:#0CF"><b>MÃ PHIẾU NHẬP<b></div>
-                        <div class="col-lg-9"><?php echo $result['MPN']; ?></div>
+                        <div class="col-lg-9"><?php echo $result_mpn['MPN']; ?></div>
                     </div>
                     <div class="row" style="margin:10px">
                     	<div class="col-lg-3" style="color:#0CF"><b>MÃ XƯỞNG CUNG CẤP<b></div>
-                        <div class="col-lg-9"><?php echo $result['MXCC']; ?></div>
+                        <div class="col-lg-9"><?php echo $result_mpn['MXCC']; ?></div>
                     </div>
                     <div class="row" style="margin:10px">
                     	<div class="col-lg-3" style="color:#0CF"><b>NGÀY NHẬP HÀNG<b></div>
-                        <div class="col-lg-9"><?php echo $result['NGAY_NHAP_HANG']; ?></div>
+                        <div class="col-lg-9"><?php echo $result_mpn['NGAY_NHAP_HANG']; ?></div>
                     </div>
                    <div class="row" style="margin:10px">
                     	<div class="col-lg-3" style="color:#0CF"><b>TỔNG SỐ LƯỢNG<b></div>
-                        <div class="col-lg-9"><?php echo $result['TONG_SO_LUONG']; ?></div>
+                        <div class="col-lg-9"><?php echo $result_mpn['TONG_SO_LUONG']; ?></div>
                     </div>
                     <div class="row" style="margin:10px">
                     	<div class="col-lg-3" style="color:#0CF"><b>TỔNG TIỀN<b></div>
-                        <div class="col-lg-9"><?php echo $result['TONG_TIEN']; ?></div>
+                        <div class="col-lg-9"><?php echo $result_mpn['TONG_TIEN']; ?></div>
                     </div>
-					<?php
-						
-					}
-				}
-					?>
+					
 			</div>
             <div class="panel-body">
 						<table class="table table-hover table-active" >
@@ -191,12 +187,18 @@
                         	
                         </div>
                         <div class="col-lg-2" style="margin:7px">
-                       		<a href="ql_chitietphieunhap.php"> <input type="button" class="btn btn-secondary btn btn-success" style="margin-left:5px" value="Thêm chi tiết"/>
+                       		<a href="ql_chitietphieunhap.php?MPN=<?php echo $result_mpn['MPN']; ?>"> <input type="button" class="btn btn-secondary btn btn-success" style="margin-left:5px" value="Thêm chi tiết"/>
                         </div>
                          <div class="col-lg-1" style="margin:9px">
                         </div>
                     </div>
+					<?php
+						
+					}
+				}
+					?>
 				</div>
+
 		</div>
 		
 		<!--/.row-->	

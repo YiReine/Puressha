@@ -3,6 +3,26 @@
 	$order = new donhang();
 	$orderDetail = new chitietdonhang();
 	$mdh = $_GET['MDH'];
+	$button = $_GET['BUTTON'];
+	if(isset($_GET['BUTTON'])){
+		switch($_GET['BUTTON']){
+			case "confirm":
+				{
+					$order->xulyDonHang($mdh);		
+					break;
+				}
+			case "destroy":
+				{
+					$order->huyDonHang($mdh);		
+					break;
+				}
+			case "recall":
+				{
+					$order->thuhoiDonHang($mdh);		
+					break;
+				}
+		}		
+	}
 
 ?> 
 <!DOCTYPE html>
@@ -136,10 +156,7 @@
                     	<div class="col-lg-3" style="color:#0CF"><b>TỔNG TIỀN<b></div>
                         <div class="col-lg-9"><?php echo $result_getOrderByMDH['TONG_TIEN']; ?></div>
                     </div>	
-					<?php 
-					}
-						}
-						?>
+					
 					</div>
 					<div class="panel-body">
 						<table class="table table-hover table-active" >
@@ -186,21 +203,25 @@
 						</table>
 					</div>
                     <div class="row">
-                        <div class="col-lg-2 " style="margin:5px; ">
+                        <div class="col-lg-2 " style="margin:5px;">
                         	<a href="donhang.php"><input type="button" class="btn btn-secondary btn btn-danger"  style="margin-left:20px"value="Quay lại"/>
                         </div>
                         <div class="col-lg-6"></div>
-                        <div class="col-lg-1" style="margin:7px">
-                       		<input type="button" class="btn btn-secondary btn btn-success"  value="Xác nhận"/>
+                        <div class="col-lg-1" style="margin:5px">
+                       		<a href="chitietdonhang.php?BUTTON=confirm&MDH=<?php echo $result_getOrderByMDH['MDH']; ?>"><input type="button" class="btn btn-secondary btn btn-success"  value="Xác nhận"<?php if($result_getOrderByMDH['TRANG_THAI']!='Chưa xử lý') echo 'disabled';?>/></a>
                         </div>
-                        <div class="col-lg-1" style="margin:8px">
-                       		<input type="button" class="btn btn-secondary btn btn-info" value="Hủy đơn"/>
+                        <div class="col-lg-1" style="margin:5px">
+						<a href="chitietdonhang.php?BUTTON=destroy&MDH=<?php echo $result_getOrderByMDH['MDH']; ?>"><input type="button" class="btn btn-secondary btn btn-info"  value="Hủy đơn"<?php if($result_getOrderByMDH['TRANG_THAI']!='Chưa xử lý') echo 'disabled';?>/></a>
                         </div>
-                         <div class="col-lg-1" style="margin:9px">
-                       		<input type="button" class="btn btn-secondary btn btn-warning" value="Thu hồi đơn"/>
-                        </div>
-                    </div>
+                         <div class="col-lg-1" style="margin:5px">
+						 <a href="chitietdonhang.php?BUTTON=recall&MDH=<?php echo $result_getOrderByMDH['MDH']; ?>"><input type="button" class="btn btn-secondary btn btn-warning"  value="Thu hồi đơn"<?php if($result_getOrderByMDH['TRANG_THAI']!='Giao thất bại') echo 'disabled';?>/></a>
+                        </div>						
+                    </div>					
 				</div>
+				<?php 
+					}
+						}
+						?>
 		</div>
 		
 		<!--/.row-->	

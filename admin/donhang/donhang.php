@@ -189,7 +189,7 @@
                                                         <td> <?php echo $result['TRANG_THAI']; ?></td>
                                                         <td> <?php echo $result['TONG_TIEN']; ?></td>
                                                         <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
+														<a href="chitietdonhang.php?MDH=<?php echo $result['MDH'];?>"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
                                                      </td>
                                                      </tr>
                                                      <?php 
@@ -236,7 +236,7 @@
                                                         <td> <?php echo $result['TRANG_THAI']; ?></td>
                                                         <td> <?php echo $result['TONG_TIEN']; ?></td>
                                                         <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
+                                                        <a href="chitietdonhang.php?MDH=<?php echo $result['MDH'];?>"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
                                                      </td>
                                                      </tr>
                                                      <?php 
@@ -283,7 +283,7 @@
                                                         <td> <?php echo $result['TRANG_THAI']; ?></td>
                                                         <td> <?php echo $result['TONG_TIEN']; ?></td>
                                                         <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
+                                                        <a href="chitietdonhang.php?MDH=<?php echo $result['MDH'];?>"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
                                                      </td>
                                                      </tr>
                                                      <?php 
@@ -330,7 +330,7 @@
                                                         <td> <?php echo $result['TRANG_THAI']; ?></td>
                                                         <td> <?php echo $result['TONG_TIEN']; ?></td>
                                                         <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
+														<a href="chitietdonhang.php?MDH=<?php echo $result['MDH'];?>"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
                                                      </td>
                                                      </tr>
                                                      <?php 
@@ -377,7 +377,7 @@
                                                         <td> <?php echo $result['TRANG_THAI']; ?></td>
                                                         <td> <?php echo $result['TONG_TIEN']; ?></td>
                                                         <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
+														<a href="chitietdonhang.php?MDH=<?php echo $result['MDH'];?>"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
                                                      </td>
                                                      </tr>
                                                      <?php 
@@ -424,7 +424,7 @@
                                                         <td> <?php echo $result['TRANG_THAI']; ?></td>
                                                         <td> <?php echo $result['TONG_TIEN']; ?></td>
                                                         <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
+                                                        <a href="chitietdonhang.php?MDH=<?php echo $result['MDH'];?>"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
                                                      </td>
                                                      </tr>
                                                      <?php 
@@ -471,7 +471,7 @@
                                                         <td> <?php echo $result['TRANG_THAI']; ?></td>
                                                         <td> <?php echo $result['TONG_TIEN']; ?></td>
                                                         <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
+                                                        <a href="chitietdonhang.php?MDH=<?php echo $result['MDH'];?>"><input type="button" class="btn btn-secondary btn btn-warning" value="Xem">
                                                      </td>
                                                      </tr>
                                                      <?php 

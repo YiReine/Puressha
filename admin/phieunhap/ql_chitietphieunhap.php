@@ -1,3 +1,16 @@
+<?php include("../../handleData/classes/chitietphieunhap.php");
+
+include("../../handleData/classes/phieunhap.php");
+	$inBill = new phieunhap();
+	$detailInBill = new chitietphieunhap();
+	$mpn=$_GET['MPN'];
+	 
+	if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['button'])) {
+        			
+		$insertDetailInBill = $detailInBill->themChiTietPhieuNhap($_POST);						
+					
+	 }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,41 +107,50 @@
 		</div><!--/.row-->
 		<div class="row">
 			<div class="col-lg-12">
+				<?php if(isset($insertDetailInBill)){
+					echo $insertDetailInBill;
+				}
+				$getInBillByMPN = $inBill->getByMPN($mpn);
+						if($getInBillByMPN){
+							while($result_mpn = $getInBillByMPN->fetch_assoc()){
+				?>
 			   <form method="post">
 				  <div class="form-group row">
 					 <label  class="col-sm-2 col-form-label">MÃ PHIẾU NHẬP</label>
 					 <div class="col-sm-10">
-						<input type="Text" class="form-control" name="idD" placeholder="Mã phiếu nhập" disabled >
+						<input type="Text" class="form-control" name="MPN" value="<?php echo $result_mpn['MPN']; ?>" >
 					 </div>
 				  </div>
 				  <div class="form-group row">
 					 <label  class="col-sm-2 col-form-label">MÃ CHI TIẾT SẢN PHẨM</label>
 					 <div class="col-sm-10">
-						<input type="text" class="form-control" name="type" placeholder="Mã chi tiết sản phẩm">
+						<input type="text" class="form-control" name="MCTSP" value="">
 					 </div>
 				  </div>
                   <div class="form-group row">
 					 <label  class="col-sm-2 col-form-label">GIÁ NHẬP</label>
 					 <div class="col-sm-10">
-						<input type="text" class="form-control" name="qty"  placeholder="Giá nhập">
+						<input type="text" class="form-control" name="GIA_NHAP" value="">
 					 </div>
 				  </div>
                   <div class="form-group row">
 					 <label  class="col-sm-2 col-form-label">SỐ LƯỢNG</label>
 					 <div class="col-sm-10">
-						<input type="number" class="form-control" name="qty"  placeholder="Số lượng">
+						<input type="number" class="form-control" name="SO_LUONG" value="">
 					 </div>
 				  </div>
                    <div class="form-group row">
 					 <label  class="col-sm-2 col-form-label">THÀNH TIỀN</label>
 					 <div class="col-sm-10">
-						<input type="text" class="form-control" name="qty"  placeholder="Thành tiền">
+						<input type="text" class="form-control" name="THANH_TIEN" value="">
 					 </div>
 				  </div>
+				  <?php }
+				  } ?>
                   
 				 <div class="row">
 						<div class="col-lg-2 " style="margin:5px; ">
-                        	<a href="chitietphieunhap.php"> <input type="button" class="btn btn-secondary btn btn-danger" value="Cancel"/>
+                        	<a href="phieunhap.php"> <input type="button" class="btn btn-secondary btn btn-danger" value="Cancel"/></a>
                         </div>
                         <div class="col-lg-6"></div>
                         <div class="col-lg-1" style="margin:7px">
@@ -138,7 +160,7 @@
                        		
                         </div>
                          <div class="col-lg-1" style="margin:9px">	
-                         <input type="button" class="btn btn-secondary btn btn-success" value="Save"/>
+                         <input type="submit" name="button" class="btn btn-secondary btn btn-success" value="Save"/>
                         </div>
 				  </div>
 			   </form>       
@@ -149,14 +171,14 @@
 		
 	</div><!--/.main-->
 
-	<script src="js/jquery-1.11.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/chart.min.js"></script>
-	<script src="js/chart-data.js"></script>
-	<script src="js/easypiechart.js"></script>
-	<script src="js/easypiechart-data.js"></script>
-	<script src="js/bootstrap-datepicker.js"></script>
-	<script src="js/bootstrap-table.js"></script>
+	<script src="../js/jquery-1.11.1.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/chart.min.js"></script>
+	<script src="../js/chart-data.js"></script>
+	<script src="../js/easypiechart.js"></script>
+	<script src="../js/easypiechart-data.js"></script>
+	<script src="../js/bootstrap-datepicker.js"></script>
+	<script src="../js/bootstrap-table.js"></script>
 	<script>
 		!function ($) {
 			$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  

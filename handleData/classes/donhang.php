@@ -91,7 +91,7 @@
 			}
 		
         //Xóa đơn hàng
-		public function huyDonHang($MDH){
+		public function xoaDonHang($MDH){
 			$query = "DELETE FROM don_hang where MDH = '$MDH'";
 			$result = $this->db->delete($query);
 			if($result){
@@ -126,13 +126,27 @@
 		}
 
         //xử lý đơn hàng
-        public function xulyDonHang(){
-            //code
+        public function xulyDonHang($MDH){
+            $query = "UPDATE don_hang SET
+			TRANG_THAI = 'Đã xử lý'
+			WHERE MDH = '$MDH'";	
+			$result = $this->db->update($query);
         }
 
         //thu hồi đơn hàng
-        public function thuhoiDonHang(){
-            //code
+        public function thuhoiDonHang($MDH){
+			$query = "UPDATE don_hang SET
+			TRANG_THAI = 'Đã thu hồi'
+			WHERE MDH = '$MDH'";	
+			$result = $this->db->update($query);
+        }
+
+		//hủy đơn hàng
+		public function huyDonHang($MDH){
+			$query = "UPDATE don_hang SET
+			TRANG_THAI = 'Đã hủy'
+			WHERE MDH = '$MDH'";	
+			$result = $this->db->update($query);
         }
 	}
 ?>
