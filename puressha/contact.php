@@ -31,7 +31,7 @@ $amount=0;
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
-    <title>Essence</title>
+    <title>Puressha</title>
 
    <!-- Favicon  -->
     <link rel="icon" href="img/core-img/letter-p.png">
