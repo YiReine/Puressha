@@ -188,13 +188,30 @@
 		} 
 
         //Thêm số lượng
-        public function themSL(){
-            //code
+        public function themSL($MCTSP, $SL){
+			$getSL="SELECT SO_LUONG FROM chi_tiet_san_pham WHERE MCTSP='$MCTSP'";
+            $result_getSL=$this->db->select($getSL);
+			$sl=$result_getSL->fetch_assoc();
+
+			$query="UPDATE chi_tiet_san_pham SET
+					SO_LUONG = ".($sl["SO_LUONG"] + $SL)."
+					WHERE MCTSP = '$MCTSP'";
+			$result = $this->db->update($query);
+			return $result;
         }
 
-        //Thêm số lượng
-        public function giamSL(){
-            //code
+        //Giảm số lượng
+        public function giamSL($MCTSP, $SL){
+			$getSL="SELECT SO_LUONG FROM chi_tiet_san_pham WHERE MCTSP='$MCTSP'";
+            $result_getSL=$this->db->select($getSL);
+			$sl=$result_getSL->fetch_assoc();
+
+			$query="UPDATE chi_tiet_san_pham SET
+					SO_LUONG = ".($sl["SO_LUONG"] - $SL)."
+					WHERE MCTSP = '$MCTSP'";
+			$result = $this->db->update($query);
+			return $result;
+		
         }
 	}
 ?>

@@ -143,7 +143,7 @@
                                 <th> Hình ảnh </th>
                                 <th >Size</th>
                                 <th >Màu sắc</th>
-                                <th >Giá bán</th>
+                                <th >Giá nhập</th>
                                 <th >Số lượng</th>
                                 <th >Tổng tiền</th>
 						    </tr>
@@ -164,9 +164,9 @@
                                    <td><img src="../../puressha/img/product-img/<?php echo $result['ANH'];?>" style="width: 120px; height:150px;"></td>
                                    <td><?php echo $result['SIZE']; ?></td>
                                    <td><?php echo $result['MAU_SAC']; ?></td>
-                                   <td><?php echo $result['GIA_BAN']; ?></td>
+                                   <td><?php echo $result['GIA_NHAP']; ?></td>
                                    <td><?php echo $result['SO_LUONG']; ?></td>
-                                   <td><?php $TOTAL = $result['GIA_BAN'] * $result['SO_LUONG'];
+                                   <td><?php $TOTAL = $result['GIA_NHAP'] * $result['SO_LUONG'];
 								   			 echo $TOTAL;
 										?></td>
                               </tr>

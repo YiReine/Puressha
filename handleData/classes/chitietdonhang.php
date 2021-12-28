@@ -66,7 +66,7 @@
 
 		public function getCTSPByMDH($MDH){
 			$query = "SELECT san_pham.MSP, chi_tiet_san_pham.ANH, san_pham.TEN, chi_tiet_san_pham.SIZE,
-								chi_tiet_san_pham.MAU_SAC, chi_tiet_san_pham.GIA_BAN, chi_tiet_san_pham.SO_LUONG
+								chi_tiet_san_pham.MAU_SAC, chi_tiet_don_hang.GIA_BAN, chi_tiet_don_hang.SO_LUONG
 						FROM san_pham, chi_tiet_san_pham, chi_tiet_don_hang
 						WHERE chi_tiet_san_pham.MCTSP = chi_tiet_don_hang.MCTSP AND
 								chi_tiet_don_hang.MDH = '$MDH' AND

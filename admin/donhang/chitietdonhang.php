@@ -1,6 +1,8 @@
 <?php include("../../handleData/classes/chitietdonhang.php");
+	include("../../handleData/classes/chitietsanpham.php");
 	include("../../handleData/classes/donhang.php");
 	$order = new donhang();
+	$detailProduct = new chitietsanpham();
 	$orderDetail = new chitietdonhang();
 	$mdh = $_GET['MDH'];
 	$button = $_GET['BUTTON'];
@@ -8,7 +10,14 @@
 		switch($_GET['BUTTON']){
 			case "confirm":
 				{
-					$order->xulyDonHang($mdh);		
+					$order->xulyDonHang($mdh);
+					$getByMDH=$orderDetail->getAll($mdh);
+					if($getByMDH){
+						while($result_getByMDH=$getByMDH->fetch_assoc()){
+						
+							$detailProduct->giamSL($result_getByMDH['MCTSP'],$result_getByMDH['SO_LUONG']);	
+						}
+					}
 					break;
 				}
 			case "destroy":
@@ -18,9 +27,16 @@
 				}
 			case "recall":
 				{
-					$order->thuhoiDonHang($mdh);		
+					$order->thuhoiDonHang($mdh);	
+					$getByMDH=$orderDetail->getAll($mdh);
+					if($getByMDH){
+						while($result_getByMDH=$getByMDH->fetch_assoc()){
+							$detailProduct->themSL($result_getByMDH['MCTSP'],$result_getByMDH['SO_LUONG']);	
+						}
+					}	
 					break;
 				}
+			
 		}		
 	}
 

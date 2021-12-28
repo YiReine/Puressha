@@ -22,9 +22,9 @@
 			$MCTSP = mysqli_real_escape_string($this->db->link, $data['MCTSP']);
 			$GIA_NHAP = mysqli_real_escape_string($this->db->link, $data['GIA_NHAP']);
 			$SO_LUONG = mysqli_real_escape_string($this->db->link, $data['SO_LUONG']);
-			$THANH_TIEN = mysqli_real_escape_string($this->db->link, $data['THANH_TIEN']);
+			$THANH_TIEN = $SO_LUONG * $GIA_NHAP;
 
-			if($MCTSP=="" || $GIA_NHAP=="" || $SO_LUONG==""){
+			if($MCTSP=="" || $SO_LUONG==""){
 				$alert = "Các trường không được để trống";
 				return $alert;
 			}					
@@ -99,7 +99,7 @@
 		}
 		public function getCTPNByMPN($MPN){
 			$query = "SELECT san_pham.MSP, chi_tiet_san_pham.ANH, san_pham.TEN, chi_tiet_san_pham.SIZE, phieu_nhap.MXCC,
-								chi_tiet_san_pham.MAU_SAC, chi_tiet_san_pham.GIA_BAN, chi_tiet_san_pham.SO_LUONG
+								chi_tiet_san_pham.MAU_SAC, chi_tiet_phieu_nhap.GIA_NHAP, chi_tiet_san_pham.SO_LUONG
 						FROM san_pham, chi_tiet_san_pham, chi_tiet_phieu_nhap, phieu_nhap
 						WHERE chi_tiet_san_pham.MSP = san_pham.MSP AND
 								phieu_nhap.MPN = '$MPN' AND

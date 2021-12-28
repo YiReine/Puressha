@@ -1,15 +1,26 @@
 <?php include("../../handleData/classes/chitietphieunhap.php");
-
+include("../../handleData/classes/chitietsanpham.php");
 include("../../handleData/classes/phieunhap.php");
 	$inBill = new phieunhap();
 	$detailInBill = new chitietphieunhap();
+	$detailProduct = new chitietsanpham();
+	$mctsp = $_POST['MCTSP'];
 	$mpn=$_GET['MPN'];
-	 
+
+	 $get_ByMCTSP = $detailProduct->getByMCTSP($mctsp);
+	 if($get_ByMCTSP){
+		$result_MCTSP = $get_ByMCTSP->fetch_assoc();
+	 }
+	 $getGiaNhap = $result_MCTSP['GIA_NHAP'];
+	$info_ctpn=array('MPN'=>$_POST['MPN'], 'MCTSP'=>$_POST['MCTSP'],
+	 'GIA_NHAP'=>$getGiaNhap, 'SO_LUONG'=>$_POST['SO_LUONG']);
+
 	if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['button'])) {
         			
-		$insertDetailInBill = $detailInBill->themChiTietPhieuNhap($_POST);						
+		$insertDetailInBill = $detailInBill->themChiTietPhieuNhap($info_ctpn);						
 					
 	 }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -127,24 +138,14 @@ include("../../handleData/classes/phieunhap.php");
 						<input type="text" class="form-control" name="MCTSP" value="">
 					 </div>
 				  </div>
-                  <div class="form-group row">
-					 <label  class="col-sm-2 col-form-label">GIÁ NHẬP</label>
-					 <div class="col-sm-10">
-						<input type="text" class="form-control" name="GIA_NHAP" value="">
-					 </div>
-				  </div>
+                  
                   <div class="form-group row">
 					 <label  class="col-sm-2 col-form-label">SỐ LƯỢNG</label>
 					 <div class="col-sm-10">
 						<input type="number" class="form-control" name="SO_LUONG" value="">
 					 </div>
 				  </div>
-                   <div class="form-group row">
-					 <label  class="col-sm-2 col-form-label">THÀNH TIỀN</label>
-					 <div class="col-sm-10">
-						<input type="text" class="form-control" name="THANH_TIEN" value="">
-					 </div>
-				  </div>
+                   
 				  <?php }
 				  } ?>
                   

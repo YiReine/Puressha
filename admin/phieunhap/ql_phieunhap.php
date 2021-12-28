@@ -142,7 +142,7 @@
 					}
 						?>  
                     <form action="ql_phieunhap.php" method="post" enctype="multipart/form-data" >
-                    <div class="row" style="margin:10px">
+					<div class="row" style="margin:10px; margin-bottom:20px;">
                     	<div class="col-lg-3 " style="color:#0CF"><b> MÃ PHIẾU NHẬP<b></div>
                         <div class="col-lg-9">
                         	<input type="Text" class="form-control" name="MPN" value="<?php 
@@ -150,7 +150,7 @@
 								echo $result_getInBillByMPN['MPN'];
 							}							
 							 ?>">
-                    </div>
+                    </div> </div>
                     <div class="row" style="margin:10px; margin-bottom:20px;">
                     	<div class="col-lg-3 " style="color:#0CF"><b>NGÀY NHẬP HÀNG<b></div>
                         <div class="col-lg-9">
@@ -183,13 +183,18 @@
                         </div>
                     </div>
                    <div class="row" style="margin:10px">
-                    	<div class="col-lg-3" style="color:#0CF"><b>TỔNG TIỀN<b></div>
+                    	<div class="col-lg-3" style="color:#0CF"><b><?php if($flag == 1){
+								echo 'TỔNG TIÊN';
+							}	 ?><b></div>
                         <div class="col-lg-9"><?php if($flag == 1){
 								echo $result_getInBillByMPN['TONG_TIEN'];
-							}	 ?></div>
+							}
+								 ?></div>
                     </div>
                    <div class="row" style="margin:10px">
-                    	<div class="col-lg-3" style="color:#0CF"><b>TỔNG SỐ LƯỢNG<b></div>
+                    	<div class="col-lg-3" style="color:#0CF"><b><?php if($flag == 1){
+								echo 'TỔNG_SỐ LƯỢNG';
+							}	 ?><b></div>
                         <div class="col-lg-9"><?php if($flag == 1){
 								echo $result_getInBillByMPN['TONG_SO_LUONG'];
 							}	 ?></div>
