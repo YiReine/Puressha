@@ -33,8 +33,8 @@ $amount=0;
     <!-- Title  -->
     <title>Essence</title>
 
-    <!-- Favicon  -->
-    <link rel="icon" href="img/core-img/favicon.ico">
+   <!-- Favicon  -->
+    <link rel="icon" href="img/core-img/letter-p.png">
 
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="css/core-style.css">
@@ -49,7 +49,7 @@ $amount=0;
             <!-- Classy Menu -->
             <nav class="classy-navbar" id="essenceNav">
                 <!-- Logo -->
-                <a class="nav-brand" href="index.php"><img src="img/core-img/logo.png" alt=""></a>
+                <a class="nav-brand" href="index.php"><img src="img/core-img/logo6.png"  alt="" width="144" height="127"></a>
                 <!-- Navbar Toggler -->
                 <div class="classy-navbar-toggler">
                     <span class="navbarToggler"><span></span><span></span><span></span></span>
@@ -101,7 +101,7 @@ $amount=0;
                     </ul>
 					<ul class="dropdown" style="<?php if(!$user) echo'display: none'?>">
                                     <li></li>
-                                    <li><a href="index.php">Profile</a></li>
+                                    <li><a href="../customer/profile.php">Profile</a></li>
                                     <li><a><form method="post" >
 										<input style="border: 0; background: white" type="submit" name="submit" value="Logout"></form></a></li>
                     </ul></li></ul>

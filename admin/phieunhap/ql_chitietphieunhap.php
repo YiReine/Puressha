@@ -1,6 +1,9 @@
-<?php include("../../handleData/classes/chitietphieunhap.php");
+<?php 
+include("../../handleData/classes/chitietphieunhap.php");
 include("../../handleData/classes/chitietsanpham.php");
 include("../../handleData/classes/phieunhap.php");
+include("../../handleData/classes/sanpham.php");
+	$prod = new sanpham();
 	$inBill = new phieunhap();
 	$detailInBill = new chitietphieunhap();
 	$detailProduct = new chitietsanpham();
@@ -17,7 +20,10 @@ include("../../handleData/classes/phieunhap.php");
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['button'])) {
         			
-		$insertDetailInBill = $detailInBill->themChiTietPhieuNhap($info_ctpn);						
+		$insertDetailInBill = $detailInBill->themChiTietPhieuNhap($info_ctpn);
+		$detailProduct->themSL($_POST['MCTSP'],$_POST['SO_LUONG']);
+		$inBill->setTongSL();
+		$prod->setTongSL();	
 					
 	 }
 
@@ -27,11 +33,14 @@ include("../../handleData/classes/phieunhap.php");
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Puressha - QLCTDH</title>
+<title>Puressha - QLCTPN</title>
 
 <link href="../css/bootstrap.min.css" rel="stylesheet">
 <link href="../css/datepicker3.css" rel="stylesheet">
 <link href="../css/styles.css" rel="stylesheet">
+
+<!-- Favicon  -->
+<link rel="icon" href="../../puressha/img/core-img/letter-p2.png">
 
 <!--Icons-->
 <script src="../js/lumino.glyphs.js"></script>

@@ -1,26 +1,21 @@
+
 <?php
 include("../handleData/helpers/format.php");
 $fm = new Format();
 
 include("../handleData/classes/sanpham.php");
 include("../handleData/classes/chitietsanpham.php");
-include("myHelper.php");
-
-$user = confirmLogin();
-
+include("../puressha/myHelper.php"); 
+//$user = confirmLogin();
 
 $prod = new sanpham();
-$product = $prod->getAll();
-
 $prodD = new chitietsanpham();
-
-
 
 if(checkCart()){
 	$cart = $_SESSION["cart"];
 	$check = 1;
 }
-else $check = 0;
+else $check = 0; 
 
 $total=0;
 $amount=0;
@@ -38,12 +33,12 @@ $amount=0;
     <!-- Title  -->
     <title>Essence</title>
 
-   <!-- Favicon  -->
-    <link rel="icon" href="img/core-img/letter-p.png">
+    <!-- Favicon  -->
+    <link rel="icon" href="../puressha/img/core-img/letter-p.png">
 
     <!-- Core Style CSS -->
-    <link rel="stylesheet" href="css/core-style.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../puressha/css/core-style.css">
+    <link rel="stylesheet" href="../puressha/style.css">
 
 </head>
 
@@ -54,7 +49,7 @@ $amount=0;
             <!-- Classy Menu -->
             <nav class="classy-navbar" id="essenceNav">
                 <!-- Logo -->
-                <a class="nav-brand" href="index.php"><img src="img/core-img/logo6.png"  alt="" width="144" height="127"></a>
+                <a class="nav-brand" href="../puressha/index.php"><img src="../puressha/img/core-img/logo6.png"  alt="" width="144" height="127"></a>
                 <!-- Navbar Toggler -->
                 <div class="classy-navbar-toggler">
                     <span class="navbarToggler"><span></span><span></span><span></span></span>
@@ -68,18 +63,18 @@ $amount=0;
                     <!-- Nav Start -->
                     <div class="classynav">
                         <ul>
-                            <li><a href="shop.php">Shop</a>
+                            <li><a href="../puressha/shop.php">Shop</a>
                                 <div class="megamenu">
                                     <ul class="single-mega cn-col-4">
-                                        <li><a href="shop.php">Danh mục</a></li>
+                                        <li><a href="../puressha/shop.php">Danh mục</a></li>
                                     </ul>
                                     <div class="single-mega cn-col-4">
-                                        <img src="img/bg-img/bg-6.jpg" alt="">
+                                        <img src="../puressha/img/bg-img/bg-6.jpg" alt="">
                                     </div>
                                 </div>
                             </li>
-                            <li><a href="order.php" style="<?php if(!$user) echo'display: none'?>">Order</a></li>
-                            <li><a href="contact.php">Contact</a></li>
+                            <li><a href="../puressha/order.php" style="<?php if(!$user) echo'display: none'?>">Order</a></li>
+                            <li><a href="../puressha/contact.php">Contact</a></li>
                         </ul>
                     </div>
                     <!-- Nav End -->
@@ -90,7 +85,7 @@ $amount=0;
             <div class="header-meta d-flex clearfix justify-content-end">
                 <!-- Search Area -->
                 <div class="search-area">
-                    <form action="shop.php" method="get">
+                    <form action="../puressha/shop.php" method="get">
                         <input type="text" name="search" placeholder="Nhập từ khóa cần tìm" value =
                     "<?php if(isset($_GET["search"])) { echo $_GET["search"]; } ?>">
                         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
@@ -100,29 +95,29 @@ $amount=0;
                 
                 <!-- User Login Info -->
                 <div class="user-login-info classynav">
-                    <ul><li><a href="#"><img src="img/core-img/user.svg" alt=""></a>
+                    <ul><li><a href="#"><img src="../puressha/img/core-img/user.svg" alt=""></a>
 					<ul class="dropdown" style="<?php if($user) echo'display: none'?>">
-                                    <li><a href="../customer/login.php">Login</a></li>
-                                    <li><a href="../customer/register.php">Register</a></li>
+                                    <li><a href="login.php">Login</a></li>
+                                    <li><a href="register.php">Register</a></li>
                     </ul>
 					<ul class="dropdown" style="<?php if(!$user) echo'display: none'?>">
                                     <li></li>
-                                    <li><a href="../customer/profile.php">Profile</a></li>
+                                    <li><a href="../puressha/index.php">Profile</a></li>
                                     <li><a><form method="post" >
 										<input style="border: 0; background: white" type="submit" name="submit" value="Logout"></form></a></li>
                     </ul></li></ul>
                 </div>
 				<?php 
-				include("../customer/logout.php");
+				include("logout.php");
 				?>
                 <!-- Cart Area -->
                 <div class="cart-area">
-                    <a href="#" id="essenceCartBtn"><img src="img/core-img/bag.svg" alt=""> <span><?php echo count($cart)?></span></a>
+                    <a href="#" id="essenceCartBtn"><img src="../puressha/img/core-img/bag.svg" alt=""> <span><?php echo count($cart)?></span></a>
                 </div>
             </div>
 
         </div>
-    </header>
+</header>
     <!-- ##### Header Area End ##### -->
 
     <!-- ##### Right Side Cart Area ##### -->
@@ -132,8 +127,8 @@ $amount=0;
 
         <!-- Cart Button -->
         <div class="cart-button">
-            <a href="#" id="rightSideCart"><img src="img/core-img/bag.svg" alt=""> <span><?php echo count($cart)?></span></a>
-        </div>
+            <a href="#" id="rightSideCart"><img src="../puressha/img/core-img/bag.svg" alt=""> <span><?php echo count($cart)?></span></a>
+    </div>
 
         <div class="cart-content d-flex">
 
@@ -191,87 +186,81 @@ $amount=0;
         </div>
     </div>
     <!-- ##### Right Side Cart End ##### -->
-   
 
-    <!-- ##### Single Product Details Area Start ##### -->
-    <?php            
-                $msp = $_GET['MSP'];
-                // lấy chi tiết sản phẩm theo mã sản phẩm
-                $detail = $prodD -> getAll($msp);
-                $i=0; 
-                       
-                while ($pD = $detail-> fetch_assoc()) {
-                    $arrayCT [$i] = array($pD['SIZE'],$pD['GIA_BAN'],$pD['MAU_SAC'],$pD['ANH'],$pD['MCTSP']);
-                    $i++;
-                }         
-                // lấy sản phẩm theo mã sản phẩm
-                $product = $prod->getByMSP($msp);  
-                $pd =  $product->fetch_assoc();
-    ?>
-<section class="single_product_details_area d-flex align-items-center">
+    <!-- ##### Blog Wrapper Area Start ##### -->
+    <div class="single-blog-wrapper">
 
-<!-- Single Product Thumb -->
-<div class="single_product_thumb clearfix">
-    <div class="product_thumbnail_slides owl-carousel">
-        <?php
-            foreach ( $arrayCT as $act){
-                echo '<img src="img/product-img/'.$act[3].'" alt="">';
-                echo '<img src="img/product-img/'.$act[3].'" alt="">';
-            }
-        ?>
-    </div>
-</div>
-
-<!-- Single Product Description -->
-<div class="single_product_desc clearfix">
-    
-    <a href="cart.html">
-        <h2><?php echo $pd['TEN']; ?></h2>
-    </a>
-
-    <p class="product-price"><?php echo $fm->format_currency($arrayCT[0][1]);?> VNĐ</p>
-    <p class="product-desc"><?php echo $pd['MO_TA']; ?></p>
-
-    <!-- Form -->
-    <form class="cart-form clearfix" method="post">
-        <!-- Select Box -->
-        <div class="select-box d-flex mt-50 mb-30">
-            <select name="select" id="productSize" class="mr-5">
-         <?php   foreach ( $arrayCT as $act){
-                echo '<option value="'.$act[0].'">'.$act[0].'</option>';              
-            }
-            ?>
-            </select>
-            <select name="select" id="productColor">
-            <?php   foreach ( $arrayCT as $act){
-                echo '<option value="'.$act[2].'">'.$act[2].'</option>';              
-            }
-            ?>
-                
-            </select>
+        <!-- Single Blog Post Thumb -->
+        <div class="single-blog-post-thumb">
+            <img src="../puressha/img/bg-img/bg-8.jpg" alt="">
         </div>
-        <!-- Cart & Favourite Box -->
-        <div class="cart-fav-box d-flex align-items-center">
-            <!-- Cart -->
-            <input type="hidden" name="prod" value="<?php echo $msp ?>">
-                <input type="hidden" name="prodD" value="<?php echo $arrayCT[0][4] ?>">
-                <input class="btn essence-btn" type="submit" name="button" value="Add to Cart">
-            <!-- Favourite -->
-            <div class="product-favourite ml-4">
-                <a href="#" class="favme fa fa-heart"></a>
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8">
+                    <div class="regular-page-content-wrapper section-padding-80">
+                        <div class="regular-page-text" >
+							<div class="row">
+							<p class="col-4" style="color: #3404D7; height:3px;">TÊN</p>
+								<p class="col-8"><?php?><input type="Text" class="col-8" name="idD" placeholder="Tên"> </p>     
+							</div>
+							
+							<div class="row">
+							<p class ="col-4" style="color: #3404D7; height:3px;">NGÀY SINH</p>
+								
+                        		<p class="col-8"><?php?><input type="Text" class="col-8" name="idD" placeholder="Ngày sinh"> </p> 
+                        		
+							</div>
+							<div class="row">
+							<p class="col-4" style="color: #3404D7">SỐ ĐIỆN THOẠI</p>
+								<p class="col-8"><?php?><input type="Text" class="col-8" name="idD" placeholder="Số điẹn thoại"> </p>
+							</div>
+							<div class="row">
+							<p class="col-4" style="color: #3404D7">GIỚI TÍNH</p>
+								<p class="col-8">
+                        		<input  type="radio" name="checkout" id="gt" value="nam">
+                           		 <label for="gt">Nam</label>
+                        		<input  style="margin-left:20px;" type="radio" name="checkout" id="gt" value="nu" checked>
+                           	 	<label for="gt">Nữ</label>
+                       			 </p>
+							</div>
+							<div class="row">
+							<p class="col-4" style="color: #3404D7">ĐỊA CHỈ</p>
+								<p class="col-8">
+                        		<input type="Text" class="col-8" name="idD" placeholder="Địa chỉ">
+                        		</p>
+							</div>
+							<div class="row">
+								<p class="col-4" style="color: #3404D7">MẬT KHẨU</p>
+								<p class="col-8">
+                        		<input type="password" class="col-8" name="idD" placeholder="Mật khẩu">
+                        		</p>
+							</div>
+							
+                      </div>
+                       <div class="row">
+                        <div class="col-lg-5 col-sm-3" style="margin:8px; ">
+                        	<a href="#"><input type="button" class="btn btn-secondary btn btn-danger"  value="Cancel"/>
+                        </div>
+                        <div class="col-lg-2 col-sm-2" style="margin:8px">
+                       		<a href="Change_password.php"><input type="button" class="btn btn-secondary btn btn-info" value="Đổi mật khẩu"/>
+                        </div>
+                         <div class="col-lg-2 col-sm-2" style="margin:8px">	
+                         	<input type="button" class="btn btn-secondary btn btn-success" value="Save"/>
+                        </div>
+                  
+                    </div>
+                    
+                    </div>
+                </div>
             </div>
+			
         </div>
-    </form>
-</div>
-</section>
-        
-   
-  
-    
-    <!-- ##### Single Product Details Area End ##### -->
+    </div>
+    <!-- ##### Blog Wrapper Area End ##### -->
 
     <!-- ##### Footer Area Start ##### -->
-    <footer class="footer_area clearfix">
+  <footer class="footer_area clearfix">
         <div class="container">
             <div class="row">
                 <!-- Single Widget Area -->
@@ -279,14 +268,14 @@ $amount=0;
                     <div class="single_widget_area d-flex mb-30">
                         <!-- Logo -->
                         <div class="footer-logo mr-50">
-                            <a href="#"><img src="img/core-img/logo2.png" alt=""></a>
+                            <a href="#"><img src="../puressha/img/core-img/logo2.png" alt=""></a>
                         </div>
                         <!-- Footer Menu -->
                         <div class="footer_menu">
                             <ul>
-                                <li><a href="shop.html">Shop</a></li>
-                                <li><a href="blog.html">Blog</a></li>
-                                <li><a href="contact.html">Contact</a></li>
+                                <li><a href="../puressha/shop.html">Shop</a></li>
+                                <li><a href="../puressha/blog.html">Blog</a></li>
+                                <li><a href="../puressha/contact.html">Contact</a></li>
                             </ul>
                         </div>
                     </div>
@@ -334,7 +323,6 @@ $amount=0;
                     </div>
                 </div>
             </div>
-
 <div class="row mt-5">
                 <div class="col-md-12 text-center">
                     <p>
@@ -344,23 +332,23 @@ $amount=0;
                     </p>
                 </div>
             </div>
-
+            
         </div>
     </footer>
     <!-- ##### Footer Area End ##### -->
 
     <!-- jQuery (Necessary for All JavaScript Plugins) -->
-    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+<script src="../puressha/js/jquery/jquery-2.2.4.min.js"></script>
     <!-- Popper js -->
-    <script src="js/popper.min.js"></script>
+    <script src="../puressha/js/popper.min.js"></script>
     <!-- Bootstrap js -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="../puressha/js/bootstrap.min.js"></script>
     <!-- Plugins js -->
-    <script src="js/plugins.js"></script>
+    <script src="../puressha/js/plugins.js"></script>
     <!-- Classy Nav js -->
-    <script src="js/classy-nav.min.js"></script>
+    <script src="../puressha/js/classy-nav.min.js"></script>
     <!-- Active js -->
-    <script src="js/active.js"></script>
+    <script src="../puressha/js/active.js"></script>
 
 </body>
 

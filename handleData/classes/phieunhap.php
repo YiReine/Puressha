@@ -89,6 +89,22 @@
 			// }
 			
 		}
+		
+		//Tổng số lượng và tổng tiền
+        public function setTongSL(){
+            $getCTSP="SELECT MPN, SUM(SO_LUONG) AS SL, SUM(THANH_TIEN) AS TT FROM chi_tiet_phieu_nhap GROUP BY MPN";
+            $result_getCTSP=$this->db->select($getCTSP);
+			
+			while($r=$result_getCTSP->fetch_assoc()){
+				$query="UPDATE phieu_nhap SET
+					TONG_SO_LUONG = ".$r["SL"].",
+					TONG_TIEN = ".$r["TT"]."
+					WHERE MPN = '".$r["MPN"]."'";
+			$result = $this->db->update($query);
+			}
+			
+			return $result;
+        }
 
         //Lấy sản phẩm theo mã phiếu nhập
 		public function getByMPN($MPN){

@@ -148,5 +148,43 @@
 			WHERE MDH = '$MDH'";	
 			$result = $this->db->update($query);
         }
+		
+		//thống kê theo tháng
+		public function tkDonhang_M(){
+			$query = "SELECT MONTH(NGAY_TAO_DON) as THANG, SUM(TONG_TIEN) AS TONG_DOANH_THU
+						FROM `don_hang` 
+						WHERE YEAR(NGAY_TAO_DON) = YEAR(CURDATE())
+						GROUP BY MONTH(NGAY_TAO_DON)";
+			$result = $this->db->select($query);
+			return $result;
+        }
+		
+		//thống kê theo quý
+		public function tkDonhang_Q(){
+			$query = "SELECT QUARTER(NGAY_TAO_DON) as QUY, SUM(TONG_TIEN) AS TONG_DOANH_THU
+						FROM `don_hang` 
+						WHERE YEAR(NGAY_TAO_DON) = YEAR(CURDATE())
+						GROUP BY QUARTER(NGAY_TAO_DON)";
+			$result = $this->db->select($query);
+			return $result;
+        }
+		
+		//thống kê theo năm
+		public function tkDonhang_Y(){
+			$query = "SELECT YEAR(NGAY_TAO_DON) as NAM, SUM(TONG_TIEN) AS TONG_DOANH_THU
+						FROM `don_hang` 
+						GROUP BY YEAR(NGAY_TAO_DON)";
+			$result = $this->db->select($query);
+			return $result;
+        }
+		
+		//thống kê theo tùy chọn
+		public function tkDonhang_O($s,$e){
+			$query = "SELECT NGAY_TAO_DON,TONG_TIEN
+						FROM `don_hang` 
+						WHERE NGAY_TAO_DON BETWEEN '$s' and '$e'";
+			$result = $this->db->select($query);
+			return $result;
+        }
 	}
 ?>

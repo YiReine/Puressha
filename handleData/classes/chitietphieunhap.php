@@ -99,7 +99,7 @@
 		}
 		public function getCTPNByMPN($MPN){
 			$query = "SELECT san_pham.MSP, chi_tiet_san_pham.ANH, san_pham.TEN, chi_tiet_san_pham.SIZE, phieu_nhap.MXCC,
-								chi_tiet_san_pham.MAU_SAC, chi_tiet_phieu_nhap.GIA_NHAP, chi_tiet_san_pham.SO_LUONG
+								chi_tiet_san_pham.MAU_SAC, chi_tiet_phieu_nhap.GIA_NHAP, chi_tiet_phieu_nhap.SO_LUONG
 						FROM san_pham, chi_tiet_san_pham, chi_tiet_phieu_nhap, phieu_nhap
 						WHERE chi_tiet_san_pham.MSP = san_pham.MSP AND
 								phieu_nhap.MPN = '$MPN' AND

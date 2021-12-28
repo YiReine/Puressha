@@ -108,7 +108,17 @@
 
         //Tổng số lượng
         public function setTongSL(){
-            //code
+            $getCTSP="SELECT MSP, SUM(SO_LUONG) AS SL FROM chi_tiet_san_pham GROUP BY MSP";
+            $result_getCTSP=$this->db->select($getCTSP);
+			
+			while($sl=$result_getCTSP->fetch_assoc()){
+				$query="UPDATE san_pham SET
+					TONG_SO_LUONG = ".$sl["SL"]."
+					WHERE MSP = '".$sl["MSP"]."'";
+			$result = $this->db->update($query);
+			}
+			
+			return $result;
         }
 		
 		public function search_product($tukhoa){

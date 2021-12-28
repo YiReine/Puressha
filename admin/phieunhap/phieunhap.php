@@ -8,11 +8,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Puressha - DH</title>
+<title>Puressha - PN</title>
 
 <link href="../css/bootstrap.min.css" rel="stylesheet">
 <link href="../css/datepicker3.css" rel="stylesheet">
 <link href="../css/styles.css" rel="stylesheet">
+
+<!-- Favicon  -->
+<link rel="icon" href="../../puressha/img/core-img/letter-p2.png">
 
 <!--Icons-->
 <script src="../js/lumino.glyphs.js"></script>
@@ -132,7 +135,7 @@
                                                     <tr>
                                                     	<td><?php echo $result['MPN']; ?></td>
                                                         <td><?php echo $result['MXCC']; ?></td>
-                                                        <td><?php echo $result['NGAY_NHAP']; ?></td>
+                                                        <td><?php echo $result['NGAY_NHAP_HANG']; ?></td>
                                                         <td><?php echo $result['TONG_SO_LUONG']; ?></td>
                                                         <td><?php echo $result['TONG_TIEN']; ?></td>
                                                         <td>

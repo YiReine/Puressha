@@ -1,7 +1,9 @@
 <?php include("../../handleData/classes/chitietdonhang.php");
 	include("../../handleData/classes/chitietsanpham.php");
 	include("../../handleData/classes/donhang.php");
+	include("../../handleData/classes/sanpham.php");
 	$order = new donhang();
+	$prod = new sanpham();
 	$detailProduct = new chitietsanpham();
 	$orderDetail = new chitietdonhang();
 	$mdh = $_GET['MDH'];
@@ -18,6 +20,8 @@
 							$detailProduct->giamSL($result_getByMDH['MCTSP'],$result_getByMDH['SO_LUONG']);	
 						}
 					}
+					$prod->setTongSL();
+					
 					break;
 				}
 			case "destroy":
@@ -33,7 +37,8 @@
 						while($result_getByMDH=$getByMDH->fetch_assoc()){
 							$detailProduct->themSL($result_getByMDH['MCTSP'],$result_getByMDH['SO_LUONG']);	
 						}
-					}	
+					}
+					$prod->setTongSL();	
 					break;
 				}
 			
@@ -51,6 +56,9 @@
 <link href="../css/bootstrap.min.css" rel="stylesheet">
 <link href="../css/datepicker3.css" rel="stylesheet">
 <link href="../css/styles.css" rel="stylesheet">
+
+<!-- Favicon  -->
+<link rel="icon" href="../../puressha/img/core-img/letter-p2.png">
 
 <!--Icons-->
 <script src="../js/lumino.glyphs.js"></script>

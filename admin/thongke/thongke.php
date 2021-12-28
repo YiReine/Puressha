@@ -3,17 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lumino - Charts</title>
+<title>Puressha - TK</title>
 
 <link href="../css/bootstrap.min.css" rel="stylesheet">
 <link href="../css/datepicker3.css" rel="stylesheet">
 <link href="../css/styles.css" rel="stylesheet">
+
+<!-- Favicon  -->
+<link rel="icon" href="../../puressha/img/core-img/letter-p2.png">
 
 <!--Icons-->
 <script src="../js/lumino.glyphs.js"></script>
 <script
 src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 </script>
+	
+<script src="../js/jquery-1.11.1.min.js"></script>
 
 <!--[if lt IE 9]>
 <script src="js/html5shiv.js"></script>
@@ -115,21 +120,22 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 				<div class="panel panel-default">
                 <ul class="nav nav-tabs">
 							<li class="active"><a href="#tab1" data-toggle="tab">Theo tháng</a></li>
-							<li><a href="#tab2" data-toggle="tab">Theo quý</a></li>
+							<li><a href="#tab2" data-toggle="tab" onClick="showGraph();">Theo quý</a></li>
                             <li><a href="#tab3" data-toggle="tab">Theo năm</a></li>
                             <li><a href="#tab4" data-toggle="tab"></a></li>
 				</ul>
 					<div class="panel-heading">THỐNG KÊ DOANH THU</div>
                     <div lass="panel-heading">
-                    <form action="/action_page.php">
+                    <form name="f1" action="#"   method="post">
  					 	<label for="from" style="margin:10px;">From:</label>
   						<input type="date" id="from" name="from">
                          <label for="to">To:</label>
                          <input type="date" id="to" name="to">
- 						 <input type="button" class="btn btn-secondary btn btn-info" value="Duyệt">
+ 						 <input type="button" onclick="show();" class="btn btn-secondary btn btn-info" value="Duyệt">
 					</form>
                     </div>
-					<div class="panel-body">
+					<div class="tab-content">
+					<div id="tab1" class="panel-body container tab-pane active">
 						<div class="canvas-wrapper">
 							<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
 						</div>
@@ -149,39 +155,257 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                        	 	</div>
                     	</div>
 					</div>
+					<div id="tab2" class="panel-body container tab-pane fade">
+						<div class="canvas-wrapper">
+							<canvas id="myChart2" style="width:100%;max-width:600px"></canvas>
+						</div>
+                        <div class="row">
+                        	<div class="col-lg-2 " style="margin:5px; ">
+                        	
+                        	</div>
+                        	<div class="col-lg-5"></div>
+                        	<div class="col-lg-1" style="margin:7px">
+                       		
+                        	</div>
+                        	<div class="col-lg-1" style="margin:8px">
+                       		
+                       	 	</div>
+                         	<div class="col-lg-1" style="margin:9px">	
+                         	<a href="#"><input type="button" class="btn btn-secondary btn btn-success" value="Xuất Excel"/></a>
+                       	 	</div>
+                    	</div>
+					</div>
+					<div id="tab3" class="panel-body container tab-pane fade">
+						
+						<div class="canvas-wrapper">
+							<canvas id="myChart3" style="width:100%;max-width:600px"></canvas>
+						</div>
+                        <div class="row">
+                        	<div class="col-lg-2 " style="margin:5px; ">
+                        	
+                        	</div>
+                        	<div class="col-lg-5"></div>
+                        	<div class="col-lg-1" style="margin:7px">
+                       		
+                        	</div>
+                        	<div class="col-lg-1" style="margin:8px">
+                       		
+                       	 	</div>
+                         	<div class="col-lg-1" style="margin:9px">	
+                         	<a href="#"><input type="button" class="btn btn-secondary btn btn-success" value="Xuất Excel"/></a>
+                       	 	</div>
+                    	</div>
+					</div>
+					</div>
 				</div>
 			</div>
 		</div><!--/.row-->
 		
 <script>
-var yValues = [5000000,5500000,7500000,8000000,8900000,9300000,6700000,5100000,9200000,7300000,5500000,8800000,1000000];
+//var yValues = [6000000,5500000,7500000,8000000,8900000,9300000,6700000,5100000,9200000,7300000,5500000,8800000,1000000];
+//	
+//var yV = [1000000,6000000,3000000,2500000,3000000];
+//
+//new Chart($("#myChart"), {
+//  type: "line",
+//  data: {
+//    //labels: xValues,
+//	labels : ["January","February","March","April","May","June","July","August","September","October","November","December"],
+//    datasets: [{
+//	
+//      label: "",
+//	  backgroundColor : "rgba(255, 99, 71, 0.2)",
+//					borderColor : "rgba(255, 99, 71, 1)",
+//					pointColor : "rgba(255, 99, 71, 1)",
+//					pointStrokeColor : "#fff",
+//					pointHighlightFill : "#fff",
+//					pointHighlightStroke : "rgba(255, 99, 71,1)",
+//					data: yValues
+//    }]
+//  },
+//  options: {
+//    legend: {display: false},
+//    scales: {
+//      yAxes: [{ticks: {min: 1000000, max:10000000}}],
+//    }
+//  }
+//});
 
-new Chart("myChart", {
-  type: "line",
-  data: {
-    //labels: xValues,
-	labels : ["January","February","March","April","May","June","July","August","September","October","November","December"],
-    datasets: [{
+function show() {
 	
-      label: "",
-	  backgroundColor : "rgba(255, 99, 71, 0.2)",
-					borderColor : "rgba(255, 99, 71, 1)",
-					pointColor : "rgba(255, 99, 71, 1)",
-					pointStrokeColor : "#fff",
-					pointHighlightFill : "#fff",
-					pointHighlightStroke : "rgba(255, 99, 71,1)",
-					data: yValues
-    }]
-  },
-  options: {
-    legend: {display: false},
-    scales: {
-      yAxes: [{ticks: {min: 1000000, max:10000000}}],
-    }
-  }
-});
+	createCookie('from', document.getElementById("from").value, 1);
+	createCookie('to', document.getElementById("to").value, 1);
+			showGraph4();
+}
 </script>
+<script>
+	document.write(document.getElementById("from").value);
+        $(document).ready(function () {
+            showGraph();
+            showGraph2();
+			showGraph3();
+        });
 
+
+        function showGraph(){
+                $.post("data.php",
+                function (data){
+                    var labels = [];
+                    var result = [];
+                    for (var i in data[0]) {
+                        labels.push(data[0][i]["Thang"]);
+                        result.push(data[0][i]["TT"]);
+                    }
+                    var myChart = new Chart($("#myChart"), {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [
+                                {
+                                    data: result,
+                                    label: "",
+									backgroundColor : "rgba(255, 99, 71, 0.2)",
+									borderColor : "rgba(255, 99, 71, 1)",
+									pointColor : "rgba(255, 99, 71, 1)",
+									pointStrokeColor : "#fff",
+									pointHighlightFill : "#fff",
+									pointHighlightStroke : "rgba(255, 99, 71,1)"
+                                }
+                            ]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: "Đơn hàng"
+                            }
+                        }
+                    });
+					
+                });
+        }
+	function showGraph2(){
+                $.post("data.php",
+                function (data){
+                    var labels = [];
+                    var result = [];
+                    for (var i in data[1]) {
+                        labels.push(data[1][i]["Quy"]);
+                        result.push(data[1][i]["TT"]);
+                    }
+                    var myChart = new Chart($("#myChart2"), {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [
+                                {
+                                    data: result,
+                                    label: "",
+									backgroundColor : "rgba(255, 99, 71, 0.2)",
+									borderColor : "rgba(255, 99, 71, 1)",
+									pointColor : "rgba(255, 99, 71, 1)",
+									pointStrokeColor : "#fff",
+									pointHighlightFill : "#fff",
+									pointHighlightStroke : "rgba(255, 99, 71,1)"
+                                }
+                            ]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: "Đơn hàng"
+                            }
+                        }
+                    });
+					
+                });
+        }
+	function showGraph3(){
+                $.post("data.php",
+                function (data){
+                    var labels = [];
+                    var result = [];
+                    for (var i in data[2]) {
+                        labels.push(data[2][i]["Nam"]);
+                        result.push(data[2][i]["TT"]);
+                    }
+                    var myChart = new Chart($("#myChart3"), {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [
+                                {
+                                    data: result,
+                                    label: "",
+									backgroundColor : "rgba(255, 99, 71, 0.2)",
+									borderColor : "rgba(255, 99, 71, 1)",
+									pointColor : "rgba(255, 99, 71, 1)",
+									pointStrokeColor : "#fff",
+									pointHighlightFill : "#fff",
+									pointHighlightStroke : "rgba(255, 99, 71,1)"
+                                }
+                            ]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: "Đơn hàng"
+                            }
+                        }
+                    });
+					
+                });
+        }
+	function showGraph4(){
+                $.post("data.php",
+                function (data){
+                    var labels = [];
+                    var result = [];
+                    for (var i in data[3]) {
+                        labels.push(data[3][i]["Ngay"]);
+                        result.push(data[3][i]["TT"]);
+                    }
+                    var myChart = new Chart($("#myChart"), {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [
+                                {
+                                    data: result,
+                                    label: "",
+									backgroundColor : "rgba(255, 99, 71, 0.2)",
+									borderColor : "rgba(255, 99, 71, 1)",
+									pointColor : "rgba(255, 99, 71, 1)",
+									pointStrokeColor : "#fff",
+									pointHighlightFill : "#fff",
+									pointHighlightStroke : "rgba(255, 99, 71,1)"
+                                }
+                            ]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: "Đơn hàng"
+                            }
+                        }
+                    });
+					
+                });
+        }
+	
+	function createCookie(name, value, days) {
+	  var expires;
+	  if (days) {
+		var date = new Date();
+		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+		expires = "; expires=" + date.toGMTString();
+	  } else {
+	   expires = "";
+	  }
+	  document.cookie = escape(name) + "=" + escape(value) + expires + "; path=/";
+	}
+        </script>
+	
+		
 		<!--div class="row">
 			<div class="col-lg-12">
 				<div class="panel panel-default">
@@ -260,12 +484,11 @@ new Chart("myChart", {
 	</div>	<!--/.main-->
 	  
 
-	<script src="../js/jquery-1.11.1.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
-	<script src="../js/chart.min.js"></script>
+	<!--script src="../js/chart.min.js"></script>
 	<script src="../js/chart-data.js"></script>
 	<script src="../js/easypiechart.js"></script>
-	<script src="../js/easypiechart-data.js"></script>
+	<script src="../js/easypiechart-data.js"></script-->
 	<script src="../js/bootstrap-datepicker.js"></script>
 	<script>
 		!function ($) {
