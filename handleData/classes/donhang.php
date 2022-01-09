@@ -149,6 +149,30 @@
 			$result = $this->db->update($query);
         }
 		
+		//nhận đơn hàng
+		public function nhanDonHang($MDH){
+			$query = "UPDATE don_hang SET
+			TRANG_THAI = 'Đang giao'
+			WHERE MDH = '$MDH'";	
+			$result = $this->db->update($query);
+        }
+		
+		//giao đơn hàng thất bại
+		public function gtbDonHang($MDH){
+			$query = "UPDATE don_hang SET
+			TRANG_THAI = 'Giao thất bại'
+			WHERE MDH = '$MDH'";	
+			$result = $this->db->update($query);
+        }
+		
+		//giao đơn hàng thành công
+		public function gtcDonHang($MDH){
+			$query = "UPDATE don_hang SET
+			TRANG_THAI = 'Giao thành công'
+			WHERE MDH = '$MDH'";	
+			$result = $this->db->update($query);
+        }
+		
 		//thống kê theo tháng
 		public function tkDonhang_M(){
 			$query = "SELECT MONTH(NGAY_TAO_DON) as THANG, SUM(TONG_TIEN) AS TONG_DOANH_THU

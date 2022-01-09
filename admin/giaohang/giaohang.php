@@ -1,3 +1,30 @@
+<?php 
+	include("../../handleData/classes/chitietdonhang.php");
+	include("../../handleData/classes/donhang.php");
+	$order = new donhang();
+	$orderDetail = new chitietdonhang();
+	$mdh = $_GET['MDH'];
+	$button = $_GET['BUTTON'];
+	if(isset($_GET['BUTTON'])){
+		switch($_GET['BUTTON']){
+			case "accept":
+				{
+					$order->nhanDonHang($mdh);
+					break;
+				}
+			case "fail":
+				{
+					$order->gtbDonHang($mdh);
+					break;
+				}
+			case "success":
+				{
+					$order->gtcDonHang($mdh);
+					break;
+				}
+		}
+	}
+?> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -122,26 +149,29 @@
 													</tr>
 													</thead>
                                                     <tbody>
+                                                    <?php
+														$orderList = $order->getAll();
+														if($orderList){
+															while($result = $orderList->fetch_assoc()){
+																
+															if($result['TRANG_THAI'] == 'Đã xử lý'){
+														?>
                                                     <tr>
-                                                    	<td>DH001</td>
-                                                        <td>KH001</td>
-                                                        <td>10-12-2021</td>
-                                                        <td>Chưa xử lý</td>
-                                                        <td>200.000 VND</td>
+                                                    	<td> <?php echo $result['MDH']; ?></td>
+                                                        <td> <?php echo $result['MKH']; ?></td>
+                                                        <td> <?php echo $result['NGAY_TAO_DON']; ?></td>
+                                                        <td> <?php echo $result['TRANG_THAI']; ?></td>
+                                                        <td> <?php echo $result['TONG_TIEN']; ?></td>
                                                         <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Nhận đơn"></a>
+                                                        <a href="giaohang.php?BUTTON=accept&MDH=<?php echo $result['MDH'];?>"><input type="button" class="btn btn-secondary btn btn-warning" value="Nhận đơn" <?php if($result['TRANG_THAI']!='Đã xử lý') echo 'disabled';?>></a>
                                                      </td>
                                                      </tr>
-                                                     <tr>
-                                                    	<td>DH002</td>
-                                                        <td>KH002</td>
-                                                        <td>13-12-2021</td>
-                                                        <td>Chưa xử lý</td>
-                                                        <td>300.000 VND</td>
-                                                        <td>
-                                                        <a href="chitietdonhang.php"><input type="button" class="btn btn-secondary btn btn-warning" value="Nhận đơn"></a>
-                                                        </td>
-                                                        </tr>
+                                                     <?php 
+															}
+                                                            }
+                                                        }
+                                                        ?>
+                                                     
                                                     </tbody>
 												</table>
 										</div>
@@ -156,7 +186,7 @@
 											<div class="panel-body">
 												<table class="table table-hover table-active" >
 													<thead>
-													<tr>
+													<!--tr>
 														<th >Mã giao hàng</th>
 														<th >Mã đơn hàng</th>
 														<th >Mã nhân viên</th>
@@ -176,11 +206,42 @@
                                                         <td>13-12-2021</td>
                                                         <td>14-12-2021</td>
                                                         <td>Đã giao</td>
+                                                        <td-->
+														
+														<tr>
+														<th >Mã đơn hàng</th>
+														<th >Mã khách hàng</th>
+														<th >Ngày tạo đơn</th>
+                                                        <th >Trạng thái</th>
+                                                        <th >Tổng tiền</th>
+                                                        <th> Chi tiết</th>
+													</tr>
+													</thead>
+                                                    <tbody>
+                                                    <?php
+														$orderList = $order->getAll();
+														if($orderList){
+															while($result = $orderList->fetch_assoc()){
+															if($result['TRANG_THAI'] == 'Đang giao' || $result['TRANG_THAI'] == 'Giao thất bại' || $result['TRANG_THAI'] == 'Giao thành công'){
+														?>
+                                                    <tr>
+                                                    	<td> <?php echo $result['MDH']; ?></td>
+                                                        <td> <?php echo $result['MKH']; ?></td>
+                                                        <td> <?php echo $result['NGAY_TAO_DON']; ?></td>
+                                                        <td> <?php echo $result['TRANG_THAI']; ?></td>
+                                                        <td> <?php echo $result['TONG_TIEN']; ?></td>
                                                         <td>
-                                                     		<input type="button" class="btn btn-secondary btn btn-danger" value="Giao thất bại">
-                                                            <input type="button" class="btn btn-secondary btn btn-success" value="Giao thành công">
+														
+															<a href="giaohang.php?BUTTON=fail&MDH=<?php echo $result['MDH'];?>"><input type="button" class="btn btn-secondary btn btn-danger" value="Giao thất bại" <?php if($result['TRANG_THAI']!='Đang giao') echo 'disabled';?>></a>
+															<a href="giaohang.php?BUTTON=success&MDH=<?php echo $result['MDH'];?>"><input type="button" class="btn btn-secondary btn btn-success" value="Giao thành công" <?php if($result['TRANG_THAI']!='Đang giao') echo 'disabled';?>></a>
                                                         </td>
                                                      </tr>
+														
+                                                     <?php 
+                                                            }
+															}
+                                                        }
+                                                        ?>
                                                     </tbody>
 												</table>
 											</div>

@@ -274,16 +274,16 @@ $amount=0;
                             <div class="card">
                                 <div class="card-header" role="tab" id="headingOne">
                                     <h6 class="mb-0">
-                                        <input class="form-check-input" type="radio" name="checkout" id="cash" value="CASH">
-                                         <label for="cash">CASH</label>
+                                        <input class="form-check-input" type="radio" name="checkout" id="cash" value="Tiền mặt">
+                                         <label for="cash">Tiền mặt</label>
                                     </h6>
                                 </div>
                             </div>
                             <div class="card">
                                 <div class="card-header" role="tab" id="headingTwo">
                                     <h6 class="mb-0">
-                                      <input class="form-check-input" type="radio" name="checkout" id="creditcart" value="CREDIT CARD">
-                                       <label for="creditcart">CREDIT CARD</label>
+                                      <input class="form-check-input" type="radio" name="checkout" id="creditcart" value="Thanh toán online">
+                                       <label for="creditcart">Thanh toán online</label>
                                     </h6>
                                 </div>
                             </div>
